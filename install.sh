@@ -210,6 +210,9 @@ show_help() {
     echo "  # VM installation (UTM, VMware, VirtualBox, etc.)"
     echo "  $0 --auto --vm --dots --fish --firefox --gtk-themes --bluetooth --thunar"
     echo ""
+    echo "  # 🚀 Simple Desktop Environment (Waybar + Rofi + VM auto-scaling)"
+    echo "  $0 --auto --simple-config --vm --fish --firefox --gtk-themes"
+    echo ""
     echo "  # Gaming setup with NVIDIA"
     echo "  $0 --auto --dots --zsh --kitty --brave --nvidia --bluetooth --gtk-themes"
     echo ""
@@ -320,6 +323,10 @@ while [[ $# -gt 0 ]]; do
         # --rog) moved to optional-scripts/
         --dots)
             dots="ON"
+            shift
+            ;;
+        --simple-config)
+            simple_config="ON"
             shift
             ;;
         # --nvidia) moved to optional-scripts/
@@ -467,6 +474,7 @@ options_command+=(
     "vm" "Enable VM optimizations for VMware/VirtualBox/QEMU?" "OFF"
     "pokemon" "Add Pokemon color scripts to your terminal?" "OFF"
     "rog" "Are you installing on Asus ROG laptops?" "OFF"
+    "simple_config" "Install Simple KooL Desktop Environment (Waybar+Rofi+VM scaling)?" "OFF"
     "dots" "Download and install pre-configured KooL Hyprland dotfiles?" "OFF"
 )
 
@@ -492,6 +500,7 @@ if [[ "$auto_mode" == "ON" ]]; then
     [[ "$vm" == "ON" ]] && selected_options+="vm "
     [[ "$pokemon" == "ON" ]] && selected_options+="pokemon "
     [[ "$rog" == "ON" ]] && selected_options+="rog "
+    [[ "$simple_config" == "ON" ]] && selected_options+="simple_config "
     [[ "$dots" == "ON" ]] && selected_options+="dots "
     [[ "$nvidia" == "ON" ]] && selected_options+="nvidia "
     [[ "$nouveau" == "ON" ]] && selected_options+="nouveau "
@@ -704,6 +713,10 @@ for option in "${options[@]}"; do
         # rog)
         #     echo "${INFO} ROG moved to optional-scripts/ for non-VM setups" | tee -a "$LOG"
         #     ;;
+        simple_config)
+            echo "${INFO} Installing ${SKY_BLUE}Simple KooL Hyprland Desktop Environment...${RESET}" | tee -a "$LOG"
+            execute_script "simple-config.sh"
+            ;;
         dots)
             echo "${INFO} Installing pre-configured ${SKY_BLUE}KooL Hyprland dotfiles...${RESET}" | tee -a "$LOG"
             execute_script "dotfiles-main.sh"

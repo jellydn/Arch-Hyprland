@@ -22,13 +22,34 @@ printf "\n%s - Installing ${SKY_BLUE}Simple Tiling Hyprland Configuration${RESET
 
 # Create necessary directories
 echo "Creating Hyprland configuration directories..." 2>&1 | tee -a "$LOG"
-mkdir -p "$HOME/.config/hypr"
+mkdir -p "$HOME/.config/hypr/waybar"
+mkdir -p "$HOME/.config/hypr/rofi"
+mkdir -p "$HOME/.config/hypr/scripts"
 mkdir -p "$HOME/.config/swww"
 
-# Copy simple configuration
-if [ -f "assets/simple-hyprland/hyprland.conf" ]; then
-  echo "${INFO} Installing simple non-tiled Hyprland configuration..." 2>&1 | tee -a "$LOG"
+# Copy simple configuration files
+if [ -d "assets/simple-hyprland" ]; then
+  echo "${INFO} Installing Simple KooL Hyprland configuration with complete desktop environment..." 2>&1 | tee -a "$LOG"
+  
+  # Copy main Hyprland config
   cp "assets/simple-hyprland/hyprland.conf" "$HOME/.config/hypr/"
+  
+  # Copy Waybar config and styles
+  echo "${INFO} Installing Waybar configuration..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/waybar/config.jsonc" "$HOME/.config/hypr/waybar/"
+  cp "assets/simple-hyprland/waybar/style.css" "$HOME/.config/hypr/waybar/"
+  
+  # Copy Rofi configuration and theme
+  echo "${INFO} Installing Rofi configuration..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/rofi/config.rasi" "$HOME/.config/hypr/rofi/"
+  cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/hypr/rofi/"
+  cp "assets/simple-hyprland/rofi/simple-kool.rasi" "$HOME/.config/hypr/rofi/"
+  
+  # Copy VM auto-scaling script
+  echo "${INFO} Installing VM auto-scaling features..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/scripts/vm-scale.sh" "$HOME/.config/hypr/scripts/"
+  chmod +x "$HOME/.config/hypr/scripts/vm-scale.sh"
+  cp "assets/simple-hyprland/vm-monitor.conf" "$HOME/.config/hypr/"
   
   # Create a simple wallpaper directory and default wallpaper
   if [ ! -f "$HOME/.config/swww/wall.png" ]; then
@@ -45,22 +66,31 @@ if [ -f "assets/simple-hyprland/hyprland.conf" ]; then
     fi
   fi
   
-  echo "${OK} Simple Hyprland configuration installed successfully!" 2>&1 | tee -a "$LOG"
-  echo "${INFO} Configuration features:" 2>&1 | tee -a "$LOG"
-  echo "  - ⚡ Embraces Hyprland's tiling power!" 2>&1 | tee -a "$LOG"
-  echo "  - 🎨 KooL styling with catppuccin colors" 2>&1 | tee -a "$LOG"
-  echo "  - Uses Foot terminal and Firefox browser" 2>&1 | tee -a "$LOG"
-  echo "  - Simple keybindings (Super+Return=terminal, Super+B=browser)" 2>&1 | tee -a "$LOG"
-  echo "  - Minimal animations for better performance" 2>&1 | tee -a "$LOG"
+  echo "${OK} Simple KooL Hyprland Desktop Environment installed successfully!" 2>&1 | tee -a "$LOG"
+  echo "${INFO} Complete desktop environment features:" 2>&1 | tee -a "$LOG"
+  echo "  - 🎯 Waybar status bar with system tray, network, volume, battery" 2>&1 | tee -a "$LOG"
+  echo "  - 🚀 Rofi application launcher with search and file browsing" 2>&1 | tee -a "$LOG"
+  echo "  - 🔧 VM auto-scaling (detects VMware, VirtualBox, UTM, Parallels)" 2>&1 | tee -a "$LOG"
+  echo "  - ⚡ Embraces Hyprland's tiling power with smart workspace organization" 2>&1 | tee -a "$LOG"
+  echo "  - 🎨 KooL styling with Catppuccin Mocha colors" 2>&1 | tee -a "$LOG"
+  echo "  - 🦶 VM-optimized (Foot terminal, optimized animations)" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
-  echo "${NOTE} Key bindings:" 2>&1 | tee -a "$LOG"
+  echo "${NOTE} Essential key bindings:" 2>&1 | tee -a "$LOG"
   echo "  Super+Return  : Open terminal (foot)" 2>&1 | tee -a "$LOG"
   echo "  Super+B       : Open browser (firefox)" 2>&1 | tee -a "$LOG"
-  echo "  Super+D       : Application launcher" 2>&1 | tee -a "$LOG"
+  echo "  Super+D       : Application launcher (rofi)" 2>&1 | tee -a "$LOG"
+  echo "  Super+R       : Run command (rofi)" 2>&1 | tee -a "$LOG"
   echo "  Super+Q       : Close window" 2>&1 | tee -a "$LOG"
   echo "  Super+V       : Toggle floating/tiled" 2>&1 | tee -a "$LOG"
-  echo "  Super+F       : Toggle fullscreen" 2>&1 | tee -a "$LOG"
+  echo "  Super+F       : Fullscreen" 2>&1 | tee -a "$LOG"
   echo "  Super+1-9     : Switch workspaces" 2>&1 | tee -a "$LOG"
+  echo "  Super+Shift+R : Reload configuration" 2>&1 | tee -a "$LOG"
+  echo "" 2>&1 | tee -a "$LOG"
+  echo "${NOTE} Desktop interactions:" 2>&1 | tee -a "$LOG"
+  echo "  • Click Waybar OS logo → Launch rofi" 2>&1 | tee -a "$LOG"
+  echo "  • Click Waybar volume → Open pavucontrol" 2>&1 | tee -a "$LOG"
+  echo "  • Click Waybar power → Open logout menu" 2>&1 | tee -a "$LOG"
+  echo "  • VM auto-scaling detects and optimizes display automatically" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "${NOTE} 📝 CUSTOMIZATION GUIDE:" 2>&1 | tee -a "$LOG"
   echo "  Configuration file: ~/.config/hypr/hyprland.conf" 2>&1 | tee -a "$LOG"
