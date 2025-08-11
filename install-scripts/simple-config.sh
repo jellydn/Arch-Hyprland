@@ -56,7 +56,7 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "${INFO} Installing Foot terminal configuration..." 2>&1 | tee -a "$LOG"
   cp "assets/simple-hyprland/foot.ini" "$HOME/.config/foot/"
   
-  # Copy VM auto-scaling script
+  # Copy VM auto-scaling script and configuration
   echo "${INFO} Installing VM auto-scaling features..." 2>&1 | tee -a "$LOG"
   cp "assets/simple-hyprland/scripts/vm-scale.sh" "$HOME/.config/hypr/scripts/"
   chmod +x "$HOME/.config/hypr/scripts/vm-scale.sh"
