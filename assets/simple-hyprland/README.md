@@ -1,43 +1,51 @@
-# 💫 Simple KooL Hyprland Configuration
+# 💫 KooL-Optimized Hyprland Configuration
 
-A simplified, tiling-focused version of [KooL's Hyprland dotfiles](https://github.com/JaKooLit/Hyprland-Dots) designed for:
-- **🚀 Easy setup** - Single configuration file
-- **⚡ Tiling power** - Embraces Hyprland's strength  
-- **🦶 VM-friendly** - Uses Foot terminal, optimized for VMs
-- **🎨 Beautiful** - KooL styling with catppuccin colors
+A **performance-optimized Hyprland configuration** based on [JaKooLit's Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots) designed for:
+- **⚡ VM Performance** - No animations, minimal blur, optimized for VMware/VirtualBox
+- **🏢 Professional Desktop** - Complete KooL-inspired desktop environment
+- **🎨 Beautiful Styling** - Catppuccin Mocha colors with KooL's aesthetic
+- **🦶 VM-Optimized Terminal** - Foot with Fish shell for speed and usability
+- **🔧 Complete Stack** - Waybar, Rofi, Wlogout, Which-Key helper system
 
 ## 🔧 Installation
 
 From the main Arch-Hyprland directory:
 
 ```bash
-# Install simple config only
-./install.sh --simple-config
+# Install KooL-optimized config only
+./install-scripts/simple-config.sh
 
-# Or full setup with simple config
-./install.sh --auto --simple-config --gtk-themes --bluetooth --thunar --foot --firefox
+# Or full setup with KooL-optimized config
+./install.sh --auto --gtk-themes --bluetooth --thunar --foot --firefox
 ```
 
 ## ⚡ Key Features
 
-**Complete Desktop Environment:**
-- **Waybar** - Enhanced status bar with date/time, detailed network info, volume control, battery
-- **Rofi** - Modern application launcher with search and file browsing
-- **Wlogout** - Elegant power menu with lock, logout, shutdown, reboot, suspend
-- **Foot Terminal** - Lightweight, fast terminal with Catppuccin Mocha theme and VM optimizations
-- **Which-Key** - Interactive keybinding discovery system like Emacs/Vim which-key
-- **VM Auto-scaling** - Automatically detects VMware/VirtualBox and adjusts display scaling
+**🚫 Performance-First Design:**
+- **NO ANIMATIONS** - Maximum VM performance, instant window operations
+- **Minimal Blur** - Lightweight effects optimized for virtual machines
+- **Efficient Rendering** - VM-specific optimizations for VMware/VirtualBox
+- **Fast Startup** - Streamlined autostart applications
 
-**Tiling-First Approach:**
-- Smart tiling for all main applications
-- Only utilities (volume control, network manager) float
-- Advanced tiling keybindings for power users
+**🏢 Complete KooL Desktop Environment:**
+- **Waybar** - Professional status bar with enhanced date/time, network details, volume control
+- **Rofi** - Beautiful KooL-style application launcher with 2-column layout
+- **Wlogout** - Elegant power menu matching KooL's aesthetic
+- **Foot Terminal** - Lightning-fast terminal with Fish shell pre-configured
+- **Which-Key** - Interactive keybinding discovery system with category organization
+- **VM Auto-scaling** - Automatic detection and optimization for all major VM platforms
 
-**VM Optimizations:**
-- Auto-detects VMware, VirtualBox, UTM, Parallels, and QEMU/KVM
-- Automatically applies optimal display scaling (1.25x for 1080p, 1.5x for 1440p, etc.)
-- Environment variables for software rendering and cursor compatibility
-- Optimized animations and effects for better VM performance
+**🎨 KooL Styling Throughout:**
+- **Catppuccin Mocha** - Consistent color scheme across all components
+- **Professional Layout** - Clean, organized interface inspired by JaKooLit's design
+- **Beautiful Typography** - JetBrains Mono Nerd Font with proper icon support
+- **Grouped Modules** - Waybar modules organized in professional groups
+
+**⚡ VM Optimizations:**
+- Auto-detects VMware, VirtualBox, UTM, Parallels, QEMU/KVM, and Hyper-V
+- Resolution-aware scaling (1.25x for 1080p, 1.5x for 1440p, 1.75x for 4K+)
+- Hardware cursor fixes and software rendering compatibility
+- Memory-efficient window rules and layer configurations
 
 **Workspace Organization:**
 - Workspace 1: Terminals (foot)
@@ -144,7 +152,7 @@ From the main Arch-Hyprland directory:
 ```
 
 ### Shell Configuration
-**Default Shell:** The configuration uses bash by default. If you want to change your default shell:
+**Default Shell:** The configuration uses **Fish shell by default** in the Foot terminal for enhanced user experience. To change your system default shell:
 
 **Manual Shell Change:**
 ```bash
@@ -173,7 +181,14 @@ chsh -s /bin/bash
 
 ### Quick Edits
 
-The configuration file is located at: `~/.config/hypr/hyprland.conf`
+The main configuration file is located at: `~/.config/hypr/hyprland.conf`
+
+**Directory Structure (uses correct conventions):**
+- **Hyprland**: `~/.config/hypr/` (not hyprland)  
+- **Waybar**: `~/.config/waybar/`
+- **Rofi**: `~/.config/rofi/`
+- **Foot**: `~/.config/foot/`
+- **Wlogout**: `~/.config/wlogout/`
 
 **Change terminal:**
 ```bash
@@ -223,25 +238,36 @@ no_gaps_when_only = 1    # 1 = no gaps when only one window
 
 ## 📁 File Structure
 
-When installed, the simple config creates this structure:
+When installed, the KooL-optimized config creates this structure:
 
 ```
-~/.config/hypr/
-├── hyprland.conf          # Main Hyprland configuration
-├── vm-monitor.conf        # Auto-generated VM scaling config
-├── scripts/
-│   ├── vm-scale.sh        # VM detection and scaling script
-│   └── hyprland-which-key.sh # Interactive keybinding helper
-├── waybar/
-│   ├── config.jsonc       # Waybar configuration with enhanced modules
-│   └── style.css          # Waybar styling (Catppuccin Mocha)
-├── rofi/
-│   ├── config.rasi        # Rofi main configuration
-│   ├── fonts.rasi         # Font settings
-│   └── simple-kool.rasi   # Rofi theme
-└── wlogout/
-    ├── layout             # Wlogout button layout and actions
-    └── style.css          # Wlogout styling (Catppuccin Mocha)
+~/.config/hypr/               # Hyprland configuration (correct directory)
+├── hyprland.conf            # Main KooL-optimized configuration
+├── vm-monitor.conf          # Auto-generated VM scaling config  
+└── scripts/
+    ├── vm-scale.sh          # VM detection and scaling script
+    ├── hyprland-which-key.sh # Interactive keybinding helper
+    ├── terminal-chooser.sh   # Terminal selection script
+    └── workspace-name.sh     # Workspace navigation helper
+
+~/.config/waybar/            # Waybar status bar (correct directory)
+├── config.jsonc            # Enhanced Waybar with KooL styling
+└── style.css               # Professional Catppuccin Mocha theme
+
+~/.config/rofi/              # Rofi launcher (correct directory)  
+├── config-kool.rasi        # KooL-style Rofi configuration
+├── kool-style.rasi         # Beautiful 2-column theme
+└── fonts.rasi              # Font settings
+
+~/.config/wlogout/           # Power menu (correct directory)
+├── layout                  # Button layout and actions
+└── style.css               # KooL-style Catppuccin theme
+
+~/.config/foot/              # Terminal configuration
+└── foot.ini                # Optimized Foot with Fish shell
+
+~/.config/swww/              # Wallpaper daemon
+└── wall.png                # Default solid color wallpaper
 ```
 
 ## 🔄 Reloading Configuration
@@ -264,20 +290,29 @@ For more advanced features, refer to:
 
 ## 🔧 Re-installation
 
-To reset or reinstall the simple config:
+To reset or reinstall the KooL-optimized config:
 
 ```bash
-# From install-scripts directory
-./simple-config.sh
+# From main Arch-Hyprland directory
+./install-scripts/simple-config.sh
 
-# Or from main directory  
-./install.sh --simple-config
+# This script will:
+# - Backup existing configurations
+# - Install fresh KooL-optimized configs
+# - Update all directory paths to correct conventions
+# - Apply VM optimizations
 ```
 
-This will overwrite your current `~/.config/hypr/hyprland.conf` with the default simple config.
+This will overwrite your current configurations with the default KooL-optimized setup.
 
 ## 🎯 Philosophy
 
-This configuration embraces **Hyprland's core strength: dynamic tiling**. Unlike traditional floating window managers, tiling maximizes screen real estate and provides keyboard-driven efficiency. The simple config removes complexity while preserving the power that makes Hyprland special.
+This configuration combines **JaKooLit's beautiful KooL aesthetic** with **performance-first VM optimization**. It embraces Hyprland's dynamic tiling strength while providing a complete, professional desktop environment that performs excellently in virtual machines.
 
-**Happy tiling! 🪟✨**
+The KooL-optimized approach:
+- **Beauty without compromise** - Stunning visuals optimized for performance
+- **Professional workflow** - Complete desktop stack for productivity  
+- **VM-first design** - Every component optimized for virtual machine efficiency
+- **Fish shell integration** - Modern, user-friendly terminal experience
+
+**Happy tiling with KooL style! 🪟💫**
