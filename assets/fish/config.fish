@@ -88,6 +88,10 @@ end
 
 # Function to extract various archive types
 function extract
+    if test (count $argv) -eq 0
+        echo "Usage: extract <archive_file>"
+        return 1
+    end
     if test -f $argv[1]
         switch $argv[1]
             case '*.tar.bz2'
@@ -122,6 +126,10 @@ end
 
 # Function to create a directory and cd into it
 function mkcd
+    if test (count $argv) -eq 0
+        echo "Usage: mkcd <directory_name>"
+        return 1
+    end
     mkdir -p $argv[1] && cd $argv[1]
 end
 
