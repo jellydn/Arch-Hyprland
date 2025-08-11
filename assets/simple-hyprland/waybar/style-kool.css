@@ -269,15 +269,4 @@ tooltip label {
   animation-duration: inherit;
 }
 
-/* Disable resource-heavy effects for VMs */
-@media (prefers-reduced-motion) {
-  .modules-left,
-  .modules-center,
-  .modules-right,
-  .modules-left *,
-  .modules-center *,
-  .modules-right * {
-    transition: none;
-    animation: none;
-  }
-}
+/* VM Performance: Reduced animations for better performance */
