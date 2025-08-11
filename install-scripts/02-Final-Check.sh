@@ -14,7 +14,6 @@ packages=(
   waybar
   wl-clipboard
   wlogout
-  kitty
   hypridle
   hyprlock
   hyprland
