@@ -139,6 +139,7 @@ kitty="OFF"
 ghostty="OFF"
 firefox="OFF"
 brave="OFF"
+vm="OFF"
 pokemon="OFF"
 rog="OFF"
 dots="OFF"
@@ -177,7 +178,8 @@ show_help() {
     echo "  --kitty               Enable Kitty terminal installation"
     echo "  --ghostty             Enable Ghostty terminal installation"
     echo "  --firefox             Enable Firefox browser installation"
-    echo "  --brave               Enable Brave browser installation" 
+    echo "  --brave               Enable Brave browser installation"
+    echo "  --vm                  Enable VM optimizations (VMware, VirtualBox, QEMU/KVM)" 
     echo "  --pokemon             Enable Pokemon color scripts"
     echo "  --rog                 Enable ROG laptop packages"
     echo "  --dots                Enable KooL Hyprland dotfiles installation"
@@ -264,6 +266,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --brave)
             brave="ON"
+            shift
+            ;;
+        --vm)
+            vm="ON"
             shift
             ;;
         --pokemon)
@@ -424,6 +430,7 @@ options_command+=(
     "ghostty" "Install Ghostty terminal emulator?" "OFF"
     "firefox" "Install Firefox browser?" "OFF"
     "brave" "Install Brave browser?" "OFF"
+    "vm" "Enable VM optimizations for VMware/VirtualBox/QEMU?" "OFF"
     "pokemon" "Add Pokemon color scripts to your terminal?" "OFF"
     "rog" "Are you installing on Asus ROG laptops?" "OFF"
     "dots" "Download and install pre-configured KooL Hyprland dotfiles?" "OFF"
@@ -446,6 +453,7 @@ if [[ "$auto_mode" == "ON" ]]; then
     [[ "$ghostty" == "ON" ]] && selected_options+="ghostty "
     [[ "$firefox" == "ON" ]] && selected_options+="firefox "
     [[ "$brave" == "ON" ]] && selected_options+="brave "
+    [[ "$vm" == "ON" ]] && selected_options+="vm "
     [[ "$pokemon" == "ON" ]] && selected_options+="pokemon "
     [[ "$rog" == "ON" ]] && selected_options+="rog "
     [[ "$dots" == "ON" ]] && selected_options+="dots "
@@ -642,6 +650,10 @@ for option in "${options[@]}"; do
         brave)
             echo "${INFO} Installing ${SKY_BLUE}Brave browser...${RESET}" | tee -a "$LOG"
             execute_script "brave.sh"
+            ;;
+        vm)
+            echo "${INFO} Applying ${SKY_BLUE}VM optimizations and packages...${RESET}" | tee -a "$LOG"
+            execute_script "vm.sh"
             ;;
         pokemon)
             echo "${INFO} Adding ${SKY_BLUE}Pokemon color scripts to terminal...${RESET}" | tee -a "$LOG"
