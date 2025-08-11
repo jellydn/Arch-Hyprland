@@ -143,11 +143,13 @@ firefox="ON"
 brave="OFF"
 vm="OFF"
 pokemon="OFF"
-rog="OFF"
-dots="OFF"\nsimple_config="OFF"
+# VMware-focused fork - NVIDIA/ROG moved to optional-scripts/
+# rog="OFF"     # Moved to optional-scripts for non-VM setups
+dots="OFF"
+simple_config="OFF"
 input_group="OFF"
-nvidia="OFF"
-nouveau="OFF"
+# nvidia="OFF"  # Moved to optional-scripts for non-VM setups
+# nouveau="OFF" # Moved to optional-scripts for non-VM setups
 
 # Function to load preset file
 load_preset() {
@@ -185,10 +187,11 @@ show_help() {
     echo "  --brave               Enable Brave browser installation"
     echo "  --vm                  Enable VM optimizations (UTM, VMware, VirtualBox, Parallels, etc.)" 
     echo "  --pokemon             Enable Pokemon color scripts"
-    echo "  --rog                 Enable ROG laptop packages"
-    echo "  --dots                Enable KooL Hyprland dotfiles installation"\n    echo "  --simple-config       Enable simple non-tiled Hyprland config (VM-friendly)"
-    echo "  --nvidia              Enable NVIDIA GPU configuration"
-    echo "  --nouveau             Enable Nouveau driver blacklisting"
+    echo "  # --rog               Moved to optional-scripts/ for non-VM setups"
+    echo "  --dots                Enable KooL Hyprland dotfiles installation"
+    echo "  --simple-config       Enable simple non-tiled Hyprland config (VM-friendly)"
+    echo "  # --nvidia            Moved to optional-scripts/ for non-VM setups"
+    echo "  # --nouveau           Moved to optional-scripts/ for non-VM setups"
     echo "  --input-group         Add user to input group"
     echo ""
     echo "Examples:"
@@ -314,22 +317,13 @@ while [[ $# -gt 0 ]]; do
             pokemon="ON"
             shift
             ;;
-        --rog)
-            rog="ON"
-            shift
-            ;;
+        # --rog) moved to optional-scripts/
         --dots)
             dots="ON"
             shift
             ;;
-        --nvidia)
-            nvidia="ON"
-            shift
-            ;;
-        --nouveau)
-            nouveau="ON"
-            shift
-            ;;
+        # --nvidia) moved to optional-scripts/
+        # --nouveau) moved to optional-scripts/
         --input-group)
             input_group="ON"
             shift
@@ -632,14 +626,12 @@ for option in "${options[@]}"; do
                 execute_script "sddm.sh"
             fi
             ;;
-        nvidia)
-            echo "${INFO} Configuring ${SKY_BLUE}nvidia stuff${RESET}" | tee -a "$LOG"
-            execute_script "nvidia.sh"
-            ;;
-        nouveau)
-            echo "${INFO} blacklisting ${SKY_BLUE}nouveau${RESET}"
-            execute_script "nvidia_nouveau.sh" | tee -a "$LOG"
-            ;;
+        # nvidia)
+        #     echo "${INFO} NVIDIA moved to optional-scripts/ for non-VM setups" | tee -a "$LOG"
+        #     ;;
+        # nouveau)
+        #     echo "${INFO} Nouveau moved to optional-scripts/ for non-VM setups" | tee -a "$LOG"
+        #     ;;
         gtk_themes)
             echo "${INFO} Installing ${SKY_BLUE}GTK themes...${RESET}" | tee -a "$LOG"
             execute_script "gtk_themes.sh"
@@ -709,10 +701,9 @@ for option in "${options[@]}"; do
             echo "${INFO} Adding ${SKY_BLUE}Pokemon color scripts to terminal...${RESET}" | tee -a "$LOG"
             execute_script "zsh_pokemon.sh"
             ;;
-        rog)
-            echo "${INFO} Installing ${SKY_BLUE}ROG laptop packages...${RESET}" | tee -a "$LOG"
-            execute_script "rog.sh"
-            ;;
+        # rog)
+        #     echo "${INFO} ROG moved to optional-scripts/ for non-VM setups" | tee -a "$LOG"
+        #     ;;
         dots)
             echo "${INFO} Installing pre-configured ${SKY_BLUE}KooL Hyprland dotfiles...${RESET}" | tee -a "$LOG"
             execute_script "dotfiles-main.sh"

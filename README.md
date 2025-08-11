@@ -5,17 +5,18 @@ A streamlined Arch Linux + Hyprland installer optimized for VMware Fusion on App
 ## ✨ What's Different in This Fork
 
 - **🖥️ VMware Fusion Optimized**: Specifically tuned for Apple Silicon Mac virtualization
-- **⚡ Simplified Defaults**: Foot terminal + Firefox browser as sensible defaults
+- **⚡ Simplified Defaults**: Foot terminal + Firefox browser as sensible defaults  
 - **🐚 Shell Choice**: Both Zsh and Fish available - choose your preference after install
 - **🎯 VM-Friendly**: Lightweight configuration perfect for virtual machines
 - **🔧 Simple Config**: Alternative to full KooL dotfiles for easier customization
+- **🗂️ Hardware-Specific Cleanup**: NVIDIA/ROG scripts moved to `optional-scripts/` for cleaner VM installs
 
 ## 🎯 Quick Start (One Command)
 
 **For VMware Fusion on Apple Silicon Macs:**
 
 ```bash
-git clone --depth=1 https://github.com/huynhdung/Arch-Hyprland.git ~/Arch-Hyprland
+git clone --depth=1 https://github.com/jellydn/Arch-Hyprland.git ~/Arch-Hyprland
 cd ~/Arch-Hyprland
 chmod +x install.sh
 
@@ -76,7 +77,7 @@ After installation, configs are located in:
 ## 📋 Manual Installation
 
 ```bash
-git clone --depth=1 https://github.com/huynhdung/Arch-Hyprland.git ~/Arch-Hyprland
+git clone --depth=1 https://github.com/jellydn/Arch-Hyprland.git ~/Arch-Hyprland
 cd ~/Arch-Hyprland
 chmod +x install.sh
 ./install.sh
@@ -98,6 +99,10 @@ Then select options through the interactive menu.
 - `--firefox`: Firefox browser (default)
 - `--fish`: Fish shell
 - `--zsh`: Zsh shell
+
+**Hardware-specific options** (moved to [`optional-scripts/`](optional-scripts/)):
+- NVIDIA/ROG options moved for cleaner VM installations
+- Use these only for bare metal installations with specific hardware
 
 ## 🆘 Troubleshooting
 
