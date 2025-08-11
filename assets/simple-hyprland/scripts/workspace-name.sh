@@ -3,7 +3,8 @@
 # Shows current workspace with name and context
 
 # Get current workspace ID
-current_workspace=$(hyprctl activeworkspace -j | jq -r '.id')
+current_workspace=$(hyprctl activeworkspace -j 2>/dev/null | jq -r '.id' 2>/dev/null || echo "1")
+current_workspace=${current_workspace:-1}
 
 # Define workspace names with icons and purposes
 declare -A workspace_names=(
@@ -42,7 +43,7 @@ else
 fi
 
 # Get number of windows in current workspace
-window_count=$(hyprctl workspaces -j | jq -r ".[] | select(.id==$current_workspace) | .windows")
+window_count=$(hyprctl workspaces -j 2>/dev/null | jq -r ".[] | select(.id==$current_workspace) | .windows" 2>/dev/null || echo "0")
 window_count=${window_count:-0}
 
 # Create window indicator

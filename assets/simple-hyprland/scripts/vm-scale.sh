@@ -57,10 +57,10 @@ detect_vm_type() {
 # Function to get current resolution
 get_resolution() {
     local resolution
-    resolution=$(hyprctl monitors -j | jq -r '.[0] | "\(.width)x\(.height)"' 2>/dev/null)
+    resolution=$(hyprctl monitors -j 2>/dev/null | jq -r '.[0] | "\(.width)x\(.height)"' 2>/dev/null || echo "")
     if [[ -z "$resolution" || "$resolution" == "null" ]]; then
-        # Fallback to xrandr if hyprctl fails
-        resolution=$(xrandr 2>/dev/null | grep -oP '^\S+.*\*' | grep -oP '\d+x\d+' | head -1)
+        # Fallback to xrandr if hyprctl fails (using standard grep)
+        resolution=$(xrandr 2>/dev/null | grep '\*' | head -1 | sed 's/.*\([0-9]\{3,4\}x[0-9]\{3,4\}\).*/\1/' || echo "")
     fi
     echo "${resolution:-1920x1080}"  # Default fallback
 }
@@ -180,12 +180,12 @@ main() {
     # Generate monitor configuration
     echo "# Auto-generated monitor configuration" >> ~/.config/hyprland/vm-monitor.conf
     
-    if [[ "$vm_type" != "unknown" ]]; then
-        # VM detected - use 1920x1080@60 like main dotfiles for VMs
-        echo "monitor=Virtual-1,1920x1080@60,auto,$scale" >> ~/.config/hyprland/vm-monitor.conf
+    # Always use simple monitor config for VMs to avoid issues
+    if [[ "$vm_type" != "unknown" ]] || [[ "$(uname -m)" == "aarch64" ]]; then
+        # VM detected or ARM system - use simple resolution with scaling
         echo "monitor=,1920x1080@60,auto,$scale" >> ~/.config/hyprland/vm-monitor.conf
     else
-        # Non-VM system - use preferred resolution like main dotfiles
+        # Non-VM system - use preferred resolution
         echo "monitor=,preferred,auto,1" >> ~/.config/hyprland/vm-monitor.conf
     fi
     
