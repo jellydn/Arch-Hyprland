@@ -111,13 +111,61 @@ sh <(curl -L https://raw.githubusercontent.com/JaKooLit/Arch-Hyprland/main/auto-
 ```
 
 ## ✨ to use this script
+
+### 🌟 Quick Start (Recommended - One Command Setup)
+**For most users who want everything installed automatically:**
+
+```bash
+git clone --depth=1 https://github.com/jellydn/Arch-Hyprland.git ~/Arch-Hyprland
+cd ~/Arch-Hyprland
+chmod +x install.sh
+
+# 🚀 RECOMMENDED: Complete setup with all features
+./install.sh --auto --dots --gtk-themes --bluetooth --thunar --xdph --zsh --fish --kitty --ghostty --firefox --brave --pokemon
+```
+
+**What this includes:**
+- ✅ KooL Hyprland pre-configured dotfiles
+- ✅ Both shell options (zsh & fish) - switch anytime  
+- ✅ Both terminal options (kitty & ghostty) - use what you prefer
+- ✅ Both browsers (Firefox & Brave) - multiple options
+- ✅ GTK themes for dark/light mode support
+- ✅ Bluetooth support for wireless devices
+- ✅ Thunar file manager with GUI
+- ✅ Screen sharing support (XDG Desktop Portal)
+- ✅ Fun Pokemon terminal color scripts
+- ❌ Skips hardware-specific options (NVIDIA/ROG/VM) - add manually if needed
+
+### 📋 Traditional Interactive Mode
 - clone this repo (latest commit only) to reduce file size download by using git. Change directory, make executable and run the script
 
 ```bash
-git clone --depth=1 https://github.com/JaKooLit/Arch-Hyprland.git ~/Arch-Hyprland
+git clone --depth=1 https://github.com/jellydn/Arch-Hyprland.git ~/Arch-Hyprland
 cd ~/Arch-Hyprland
 chmod +x install.sh
 ./install.sh
+```
+
+### 💻 Specialized Setups
+
+**For VM users (UTM, VMware, VirtualBox, Parallels):**
+```bash
+./install.sh --auto --vm --dots --fish --firefox --gtk-themes --bluetooth --thunar
+```
+
+**For NVIDIA GPU users:**
+```bash
+./install.sh --auto --dots --zsh --kitty --brave --nvidia --bluetooth --gtk-themes
+```
+
+**For ROG laptop users:**
+```bash
+./install.sh --auto --dots --zsh --kitty --firefox --rog --nvidia --bluetooth --gtk-themes
+```
+
+**For help with all options:**
+```bash
+./install.sh --help
 ```
 
 ### 💥 💥  UNINSTALL SCRIPT / Removal of Config Files
