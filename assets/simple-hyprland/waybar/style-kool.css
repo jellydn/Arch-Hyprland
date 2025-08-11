@@ -255,11 +255,18 @@ tooltip label {
 }
 
 /* Animation optimizations for VM performance */
+.modules-left,
+.modules-center,
+.modules-right {
+  transition-duration: 0.2s;
+  animation-duration: 0.2s;
+}
+
 .modules-left *,
 .modules-center *,
 .modules-right * {
-  transition-duration: 0.2s !important;
-  animation-duration: 0.2s !important;
+  transition-duration: inherit;
+  animation-duration: inherit;
 }
 
 /* Disable resource-heavy effects for VMs */
