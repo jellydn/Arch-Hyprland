@@ -181,10 +181,12 @@ main() {
     echo "# Auto-generated monitor configuration" >> ~/.config/hyprland/vm-monitor.conf
     
     if [[ "$vm_type" != "unknown" ]]; then
-        echo "monitor=,1920x1080,auto,$scale" >> ~/.config/hyprland/vm-monitor.conf
+        # VM detected - use 1920x1080@60 like main dotfiles for VMs
+        echo "monitor=Virtual-1,1920x1080@60,auto,$scale" >> ~/.config/hyprland/vm-monitor.conf
+        echo "monitor=,1920x1080@60,auto,$scale" >> ~/.config/hyprland/vm-monitor.conf
     else
-        # Fallback for non-VM or undetected systems
-        echo "monitor=,1920x1080,auto,1" >> ~/.config/hyprland/vm-monitor.conf
+        # Non-VM system - use preferred resolution like main dotfiles
+        echo "monitor=,preferred,auto,1" >> ~/.config/hyprland/vm-monitor.conf
     fi
     
     # Add VM-specific optimizations
