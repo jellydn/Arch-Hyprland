@@ -35,7 +35,7 @@
   // Left modules
   "custom/rofi": {
     "format": "󱓞",
-    "tooltip-format": "Application Launcher",
+    "tooltip": false,
     "on-click": "rofi -show drun -theme ~/.config/rofi/kool-style.rasi",
     "on-click-right": "rofi -show run -theme ~/.config/rofi/kool-style.rasi"
   },
@@ -59,13 +59,15 @@
     "on-scroll-down": "hyprctl dispatch workspace e-1",
     "all-outputs": false,
     "active-only": false,
-    "show-special": false
+    "show-special": false,
+    "tooltip": false
   },
   
   "hyprland/window": {
     "format": "{title}",
     "max-length": 60,
     "separate-outputs": true,
+    "tooltip": false,
     "rewrite": {
       "(.*)Mozilla Firefox": "󰈹 Firefox",
       "(.*)Visual Studio Code": "󰨞 VS Code", 
@@ -76,14 +78,14 @@
   
   "custom/terminal": {
     "format": "󰆍",
-    "tooltip-format": "Open Terminal",
+    "tooltip": false,
     "on-click": "foot",
     "on-click-right": "~/.config/hypr/scripts/terminal-chooser.sh"
   },
 
   "custom/browser": {
     "format": "󰈹",
-    "tooltip-format": "Open Browser", 
+    "tooltip": false,
     "on-click": "firefox",
     "on-click-right": "firefox --private-window"
   },
@@ -93,7 +95,7 @@
     "interval": 1,
     "format": "{:%H:%M}",
     "format-alt": "{:%A, %B %d, %Y (%R)}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "tooltip": false,
     "calendar": {
       "mode": "year",
       "mode-mon-col": 3,
@@ -123,8 +125,7 @@
       "activated": "󰒳",
       "deactivated": "󰒲"
     },
-    "tooltip-format-activated": "Idle inhibitor: Activated",
-    "tooltip-format-deactivated": "Idle inhibitor: Deactivated"
+    "tooltip": false
   },
   
   "pulseaudio": {
@@ -139,7 +140,7 @@
       "car": "",
       "default": ["", "", ""]
     },
-    "tooltip-format": "{desc}",
+    "tooltip": false,
     "scroll-step": 5,
     "on-click": "pavucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
@@ -154,9 +155,7 @@
     "format-linked": "󰈀 {ifname}",
     "format-disconnected": "󰤭 Disconnected",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "tooltip-format": "{essid}: {ipaddr}",
-    "tooltip-format-wifi": "󰤨 {essid}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nIP: {ipaddr}",
-    "tooltip-format-ethernet": "󰈀 {ifname}\nIP: {ipaddr}/{cidr}\nSpeed: {bandwidthUpBits} ↑ {bandwidthDownBits} ↓",
+    "tooltip": false,
     "on-click": "nm-connection-editor",
     "on-click-right": "$TERMINAL -e nmtui || foot -e nmtui || kitty -e nmtui || alacritty -e nmtui"
   },
@@ -179,13 +178,12 @@
     "format-alt": "{icon} {time}",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-time": "{H}h {M}min",
-    "tooltip": true,
-    "tooltip-format": "{timeTo} {power}W"
+    "tooltip": false
   },
   
   "custom/power": {
     "format": "󰐥",
-    "tooltip-format": "Power menu",
+    "tooltip": false,
     "on-click": "wlogout",
     "on-click-right": "hyprctl dispatch exit"
   }
