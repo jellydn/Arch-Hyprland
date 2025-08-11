@@ -8,7 +8,7 @@
 
 # add packages wanted here
 Extra=(
-
+  brave-bin
 )
 
 hypr_package=( 
@@ -23,7 +23,7 @@ hypr_package=(
   imagemagick
   inxi 
   jq
-  kitty
+  ghostty
   kvantum
   libspng
   nano  
