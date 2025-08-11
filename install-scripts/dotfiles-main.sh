@@ -16,6 +16,18 @@ if ! source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"; then
   exit 1
 fi
 
+# Source the backup functions
+if ! source "$(dirname "$(readlink -f "$0")")/backup-config.sh"; then
+  echo "Failed to source backup-config.sh"
+  exit 1
+fi
+
+# Set the name of the log file to include the current date and time
+LOG="Install-Logs/install-$(date +%d-%H%M%S)_dotfiles-main.log"
+
+# Create backup before installing dotfiles
+create_config_backup "dotfiles"
+
 # Check if Hyprland-Dots exists
 printf "${NOTE} Cloning and Installing ${SKY_BLUE}KooL's Hyprland Dots${RESET}....\n"
 
@@ -33,5 +45,10 @@ else
     echo -e "$ERROR Can't download ${YELLOW}KooL's Hyprland-Dots${RESET} . Check your internet connection"
   fi
 fi
+
+# Show rollback instructions and cleanup old backups
+show_rollback_instructions
+cleanup_old_backups
+create_user_backup_script
 
 printf "\n%.0s" {1..2}
