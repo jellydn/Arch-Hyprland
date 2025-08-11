@@ -1,20 +1,34 @@
 /* Simple KooL Waybar Styles */
-/* VM-optimized and simplified styling */
+/* VM-optimized and simplified styling inspired by JaKooLit's dotfiles */
 
 * {
   border: none;
   border-radius: 0px;
   font-family: "JetBrainsMono Nerd Font", "Noto Sans CJK", sans-serif;
   font-size: 13px;
+  font-weight: bold;
   min-height: 0;
   transition: none;  /* Disable transitions for VM performance */
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
 window#waybar {
-  background-color: rgba(30, 30, 46, 0.95);
-  border-radius: 10px;
+  background-color: transparent;
   color: #cdd6f4;
   transition: none;
+  padding: 0px;
+  border: 0px;
+}
+
+/* Module Groups - Modern rounded sections */
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: rgba(30, 30, 46, 0.95);
+  border: 1px solid rgba(203, 166, 247, 0.3);
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin: 2px;
 }
 
 tooltip {
@@ -196,12 +210,51 @@ tooltip {
   animation-direction: alternate;
 }
 
+#idle_inhibitor {
+  color: #89b4fa;
+  font-size: 16px;
+  padding: 0 8px;
+  margin: 2px;
+  border-radius: 8px;
+}
+
+#idle_inhibitor.activated {
+  color: #f38ba8;
+  background-color: rgba(243, 139, 168, 0.2);
+}
+
+#mpris {
+  color: #a6e3a1;
+  padding: 0 12px;
+  margin: 2px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+#mpris.paused {
+  color: #6c7086;
+  font-style: italic;
+}
+
+#custom-notification {
+  color: #89b4fa;
+  font-size: 16px;
+  padding: 0 8px;
+  margin: 2px;
+  border-radius: 8px;
+}
+
+#custom-notification.notification {
+  color: #f38ba8;
+  animation: notification-blink 2s ease-in-out infinite;
+}
+
 #custom-power {
-  background-color: #f38ba8;
+  background-color: rgba(243, 139, 168, 0.9);
   color: #1e1e2e;
-  padding: 0 15px;
-  margin: 5px 10px 5px 5px;
-  border-radius: 10px;
+  padding: 0 12px;
+  margin: 2px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -222,6 +275,11 @@ tooltip {
     opacity: 0.8;
     transform: scale(1.05);
   }
+}
+
+@keyframes notification-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* Hover effects - minimal for VM performance */

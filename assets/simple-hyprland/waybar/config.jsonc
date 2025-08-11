@@ -1,36 +1,42 @@
 {
   // Simple KooL Waybar Configuration
-  // VM-optimized and simplified version
+  // VM-optimized and simplified version inspired by JaKooLit's dotfiles
   
   "layer": "top",
-  "position": "top",
+  "position": "top", 
   "height": 35,
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
   "spacing": 4,
-  "margin-top": 8,
-  "margin-left": 8,
-  "margin-right": 8,
+  "margin-top": 6,
+  "margin-left": 6,
+  "margin-right": 6,
   
   // Left modules
   "modules-left": [
     "custom/os",
+    "idle_inhibitor", 
     "hyprland/workspaces",
     "custom/workspace-name",
     "hyprland/window",
-    "custom/which-key"
+    "tray"
   ],
   
   // Center modules  
   "modules-center": [
     "clock",
-    "custom/date"
+    "custom/date",
+    "custom/which-key"
   ],
   
   // Right modules
   "modules-right": [
-    "tray",
+    "mpris",
     "network",
     "pulseaudio",
     "battery",
+    "custom/notification",
     "custom/power"
   ],
 
@@ -169,9 +175,63 @@
     "spacing": 8
   },
 
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": " ",
+      "deactivated": " "
+    },
+    "tooltip-format-activated": "<span color='#cba6f7'><b>Idle Inhibitor</b></span>\nPreventing system sleep/screen lock",
+    "tooltip-format-deactivated": "<span color='#cba6f7'><b>Idle Inhibitor</b></span>\nAllowing system sleep/screen lock",
+    "start-activated": false
+  },
+
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "🎵",
+      "mpv": "🎵",
+      "spotify": "",
+      "firefox": "󰈹"
+    },
+    "status-icons": {
+      "paused": "⏸",
+      "playing": "▶"
+    },
+    "ignored-players": ["firefox"],
+    "max-length": 50,
+    "tooltip-format": "<span color='#cba6f7'><b>Now Playing</b></span>\n{artist} - {title}\n{album}",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
   "custom/power": {
     "format": "",
-    "tooltip": "Power Menu",
+    "tooltip": "<span color='#cba6f7'><b>Power Menu</b></span>\nLeft click: Power menu\nRight click: Lock screen",
     "on-click": "wlogout",
     "on-click-right": "hyprlock"
   }
