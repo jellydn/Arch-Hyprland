@@ -121,13 +121,13 @@ cd ~/Arch-Hyprland
 chmod +x install.sh
 
 # 🚀 RECOMMENDED: Complete setup with all features
-./install.sh --auto --dots --gtk-themes --bluetooth --thunar --xdph --zsh --fish --kitty --ghostty --alacritty --firefox --brave --pokemon
+./install.sh --auto --dots --gtk-themes --bluetooth --thunar --xdph --zsh --fish --kitty --ghostty --alacritty --foot --firefox --brave --pokemon
 ```
 
 **What this includes:**
 - ✅ KooL Hyprland pre-configured dotfiles
 - ✅ Both shell options (zsh & fish) - switch anytime  
-- ✅ All terminal options (kitty, ghostty & alacritty) - use what you prefer
+- ✅ All terminal options (kitty, ghostty, alacritty & foot) - use what you prefer
 - ✅ Both browsers (Firefox & Brave) - multiple options
 - ✅ GTK themes for dark/light mode support
 - ✅ Bluetooth support for wireless devices
@@ -150,7 +150,7 @@ chmod +x install.sh
 
 **For VM users (UTM, VMware, VirtualBox, Parallels):**
 ```bash
-./install.sh --auto --vm --dots --fish --firefox --gtk-themes --bluetooth --thunar
+./install.sh --auto --vm --dots --fish --foot --firefox --gtk-themes --bluetooth --thunar
 ```
 
 **For NVIDIA GPU users:**
