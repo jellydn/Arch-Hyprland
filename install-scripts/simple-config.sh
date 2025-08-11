@@ -93,11 +93,23 @@ if [ -d "assets/simple-hyprland" ]; then
   
   # Copy Waybar config and styles (KooL-optimized)
   echo "${INFO} Installing KooL-inspired Waybar configuration..." 2>&1 | tee -a "$LOG"
+  
+  # Clear waybar directory to prevent config conflicts
+  if [ -d "$HOME/.config/waybar" ]; then
+    rm -f "$HOME/.config/waybar"/* 2>/dev/null || true
+  fi
+  
   cp "assets/simple-hyprland/waybar/config-kool.jsonc" "$HOME/.config/waybar/config.jsonc"
   cp "assets/simple-hyprland/waybar/style-kool.css" "$HOME/.config/waybar/style.css"
   
   # Copy Rofi configuration and theme (KooL-optimized)
   echo "${INFO} Installing KooL-style Rofi configuration..." 2>&1 | tee -a "$LOG"
+  
+  # Clear rofi directory to prevent config conflicts
+  if [ -d "$HOME/.config/rofi" ]; then
+    rm -f "$HOME/.config/rofi"/* 2>/dev/null || true
+  fi
+  
   cp "assets/simple-hyprland/rofi/config-kool.rasi" "$HOME/.config/rofi/config.rasi"
   cp "assets/simple-hyprland/rofi/kool-style.rasi" "$HOME/.config/rofi/"
   cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/rofi/"
