@@ -114,6 +114,7 @@ Then select options through the interactive menu.
 **Shell Selection:**
 - Both shells can be installed simultaneously
 - Use `shell-chooser.sh` to switch between them
+- **Manual change**: `chsh -s /bin/zsh` or `chsh -s /bin/fish` (logout/login required)
 - No automatic shell changes - your choice!
 
 ## 🔗 Links

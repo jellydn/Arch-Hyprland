@@ -139,8 +139,34 @@ From the main Arch-Hyprland directory:
 **Manual Rescaling:**
 ```bash
 # Regenerate VM configuration
-~/.config/hypr/scripts/vm-scale.sh
+~/.config/hyprland/scripts/vm-scale.sh
 # Then reload: Super + Shift + R
+```
+
+### Shell Configuration
+**Default Shell:** The configuration uses bash by default. If you want to change your default shell:
+
+**Manual Shell Change:**
+```bash
+# Check available shells
+cat /etc/shells
+
+# Change to zsh (if installed)
+chsh -s /bin/zsh
+
+# Change to fish (if installed)  
+chsh -s /bin/fish
+
+# Change back to bash
+chsh -s /bin/bash
+
+# Note: Log out and back in for changes to take effect
+```
+
+**Or use the installer's shell chooser:**
+```bash
+# From the main Arch-Hyprland directory
+./install-scripts/shell-chooser.sh
 ```
 
 ## 📝 Customization Guide
