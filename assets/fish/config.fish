@@ -1,5 +1,16 @@
 # Fish shell configuration
 # Generated for KooL Arch-Hyprland
+# This should only run in Fish shell, not bash!
+
+# Safety check: Only run Fish commands if we're actually in Fish
+if not status is-interactive
+    exit
+end
+
+# Double check we're in Fish (not bash)
+if not set -q FISH_VERSION
+    exit
+end
 
 # Set environment variables
 set -gx EDITOR nano

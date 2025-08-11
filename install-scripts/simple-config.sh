@@ -72,6 +72,13 @@ if [ -d "assets/simple-hyprland" ]; then
   cp "assets/simple-hyprland/scripts/workspace-name.sh" "$HOME/.config/hyprland/scripts/"
   chmod +x "$HOME/.config/hyprland/scripts/workspace-name.sh"
   
+  # Copy bash configuration
+  echo "${INFO} Installing Bash configuration..." 2>&1 | tee -a "$LOG"
+  if [ ! -f "$HOME/.bashrc.backup" ]; then
+    cp "$HOME/.bashrc" "$HOME/.bashrc.backup" 2>/dev/null || true
+  fi
+  cat "assets/simple-hyprland/bashrc" >> "$HOME/.bashrc" 2>/dev/null || cp "assets/simple-hyprland/bashrc" "$HOME/.bashrc"
+  
   # Create a simple wallpaper directory and default wallpaper
   if [ ! -f "$HOME/.config/swww/wall.png" ]; then
     echo "${INFO} Creating default wallpaper..." 2>&1 | tee -a "$LOG"
