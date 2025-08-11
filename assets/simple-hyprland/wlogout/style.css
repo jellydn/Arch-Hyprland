@@ -1,0 +1,104 @@
+/* ---- 💫 Simple KooL Wlogout Style 💫 ---- */
+/* VM-optimized logout menu matching simple-hyprland theme */
+
+window {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #cdd6f4; /* Catppuccin Mocha text */
+    background-color: rgba(30, 30, 46, 0.95); /* Catppuccin Mocha base with transparency */
+}
+
+button {
+    color: #cdd6f4;
+    font-size: 20px;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+    border-style: solid;
+    border-width: 3px;
+    background-color: rgba(49, 50, 68, 0.9); /* Catppuccin Mocha surface0 */
+    border-color: rgba(108, 112, 134, 0.8); /* Catppuccin Mocha surface2 */
+    border-radius: 20px;
+    margin: 5px;
+    padding: 10px;
+    transition: all 0.2s ease-in-out; /* Reduced transition for VM performance */
+    min-width: 100px;
+    min-height: 100px;
+}
+
+button:hover {
+    background-size: 40%;
+    background-color: rgba(69, 71, 90, 1); /* Catppuccin Mocha surface1 */
+    border-color: #cba6f7; /* Catppuccin Mocha mauve */
+    color: #f2cdcd; /* Catppuccin Mocha rosewater */
+    border-width: 3px;
+}
+
+button:focus {
+    background-size: 35%;
+    background-color: rgba(69, 71, 90, 1);
+    border-color: #cba6f7;
+    color: #f2cdcd;
+}
+
+/* Button Icons - using text-based icons for simplicity */
+#lock {
+    background-image: none;
+}
+#lock:before {
+    content: "🔒";
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#logout {
+    background-image: none;
+}
+#logout:before {
+    content: "🚪";
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#shutdown {
+    background-image: none;
+}
+#shutdown:before {
+    content: "⚡";
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#reboot {
+    background-image: none;
+}
+#reboot:before {
+    content: "🔄";
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#suspend {
+    background-image: none;
+}
+#suspend:before {
+    content: "🌙";
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* VM Performance optimizations */
+* {
+    transition: none; /* Disable transitions for better VM performance */
+}
+
+button {
+    transition: background-color 0.1s ease, border-color 0.1s ease; /* Minimal transitions only */
+}

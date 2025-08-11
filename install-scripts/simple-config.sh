@@ -25,6 +25,7 @@ echo "Creating Hyprland configuration directories..." 2>&1 | tee -a "$LOG"
 mkdir -p "$HOME/.config/hypr/waybar"
 mkdir -p "$HOME/.config/hypr/rofi"
 mkdir -p "$HOME/.config/hypr/scripts"
+mkdir -p "$HOME/.config/wlogout"
 mkdir -p "$HOME/.config/swww"
 
 # Copy simple configuration files
@@ -44,6 +45,11 @@ if [ -d "assets/simple-hyprland" ]; then
   cp "assets/simple-hyprland/rofi/config.rasi" "$HOME/.config/hypr/rofi/"
   cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/hypr/rofi/"
   cp "assets/simple-hyprland/rofi/simple-kool.rasi" "$HOME/.config/hypr/rofi/"
+  
+  # Copy Wlogout configuration and theme
+  echo "${INFO} Installing Wlogout configuration..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/wlogout/layout" "$HOME/.config/wlogout/"
+  cp "assets/simple-hyprland/wlogout/style.css" "$HOME/.config/wlogout/"
   
   # Copy VM auto-scaling script
   echo "${INFO} Installing VM auto-scaling features..." 2>&1 | tee -a "$LOG"
@@ -68,8 +74,9 @@ if [ -d "assets/simple-hyprland" ]; then
   
   echo "${OK} Simple KooL Hyprland Desktop Environment installed successfully!" 2>&1 | tee -a "$LOG"
   echo "${INFO} Complete desktop environment features:" 2>&1 | tee -a "$LOG"
-  echo "  - 🎯 Waybar status bar with system tray, network, volume, battery" 2>&1 | tee -a "$LOG"
+  echo "  - 🎯 Waybar status bar with enhanced date/time, network details, volume control" 2>&1 | tee -a "$LOG"
   echo "  - 🚀 Rofi application launcher with search and file browsing" 2>&1 | tee -a "$LOG"
+  echo "  - 🚪 Wlogout power menu with lock, logout, shutdown, reboot, suspend" 2>&1 | tee -a "$LOG"
   echo "  - 🔧 VM auto-scaling (detects VMware, VirtualBox, UTM, Parallels)" 2>&1 | tee -a "$LOG"
   echo "  - ⚡ Embraces Hyprland's tiling power with smart workspace organization" 2>&1 | tee -a "$LOG"
   echo "  - 🎨 KooL styling with Catppuccin Mocha colors" 2>&1 | tee -a "$LOG"

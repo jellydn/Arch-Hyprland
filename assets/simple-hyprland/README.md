@@ -21,8 +21,9 @@ From the main Arch-Hyprland directory:
 ## ⚡ Key Features
 
 **Complete Desktop Environment:**
-- **Waybar** - Beautiful status bar with system tray, network, volume, battery
+- **Waybar** - Enhanced status bar with date/time, detailed network info, volume control, battery
 - **Rofi** - Modern application launcher with search and file browsing
+- **Wlogout** - Elegant power menu with lock, logout, shutdown, reboot, suspend
 - **VM Auto-scaling** - Automatically detects VMware/VirtualBox and adjusts display scaling
 
 **Tiling-First Approach:**
@@ -65,15 +66,17 @@ From the main Arch-Hyprland directory:
 ### Waybar Status Bar
 - **Location**: Top of screen with rounded corners
 - **Left**: OS logo (app launcher), workspaces, window title
-- **Center**: Clock with calendar popup
-- **Right**: System tray, network, volume, battery, power menu
+- **Center**: Time display and date with enhanced tooltips
+- **Right**: System tray, network with SSID/details, volume control, battery, power menu
 - **Styling**: Catppuccin Mocha theme with VM optimizations
 
 **Waybar Interactions:**
 - Click OS logo → Launch rofi
-- Click volume → Open pavucontrol
-- Click power → Open wlogout (logout menu)
-- Right-click network → Network settings
+- Click time → Switch 12/24 hour format
+- Click date → Shows current date
+- Click network → Open network manager, right-click for terminal UI
+- Click volume → Open pavucontrol, scroll to adjust volume
+- Click power → Open wlogout power menu
 
 ### Rofi Application Launcher  
 - **Style**: Clean, modern with blur effects
@@ -86,6 +89,19 @@ From the main Arch-Hyprland directory:
 - `Super + R` → Run commands
 - Type to search applications
 - Arrow keys or mouse to navigate
+
+### Wlogout Power Menu
+- **Style**: Clean interface with emoji-based icons for VM compatibility
+- **Actions**: Lock, Logout, Shutdown, Reboot, Suspend
+- **Features**: Keyboard shortcuts, hover effects, Catppuccin Mocha theme
+
+**Wlogout Usage:**
+- Access via waybar power button or `Super+Shift+Q`
+- `L` → Lock screen (hyprlock)
+- `E` → Logout from Hyprland
+- `S` → Shutdown system
+- `R` → Reboot system
+- `U` → Suspend to RAM
 
 ### VM Auto-Scaling
 - **Detection**: Automatically identifies VM type on startup
@@ -163,12 +179,15 @@ When installed, the simple config creates this structure:
 ├── scripts/
 │   └── vm-scale.sh        # VM detection and scaling script
 ├── waybar/
-│   ├── config.jsonc       # Waybar configuration
+│   ├── config.jsonc       # Waybar configuration with enhanced modules
 │   └── style.css          # Waybar styling (Catppuccin Mocha)
-└── rofi/
-    ├── config.rasi        # Rofi main configuration
-    ├── fonts.rasi         # Font settings
-    └── simple-kool.rasi   # Rofi theme
+├── rofi/
+│   ├── config.rasi        # Rofi main configuration
+│   ├── fonts.rasi         # Font settings
+│   └── simple-kool.rasi   # Rofi theme
+└── wlogout/
+    ├── layout             # Wlogout button layout and actions
+    └── style.css          # Wlogout styling (Catppuccin Mocha)
 ```
 
 ## 🔄 Reloading Configuration
