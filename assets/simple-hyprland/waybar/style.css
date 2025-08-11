@@ -96,6 +96,21 @@ tooltip {
   font-size: 13px;
 }
 
+#custom-which-key {
+  background-color: rgba(203, 166, 247, 0.9);
+  color: #1e1e2e;
+  padding: 0 12px;
+  margin: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#custom-which-key:hover {
+  background-color: rgba(203, 166, 247, 1);
+  opacity: 0.8;
+}
+
 /* Right modules */
 #tray {
   background-color: rgba(69, 71, 90, 0.8);

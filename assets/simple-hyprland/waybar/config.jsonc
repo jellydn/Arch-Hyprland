@@ -14,7 +14,8 @@
   "modules-left": [
     "custom/os",
     "hyprland/workspaces",
-    "hyprland/window"
+    "hyprland/window",
+    "custom/which-key"
   ],
   
   // Center modules  
@@ -84,6 +85,12 @@
     "exec": "date +'📅 %a, %b %d'",
     "interval": 3600,
     "tooltip": false
+  },
+
+  "custom/which-key": {
+    "format": "󰌌",
+    "tooltip-format": "<span color='#cba6f7'><b>Hyprland Which-Key</b></span>\nClick to show keybinding help\n\n<span color='#a6e3a1'>Super + /</span> - Show keybinding categories\n<span color='#89b4fa'>Interactive help system</span>",
+    "on-click": "~/.config/hypr/scripts/hyprland-which-key.sh"
   },
 
   "network": {

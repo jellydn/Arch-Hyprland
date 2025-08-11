@@ -24,6 +24,7 @@ From the main Arch-Hyprland directory:
 - **Waybar** - Enhanced status bar with date/time, detailed network info, volume control, battery
 - **Rofi** - Modern application launcher with search and file browsing
 - **Wlogout** - Elegant power menu with lock, logout, shutdown, reboot, suspend
+- **Which-Key** - Interactive keybinding discovery system like Emacs/Vim which-key
 - **VM Auto-scaling** - Automatically detects VMware/VirtualBox and adjusts display scaling
 
 **Tiling-First Approach:**
@@ -60,18 +61,20 @@ From the main Arch-Hyprland directory:
 | `Super + 1-9` | Switch workspaces |
 | `Super + Shift + 1-9` | Move window to workspace |
 | `Super + Grave` | Toggle special workspace |
+| `Super + /` | Show keybinding help (Which-Key) |
 
 ## 🧩 Included Components
 
 ### Waybar Status Bar
 - **Location**: Top of screen with rounded corners
-- **Left**: OS logo (app launcher), workspaces, window title
+- **Left**: OS logo (app launcher), workspaces, window title, which-key helper
 - **Center**: Time display and date with enhanced tooltips
 - **Right**: System tray, network with SSID/details, volume control, battery, power menu
 - **Styling**: Catppuccin Mocha theme with VM optimizations
 
 **Waybar Interactions:**
 - Click OS logo → Launch rofi
+- Click which-key button (󰌌) → Show keybinding help
 - Click time → Switch 12/24 hour format
 - Click date → Shows current date
 - Click network → Open network manager, right-click for terminal UI
@@ -102,6 +105,28 @@ From the main Arch-Hyprland directory:
 - `S` → Shutdown system
 - `R` → Reboot system
 - `U` → Suspend to RAM
+
+### Which-Key Helper
+- **Style**: Interactive Rofi-based interface with Catppuccin colors
+- **Categories**: Applications, Window Management, Workspaces, Tiling, System, Media, Screenshots
+- **Features**: Organized keybinding discovery, tooltips, quick access
+
+**Which-Key Usage:**
+- `Super + /` → Show main keybinding categories
+- Click waybar which-key button (󰌌) → Same as above
+- Navigate categories to see detailed keybinding explanations
+- Each category shows relevant shortcuts with descriptions
+- Interactive help system for learning Hyprland efficiently
+
+**Categories Available:**
+- **📱 Applications** - Terminal, browser, file manager, launcher
+- **🪟 Window Management** - Move, resize, close, floating, fullscreen
+- **📊 Workspaces** - Switch, move windows, special workspaces
+- **🔧 Tiling Controls** - Split direction, swap, master layout
+- **⚙️ System** - Lock, logout, power menu, reload config
+- **🎵 Media & Volume** - Volume, brightness, media keys
+- **📸 Screenshots** - Full screen, area selection, clipboard
+- **✨ Special** - VM features, customization, help
 
 ### VM Auto-Scaling
 - **Detection**: Automatically identifies VM type on startup
@@ -177,7 +202,8 @@ When installed, the simple config creates this structure:
 ├── hyprland.conf          # Main Hyprland configuration
 ├── vm-monitor.conf        # Auto-generated VM scaling config
 ├── scripts/
-│   └── vm-scale.sh        # VM detection and scaling script
+│   ├── vm-scale.sh        # VM detection and scaling script
+│   └── hyprland-which-key.sh # Interactive keybinding helper
 ├── waybar/
 │   ├── config.jsonc       # Waybar configuration with enhanced modules
 │   └── style.css          # Waybar styling (Catppuccin Mocha)

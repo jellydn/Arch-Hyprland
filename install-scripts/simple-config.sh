@@ -57,6 +57,11 @@ if [ -d "assets/simple-hyprland" ]; then
   chmod +x "$HOME/.config/hypr/scripts/vm-scale.sh"
   cp "assets/simple-hyprland/vm-monitor.conf" "$HOME/.config/hypr/"
   
+  # Copy which-key helper script
+  echo "${INFO} Installing Which-Key helper..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/scripts/hyprland-which-key.sh" "$HOME/.config/hypr/scripts/"
+  chmod +x "$HOME/.config/hypr/scripts/hyprland-which-key.sh"
+  
   # Create a simple wallpaper directory and default wallpaper
   if [ ! -f "$HOME/.config/swww/wall.png" ]; then
     echo "${INFO} Creating default wallpaper..." 2>&1 | tee -a "$LOG"
@@ -77,6 +82,7 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  - 🎯 Waybar status bar with enhanced date/time, network details, volume control" 2>&1 | tee -a "$LOG"
   echo "  - 🚀 Rofi application launcher with search and file browsing" 2>&1 | tee -a "$LOG"
   echo "  - 🚪 Wlogout power menu with lock, logout, shutdown, reboot, suspend" 2>&1 | tee -a "$LOG"
+  echo "  - 󰌌 Which-Key helper for easy keybinding discovery (Super + /)" 2>&1 | tee -a "$LOG"
   echo "  - 🔧 VM auto-scaling (detects VMware, VirtualBox, UTM, Parallels)" 2>&1 | tee -a "$LOG"
   echo "  - ⚡ Embraces Hyprland's tiling power with smart workspace organization" 2>&1 | tee -a "$LOG"
   echo "  - 🎨 KooL styling with Catppuccin Mocha colors" 2>&1 | tee -a "$LOG"
@@ -92,9 +98,11 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  Super+F       : Fullscreen" 2>&1 | tee -a "$LOG"
   echo "  Super+1-9     : Switch workspaces" 2>&1 | tee -a "$LOG"
   echo "  Super+Shift+R : Reload configuration" 2>&1 | tee -a "$LOG"
+  echo "  Super+/       : Show keybinding help (Which-Key)" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "${NOTE} Desktop interactions:" 2>&1 | tee -a "$LOG"
   echo "  • Click Waybar OS logo → Launch rofi" 2>&1 | tee -a "$LOG"
+  echo "  • Click Waybar which-key button (󰌌) → Show keybinding help" 2>&1 | tee -a "$LOG"
   echo "  • Click Waybar volume → Open pavucontrol" 2>&1 | tee -a "$LOG"
   echo "  • Click Waybar power → Open logout menu" 2>&1 | tee -a "$LOG"
   echo "  • VM auto-scaling detects and optimizes display automatically" 2>&1 | tee -a "$LOG"
