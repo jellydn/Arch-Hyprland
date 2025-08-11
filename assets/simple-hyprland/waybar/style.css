@@ -36,34 +36,52 @@ tooltip {
 }
 
 #workspaces {
-  background-color: rgba(69, 71, 90, 0.8);
+  background-color: rgba(69, 71, 90, 0.9);
   margin: 5px;
-  padding: 0 5px;
+  padding: 2px 8px;
   border-radius: 10px;
+  border: 1px solid rgba(203, 166, 247, 0.3);
 }
 
 #workspaces button {
   color: #6c7086;
   background: transparent;
-  padding: 0 8px;
-  margin: 3px;
-  border-radius: 5px;
-  min-width: 20px;
+  padding: 4px 10px;
+  margin: 2px;
+  border-radius: 8px;
+  min-width: 25px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 #workspaces button:hover {
-  background-color: rgba(203, 166, 247, 0.2);
+  background-color: rgba(203, 166, 247, 0.3);
+  color: #cdd6f4;
+  transform: scale(1.05);
 }
 
 #workspaces button.active {
   background-color: #cba6f7;
   color: #1e1e2e;
   font-weight: bold;
+  border: 2px solid #f2cdcd;
+  box-shadow: 0 2px 8px rgba(203, 166, 247, 0.4);
 }
 
 #workspaces button.urgent {
   background-color: #f38ba8;
   color: #1e1e2e;
+  animation: pulse 2s infinite;
+}
+
+#custom-workspace-name {
+  background-color: rgba(137, 180, 250, 0.9);
+  color: #1e1e2e;
+  padding: 0 12px;
+  margin: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 #window {
@@ -192,6 +210,17 @@ tooltip {
 @keyframes blink {
   to {
     background-color: #f2cdcd;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 

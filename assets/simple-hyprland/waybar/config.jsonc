@@ -14,6 +14,7 @@
   "modules-left": [
     "custom/os",
     "hyprland/workspaces",
+    "custom/workspace-name",
     "hyprland/window",
     "custom/which-key"
   ],
@@ -41,29 +42,40 @@
   },
 
   "hyprland/workspaces": {
-    "format": "{icon}",
+    "format": "{name}: {icon}",
     "format-icons": {
-      "1": "1",
-      "2": "2", 
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "10"
+      "1": "󰞷",
+      "2": "󰈹", 
+      "3": "󰉋",
+      "4": "󰨞",
+      "5": "󰎄",
+      "6": "󰑴",
+      "7": "󰎆",
+      "8": "󰎉",
+      "9": "󰎌",
+      "10": "󱂬",
+      "urgent": "󰀪",
+      "focused": "󰮯",
+      "default": "󰧞"
     },
     "persistent_workspaces": {
       "1": [],
       "2": [],
       "3": [],
       "4": [],
-      "5": []
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": []
     },
     "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
     "all-outputs": false,
-    "active-only": false
+    "active-only": false,
+    "show-special": false,
+    "sort-by-number": true
   },
 
   "hyprland/window": {
@@ -85,6 +97,14 @@
     "exec": "date +'📅 %a, %b %d'",
     "interval": 3600,
     "tooltip": false
+  },
+
+  "custom/workspace-name": {
+    "format": "{}",
+    "exec": "~/.config/hypr/scripts/workspace-name.sh",
+    "return-type": "json",
+    "interval": 1,
+    "tooltip": true
   },
 
   "custom/which-key": {

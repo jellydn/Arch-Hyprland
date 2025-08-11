@@ -48,7 +48,8 @@ From the main Arch-Hyprland directory:
 
 | Key Combination | Action |
 |---|---|
-| `Super + Return` | Open terminal (foot) |
+| `Super + Return` | Open terminal (current) |
+| `Super + Shift + Return` | Choose terminal (foot/kitty/alacritty/etc) |
 | `Super + B` | Open browser (firefox) |
 | `Super + D` | Application launcher (rofi) |
 | `Super + R` | Run command (rofi) |

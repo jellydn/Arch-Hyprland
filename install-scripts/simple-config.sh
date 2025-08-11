@@ -62,6 +62,16 @@ if [ -d "assets/simple-hyprland" ]; then
   cp "assets/simple-hyprland/scripts/hyprland-which-key.sh" "$HOME/.config/hypr/scripts/"
   chmod +x "$HOME/.config/hypr/scripts/hyprland-which-key.sh"
   
+  # Copy terminal chooser script
+  echo "${INFO} Installing Terminal chooser..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/scripts/terminal-chooser.sh" "$HOME/.config/hypr/scripts/"
+  chmod +x "$HOME/.config/hypr/scripts/terminal-chooser.sh"
+  
+  # Copy workspace name script
+  echo "${INFO} Installing Workspace navigation..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/scripts/workspace-name.sh" "$HOME/.config/hypr/scripts/"
+  chmod +x "$HOME/.config/hypr/scripts/workspace-name.sh"
+  
   # Create a simple wallpaper directory and default wallpaper
   if [ ! -f "$HOME/.config/swww/wall.png" ]; then
     echo "${INFO} Creating default wallpaper..." 2>&1 | tee -a "$LOG"
@@ -89,7 +99,8 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  - 🦶 VM-optimized (Foot terminal, optimized animations)" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "${NOTE} Essential key bindings:" 2>&1 | tee -a "$LOG"
-  echo "  Super+Return  : Open terminal (foot)" 2>&1 | tee -a "$LOG"
+  echo "  Super+Return       : Open terminal (current)" 2>&1 | tee -a "$LOG"
+  echo "  Super+Shift+Return : Choose terminal (foot/kitty/alacritty/etc)" 2>&1 | tee -a "$LOG"
   echo "  Super+B       : Open browser (firefox)" 2>&1 | tee -a "$LOG"
   echo "  Super+D       : Application launcher (rofi)" 2>&1 | tee -a "$LOG"
   echo "  Super+R       : Run command (rofi)" 2>&1 | tee -a "$LOG"

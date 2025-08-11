@@ -37,13 +37,14 @@ show_applications() {
         -theme-str "textbox { text-color: ${SUCCESS}; }" \
         -config ~/.config/hypr/rofi/config.rasi \
         -markup-rows \
-        <<< "<span color='${FOREGROUND}'><b>Super + Return</b></span>  Open terminal (foot)
-<span color='${FOREGROUND}'><b>Super + T</b></span>        Open terminal (foot)
-<span color='${FOREGROUND}'><b>Super + B</b></span>        Open browser (firefox)  
-<span color='${FOREGROUND}'><b>Super + W</b></span>        Open browser (firefox)
-<span color='${FOREGROUND}'><b>Super + E</b></span>        Open file manager (thunar)
-<span color='${FOREGROUND}'><b>Super + D</b></span>        Application launcher (rofi)
-<span color='${FOREGROUND}'><b>Super + R</b></span>        Run command (rofi)
+        <<< "<span color='${FOREGROUND}'><b>Super + Return</b></span>      Open terminal (current)
+<span color='${FOREGROUND}'><b>Super + T</b></span>            Open terminal (current)
+<span color='${SUCCESS}'><b>Super + Shift + Return</b></span> Choose terminal (foot/kitty/alacritty/etc)
+<span color='${FOREGROUND}'><b>Super + B</b></span>            Open browser (firefox)  
+<span color='${FOREGROUND}'><b>Super + W</b></span>            Open browser (firefox)
+<span color='${FOREGROUND}'><b>Super + E</b></span>            Open file manager (thunar)
+<span color='${FOREGROUND}'><b>Super + D</b></span>            Application launcher (rofi)
+<span color='${FOREGROUND}'><b>Super + R</b></span>            Run command (rofi)
 
 <span color='${PRIMARY}'>󰌌 Quick Access:</span>
 - Click waybar OS logo for app launcher

@@ -76,7 +76,11 @@ if [ $? -eq 0 ] && [ -n "$chosen_shell" ]; then
         echo "${INFO} Zsh features: Oh-My-Zsh, plugins, themes" 2>&1 | tee -a "$LOG"
     elif [ "$chosen_shell" = "fish" ]; then
         echo "${INFO} Fish features: Smart autocompletion, syntax highlighting, web config" 2>&1 | tee -a "$LOG"
-        echo "${INFO} Try: fish_config (web-based configuration)" 2>&1 | tee -a "$LOG"
+        if command -v fish_config >/dev/null 2>&1; then
+            echo "${INFO} Try: fish_config (web-based configuration)" 2>&1 | tee -a "$LOG"
+        else
+            echo "${INFO} Run 'fish' to start using Fish shell" 2>&1 | tee -a "$LOG"
+        fi
     fi
 else
     echo "${NOTE} No shell selected. Current shell unchanged." 2>&1 | tee -a "$LOG"
