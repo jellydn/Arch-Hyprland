@@ -128,11 +128,10 @@ EOF
         -p "  $category" \
         -theme ~/.config/rofi/kool-style.rasi \
         -markup-rows \
-        -width 50 \
-        -lines 12 \
+        -width 60 \
+        -lines 15 \
         -location 0 \
-        -no-custom \
-        -format 'f' < "$temp_detail"
+        -no-custom < "$temp_detail"
     
     rm -f "$temp_detail"
 }
@@ -143,18 +142,21 @@ selected=$(rofi -dmenu \
     -p "󰌌 KooL Which-Key Helper" \
     -theme ~/.config/rofi/kool-style.rasi \
     -markup-rows \
-    -width 30 \
+    -width 35 \
     -lines 8 \
     -location 0 \
-    -no-custom \
-    -format 'f' < "$temp_file")
+    -no-custom < "$temp_file")
 
 # Clean up temp file
 rm -f "$temp_file"
 
 # Show selected category or exit
 if [[ -n "$selected" ]]; then
+    # Debug: log the selection
+    echo "Selected: $selected" >> /tmp/which-key-debug.log
     show_category "$selected"
+else
+    echo "No selection made" >> /tmp/which-key-debug.log
 fi
 
 exit 0
