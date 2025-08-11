@@ -45,28 +45,47 @@ if [ -d "assets/simple-hyprland" ]; then
     echo "${NOTE} Hyprland config backed up to: $BACKUP_DIR/hyprland.conf" 2>&1 | tee -a "$LOG"
   fi
   
-  if [ -d "$HOME/.config/waybar" ]; then
+  if [ -d "$HOME/.config/waybar" ] && [ "$(ls -A $HOME/.config/waybar 2>/dev/null)" ]; then
     mkdir -p "$BACKUP_DIR/waybar"
     cp -r "$HOME/.config/waybar"/* "$BACKUP_DIR/waybar/" 2>/dev/null || true
     echo "${NOTE} Waybar config backed up to: $BACKUP_DIR/waybar/" 2>&1 | tee -a "$LOG"
+  else
+    echo "${NOTE} No existing waybar config to backup" 2>&1 | tee -a "$LOG"
   fi
   
-  if [ -d "$HOME/.config/rofi" ]; then
+  if [ -d "$HOME/.config/rofi" ] && [ "$(ls -A $HOME/.config/rofi 2>/dev/null)" ]; then
     mkdir -p "$BACKUP_DIR/rofi"
     cp -r "$HOME/.config/rofi"/* "$BACKUP_DIR/rofi/" 2>/dev/null || true
     echo "${NOTE} Rofi config backed up to: $BACKUP_DIR/rofi/" 2>&1 | tee -a "$LOG"
+  else
+    echo "${NOTE} No existing rofi config to backup" 2>&1 | tee -a "$LOG"
   fi
   
-  if [ -d "$HOME/.config/wlogout" ]; then
+  if [ -d "$HOME/.config/wlogout" ] && [ "$(ls -A $HOME/.config/wlogout 2>/dev/null)" ]; then
     mkdir -p "$BACKUP_DIR/wlogout"
     cp -r "$HOME/.config/wlogout"/* "$BACKUP_DIR/wlogout/" 2>/dev/null || true
     echo "${NOTE} Wlogout config backed up to: $BACKUP_DIR/wlogout/" 2>&1 | tee -a "$LOG"
+  else
+    echo "${NOTE} No existing wlogout config to backup" 2>&1 | tee -a "$LOG"
   fi
   
   if [ -f "$HOME/.config/foot/foot.ini" ]; then
     mkdir -p "$BACKUP_DIR"
     cp "$HOME/.config/foot/foot.ini" "$BACKUP_DIR/" 2>/dev/null || true
     echo "${NOTE} Foot config backed up to: $BACKUP_DIR/foot.ini" 2>&1 | tee -a "$LOG"
+  else
+    echo "${NOTE} No existing foot config to backup" 2>&1 | tee -a "$LOG"
+  fi
+  
+  # Show backup summary
+  if [ -d "$BACKUP_DIR" ]; then
+    echo "" 2>&1 | tee -a "$LOG"
+    echo "${OK} Backup completed successfully!" 2>&1 | tee -a "$LOG"
+    echo "${INFO} Backup contents:" 2>&1 | tee -a "$LOG"
+    ls -la "$BACKUP_DIR" 2>/dev/null | tail -n +2 | while read -r line; do
+      echo "  $line" 2>&1 | tee -a "$LOG"
+    done
+    echo "" 2>&1 | tee -a "$LOG"
   fi
   
   # Copy main Hyprland config (KooL-optimized for performance)
