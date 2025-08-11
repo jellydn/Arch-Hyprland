@@ -35,8 +35,8 @@
   "custom/arch": {
     "format": "󰣇",
     "tooltip-format": "Arch Linux",
-    "on-click": "rofi -show drun",
-    "on-click-right": "~/.config/hyprland/scripts/hyprland-which-key.sh"
+    "on-click": "rofi -show drun -theme ~/.config/rofi/kool-style.rasi",
+    "on-click-right": "~/.config/hypr/scripts/hyprland-which-key.sh"
   },
   
   "hyprland/workspaces": {
@@ -82,7 +82,7 @@
   "custom/which-key": {
     "format": "󰌌",
     "tooltip-format": "Click for keybinding help",
-    "on-click": "~/.config/hyprland/scripts/hyprland-which-key.sh"
+    "on-click": "~/.config/hypr/scripts/hyprland-which-key.sh"
   },
   
   // Center modules
@@ -104,7 +104,7 @@
         "today": "<span color='#a6e3a1'><b><u>{}</u></b></span>"
       }
     },
-    "on-click": "gnome-calendar"
+    "on-click": "$TERMINAL -e cal 2>/dev/null || echo 'No calendar available'"
   },
   
   // Right modules  
@@ -155,7 +155,7 @@
     "tooltip-format-wifi": "󰤨 {essid}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nIP: {ipaddr}",
     "tooltip-format-ethernet": "󰈀 {ifname}\nIP: {ipaddr}/{cidr}\nSpeed: {bandwidthUpBits} ↑ {bandwidthDownBits} ↓",
     "on-click": "nm-connection-editor",
-    "on-click-right": "foot -e nmtui"
+    "on-click-right": "$TERMINAL -e nmtui || foot -e nmtui || kitty -e nmtui || alacritty -e nmtui"
   },
   
   "battery": {
