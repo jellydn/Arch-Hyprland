@@ -13,6 +13,8 @@
   
   "modules-left": [
     "custom/arch",
+    "custom/terminal",
+    "custom/browser",
     "hyprland/workspaces",
     "hyprland/window",
     "custom/which-key"
@@ -56,15 +58,9 @@
     "on-click": "activate",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
     "on-scroll-down": "hyprctl dispatch workspace e-1",
-    "all-outputs": true,
+    "all-outputs": false,
     "active-only": false,
-    "persistent_workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": []
-    }
+    "show-special": false
   },
   
   "hyprland/window": {
@@ -83,6 +79,20 @@
     "format": "󰌌",
     "tooltip-format": "Click for keybinding help",
     "on-click": "~/.config/hypr/scripts/hyprland-which-key.sh"
+  },
+
+  "custom/terminal": {
+    "format": "󰆍",
+    "tooltip-format": "Open Terminal",
+    "on-click": "foot",
+    "on-click-right": "~/.config/hypr/scripts/terminal-chooser.sh"
+  },
+
+  "custom/browser": {
+    "format": "󰈹",
+    "tooltip-format": "Open Browser", 
+    "on-click": "firefox",
+    "on-click-right": "firefox --private-window"
   },
   
   // Center modules
