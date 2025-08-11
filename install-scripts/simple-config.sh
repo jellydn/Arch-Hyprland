@@ -33,6 +33,42 @@ mkdir -p "$HOME/.config/foot"
 if [ -d "assets/simple-hyprland" ]; then
   echo "${INFO} Installing Simple KooL Hyprland configuration with complete desktop environment..." 2>&1 | tee -a "$LOG"
   
+  # Create backup timestamp
+  BACKUP_TIME=$(date +%Y%m%d_%H%M%S)
+  BACKUP_DIR="$HOME/.config/hypr/backup_$BACKUP_TIME"
+  
+  # Backup existing configurations
+  echo "${INFO} Creating backup of existing configurations..." 2>&1 | tee -a "$LOG"
+  if [ -f "$HOME/.config/hypr/hyprland.conf" ]; then
+    mkdir -p "$BACKUP_DIR"
+    cp "$HOME/.config/hypr/hyprland.conf" "$BACKUP_DIR/" 2>/dev/null || true
+    echo "${NOTE} Hyprland config backed up to: $BACKUP_DIR/hyprland.conf" 2>&1 | tee -a "$LOG"
+  fi
+  
+  if [ -d "$HOME/.config/waybar" ]; then
+    mkdir -p "$BACKUP_DIR/waybar"
+    cp -r "$HOME/.config/waybar"/* "$BACKUP_DIR/waybar/" 2>/dev/null || true
+    echo "${NOTE} Waybar config backed up to: $BACKUP_DIR/waybar/" 2>&1 | tee -a "$LOG"
+  fi
+  
+  if [ -d "$HOME/.config/rofi" ]; then
+    mkdir -p "$BACKUP_DIR/rofi"
+    cp -r "$HOME/.config/rofi"/* "$BACKUP_DIR/rofi/" 2>/dev/null || true
+    echo "${NOTE} Rofi config backed up to: $BACKUP_DIR/rofi/" 2>&1 | tee -a "$LOG"
+  fi
+  
+  if [ -d "$HOME/.config/wlogout" ]; then
+    mkdir -p "$BACKUP_DIR/wlogout"
+    cp -r "$HOME/.config/wlogout"/* "$BACKUP_DIR/wlogout/" 2>/dev/null || true
+    echo "${NOTE} Wlogout config backed up to: $BACKUP_DIR/wlogout/" 2>&1 | tee -a "$LOG"
+  fi
+  
+  if [ -f "$HOME/.config/foot/foot.ini" ]; then
+    mkdir -p "$BACKUP_DIR"
+    cp "$HOME/.config/foot/foot.ini" "$BACKUP_DIR/" 2>/dev/null || true
+    echo "${NOTE} Foot config backed up to: $BACKUP_DIR/foot.ini" 2>&1 | tee -a "$LOG"
+  fi
+  
   # Copy main Hyprland config (KooL-optimized for performance)
   cp "assets/simple-hyprland/hyprland-kool-optimized.conf" "$HOME/.config/hypr/hyprland.conf"
   
@@ -158,6 +194,26 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  • Re-run simple config: ./install-scripts/simple-config.sh" 2>&1 | tee -a "$LOG"
   echo "  • Or from main dir: ./install.sh --simple-config" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
+  
+  # Display backup information and rollback instructions
+  if [ -d "$BACKUP_DIR" ]; then
+    echo "${NOTE} 📦 BACKUP INFORMATION:" 2>&1 | tee -a "$LOG"
+    echo "  Your previous configurations have been backed up to:" 2>&1 | tee -a "$LOG"
+    echo "  $BACKUP_DIR" 2>&1 | tee -a "$LOG"
+    echo "" 2>&1 | tee -a "$LOG"
+    echo "  🔄 To rollback to previous config:" 2>&1 | tee -a "$LOG"
+    echo "  cp $BACKUP_DIR/hyprland.conf ~/.config/hypr/hyprland.conf" 2>&1 | tee -a "$LOG"
+    echo "  cp -r $BACKUP_DIR/waybar/* ~/.config/waybar/ 2>/dev/null || true" 2>&1 | tee -a "$LOG"
+    echo "  cp -r $BACKUP_DIR/rofi/* ~/.config/rofi/ 2>/dev/null || true" 2>&1 | tee -a "$LOG"
+    echo "  cp -r $BACKUP_DIR/wlogout/* ~/.config/wlogout/ 2>/dev/null || true" 2>&1 | tee -a "$LOG"
+    echo "  cp $BACKUP_DIR/foot.ini ~/.config/foot/ 2>/dev/null || true" 2>&1 | tee -a "$LOG"
+    echo "  # Then reload: Super + Shift + R" 2>&1 | tee -a "$LOG"
+    echo "" 2>&1 | tee -a "$LOG"
+    echo "  🗑️  To remove backup after testing:" 2>&1 | tee -a "$LOG"
+    echo "  rm -rf $BACKUP_DIR" 2>&1 | tee -a "$LOG"
+    echo "" 2>&1 | tee -a "$LOG"
+  fi
+  
   echo "${OK} Happy customizing! 🎨" 2>&1 | tee -a "$LOG"
   
 else
