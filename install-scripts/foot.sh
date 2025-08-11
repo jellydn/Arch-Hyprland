@@ -115,7 +115,6 @@ delete-next=Delete
 [url]
 # URL handling
 launch=xdg-open \${url}
-protocols=http, https, ftp, ftps, file
 
 [scrollback]
 lines=10000
@@ -128,7 +127,6 @@ visual=no
 
 [desktop-notifications]
 command=notify-send -a \${app-id} -i \${app-id} \${title} \${body}
-close-on-exit=yes
 inhibit-when-focused=yes
 EOF
     
