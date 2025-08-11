@@ -61,18 +61,110 @@ After installation, both Zsh and Fish are available:
 
 ## 🎨 Configuration Options
 
-### Simple Configuration (Recommended)
-The installer includes a simplified Hyprland config that:
-- Embraces tiling window management
-- Uses Foot terminal and Firefox
-- VM-optimized performance settings
-- Catppuccin color scheme
+### Simple KooL Configuration (Recommended)
+The installer includes a **KooL-optimized Hyprland config** that provides:
+- **🏢 Professional desktop environment** based on JaKooLit's dotfiles structure
+- **⚡ VM performance optimization**: No animations, minimal blur, optimized for VMware/VirtualBox
+- **🎨 Beautiful KooL styling**: Catppuccin Mocha colors with professional layout
+- **🦶 Foot terminal**: Fast, lightweight, VM-optimized with Fish shell
+- **🔧 Complete desktop stack**: Waybar, Rofi, Wlogout, Which-Key helper
 
-### Customization
+### 🚀 Key Features
+
+#### **Desktop Components**
+- **📊 Waybar**: Professional status bar with enhanced date/time, network details, volume control
+- **🚀 Rofi**: Beautiful application launcher with search and file browsing
+- **🚪 Wlogout**: Elegant power menu (lock, logout, shutdown, reboot, suspend)
+- **󰌌 Which-Key Helper**: Interactive keybinding discovery system (`Super + /`)
+- **🔧 VM Auto-scaling**: Automatic detection and optimization for VMware, VirtualBox, UTM, Parallels
+
+#### **Performance Optimizations**
+- **🚫 NO ANIMATIONS**: Maximum VM performance
+- **⚡ Minimal effects**: Optimized blur and shadows for virtual machines
+- **🎯 Efficient tiling**: KooL's advanced window management without performance cost
+- **📱 Fish shell**: User-friendly terminal with smart completions
+
+### 📋 Essential Keybindings
+
+#### **🖥️ Applications**
+- `Super + Return` - Open terminal (Foot with Fish shell)
+- `Super + Shift + Return` - Terminal chooser (foot/kitty/alacritty/etc)
+- `Super + B` - Open browser (Firefox)
+- `Super + D` - Application launcher (Rofi)
+- `Super + R` - Run command (Rofi)
+- `Super + E` - File manager (Thunar)
+- `Super + /` - Show keybinding help (Which-Key)
+
+#### **🪟 Window Management**
+- `Super + Q` - Close window
+- `Super + V` - Toggle floating/tiled
+- `Super + F` - Fullscreen
+- `Super + J` - Toggle split direction
+- `Super + Arrows` - Move focus
+- `Super + Shift + Arrows` - Move window
+- `Super + Ctrl + Arrows` - Resize window
+
+#### **📊 Workspaces**
+- `Super + 1-9` - Switch to workspace
+- `Super + Shift + 1-9` - Move window to workspace
+- `Super + S` - Toggle special workspace
+- `Super + Mouse Scroll` - Switch workspaces
+
+#### **⚙️ System Controls**
+- `Super + L` - Lock screen
+- `Super + Shift + Q` - Logout menu (Wlogout)
+- `Super + Shift + R` - Reload Hyprland configuration
+- `Super + Shift + W` - Restart Waybar
+- `Alt + Tab` - Window switcher
+
+#### **🎵 Media & Volume**
+- `Volume Up/Down` - Adjust volume
+- `Volume Mute` - Toggle audio mute
+- `Brightness Up/Down` - Screen brightness
+- `Print Screen` - Full screenshot
+- `Super + Shift + S` - Area screenshot
+
+### 🖱️ Desktop Interactions
+- **Click Waybar OS logo** → Launch Rofi
+- **Click Waybar which-key button (󰌌)** → Show keybinding help
+- **Click Waybar volume** → Open pavucontrol
+- **Click Waybar power** → Open logout menu
+- **VM auto-scaling** → Detects and optimizes display automatically
+
+### 📁 Configuration Files
 After installation, configs are located in:
-- **Hyprland**: `~/.config/hypr/`
+- **Hyprland**: `~/.config/hypr/` (uses correct directory convention)
+- **Waybar**: `~/.config/waybar/` 
+- **Rofi**: `~/.config/rofi/`
 - **Foot**: `~/.config/foot/`
+- **Wlogout**: `~/.config/wlogout/`
 - **Shell configs**: `~/.zshrc` or `~/.config/fish/`
+
+### 🔧 Customization Guide
+
+**Quick customizations** in `~/.config/hypr/hyprland.conf`:
+```bash
+# Change terminal
+$term = foot  # Change to kitty, alacritty, etc.
+
+# Change browser  
+$browser = firefox  # Change to brave, chromium, etc.
+
+# Adjust gaps
+gaps_in = 2    # Inner gaps between windows
+gaps_out = 4   # Outer gaps from screen edges
+
+# Change colors (Catppuccin Mocha)
+col.active_border = rgba(cba6f7ff) rgba(f5c2e7ff) 45deg
+col.inactive_border = rgba(6c7086ff)
+```
+
+**Apply changes**: `Super + Shift + R` or restart Hyprland
+
+### 🌐 Resources
+- **Hyprland Wiki**: https://wiki.hyprland.org/
+- **KooL Dotfiles**: https://github.com/JaKooLit/Hyprland-Dots  
+- **Re-run config**: `./install-scripts/simple-config.sh`
 
 ## 📋 Manual Installation
 
