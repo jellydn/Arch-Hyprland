@@ -120,8 +120,8 @@ window#waybar.hidden {
 }
 
 /* Custom modules */
-#custom-arch {
-  color: @blue;
+#custom-rofi {
+  color: @mauve;
   background: transparent;
   border-radius: 8px;
   padding: 0px 6px;
@@ -129,22 +129,9 @@ window#waybar.hidden {
   font-size: 110%;
 }
 
-#custom-arch:hover {
-  color: @sapphire;
-  background: rgba(137, 180, 250, 0.1);
-}
-
-#custom-which-key {
-  color: @green;
-  background: transparent;
-  border-radius: 8px;
-  padding: 0px 6px;
-  margin: 0px 2px;
-}
-
-#custom-which-key:hover {
-  color: @teal;
-  background: rgba(166, 227, 161, 0.1);
+#custom-rofi:hover {
+  color: @pink;
+  background: rgba(203, 166, 247, 0.1);
 }
 
 #custom-terminal {

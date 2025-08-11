@@ -12,12 +12,11 @@
   "margin-top": 2,
   
   "modules-left": [
-    "custom/arch",
-    "custom/terminal",
+    "custom/rofi",
+    "custom/terminal", 
     "custom/browser",
     "hyprland/workspaces",
-    "hyprland/window",
-    "custom/which-key"
+    "hyprland/window"
   ],
   
   "modules-center": [
@@ -34,11 +33,11 @@
   ],
 
   // Left modules
-  "custom/arch": {
-    "format": "󰣇",
-    "tooltip-format": "Arch Linux",
+  "custom/rofi": {
+    "format": "󱓞",
+    "tooltip-format": "Application Launcher",
     "on-click": "rofi -show drun -theme ~/.config/rofi/kool-style.rasi",
-    "on-click-right": "~/.config/hypr/scripts/hyprland-which-key.sh"
+    "on-click-right": "rofi -show run -theme ~/.config/rofi/kool-style.rasi"
   },
   
   "hyprland/workspaces": {
@@ -75,12 +74,6 @@
     }
   },
   
-  "custom/which-key": {
-    "format": "󰌌",
-    "tooltip-format": "Click for keybinding help",
-    "on-click": "~/.config/hypr/scripts/hyprland-which-key.sh"
-  },
-
   "custom/terminal": {
     "format": "󰆍",
     "tooltip-format": "Open Terminal",
