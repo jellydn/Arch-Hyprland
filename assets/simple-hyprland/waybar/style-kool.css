@@ -271,8 +271,13 @@ tooltip label {
 
 /* Disable resource-heavy effects for VMs */
 @media (prefers-reduced-motion) {
-  * {
-    transition: none !important;
-    animation: none !important;
+  .modules-left,
+  .modules-center,
+  .modules-right,
+  .modules-left *,
+  .modules-center *,
+  .modules-right * {
+    transition: none;
+    animation: none;
   }
 }
