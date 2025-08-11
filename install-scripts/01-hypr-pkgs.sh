@@ -8,7 +8,7 @@
 
 # add packages wanted here
 Extra=(
-  brave-bin
+
 )
 
 hypr_package=( 

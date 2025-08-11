@@ -137,6 +137,8 @@ zsh="OFF"
 fish="OFF"
 kitty="OFF"
 ghostty="OFF"
+firefox="OFF"
+brave="OFF"
 pokemon="OFF"
 rog="OFF"
 dots="OFF"
@@ -173,7 +175,9 @@ show_help() {
     echo "  --zsh                 Enable zsh with Oh-My-Zsh installation"
     echo "  --fish                Enable Fish shell installation"
     echo "  --kitty               Enable Kitty terminal installation"
-    echo "  --ghostty             Enable Ghostty terminal installation" 
+    echo "  --ghostty             Enable Ghostty terminal installation"
+    echo "  --firefox             Enable Firefox browser installation"
+    echo "  --brave               Enable Brave browser installation" 
     echo "  --pokemon             Enable Pokemon color scripts"
     echo "  --rog                 Enable ROG laptop packages"
     echo "  --dots                Enable KooL Hyprland dotfiles installation"
@@ -252,6 +256,14 @@ while [[ $# -gt 0 ]]; do
             ;;
         --ghostty)
             ghostty="ON"
+            shift
+            ;;
+        --firefox)
+            firefox="ON"
+            shift
+            ;;
+        --brave)
+            brave="ON"
             shift
             ;;
         --pokemon)
@@ -410,6 +422,8 @@ options_command+=(
     "fish" "Install Fish shell with modern configuration?" "OFF"
     "kitty" "Install Kitty terminal emulator?" "OFF"
     "ghostty" "Install Ghostty terminal emulator?" "OFF"
+    "firefox" "Install Firefox browser?" "OFF"
+    "brave" "Install Brave browser?" "OFF"
     "pokemon" "Add Pokemon color scripts to your terminal?" "OFF"
     "rog" "Are you installing on Asus ROG laptops?" "OFF"
     "dots" "Download and install pre-configured KooL Hyprland dotfiles?" "OFF"
@@ -430,6 +444,8 @@ if [[ "$auto_mode" == "ON" ]]; then
     [[ "$fish" == "ON" ]] && selected_options+="fish "
     [[ "$kitty" == "ON" ]] && selected_options+="kitty "
     [[ "$ghostty" == "ON" ]] && selected_options+="ghostty "
+    [[ "$firefox" == "ON" ]] && selected_options+="firefox "
+    [[ "$brave" == "ON" ]] && selected_options+="brave "
     [[ "$pokemon" == "ON" ]] && selected_options+="pokemon "
     [[ "$rog" == "ON" ]] && selected_options+="rog "
     [[ "$dots" == "ON" ]] && selected_options+="dots "
@@ -618,6 +634,14 @@ for option in "${options[@]}"; do
         ghostty)
             echo "${INFO} Installing ${SKY_BLUE}Ghostty terminal emulator...${RESET}" | tee -a "$LOG"
             execute_script "ghostty.sh"
+            ;;
+        firefox)
+            echo "${INFO} Installing ${SKY_BLUE}Firefox browser...${RESET}" | tee -a "$LOG"
+            execute_script "firefox.sh"
+            ;;
+        brave)
+            echo "${INFO} Installing ${SKY_BLUE}Brave browser...${RESET}" | tee -a "$LOG"
+            execute_script "brave.sh"
             ;;
         pokemon)
             echo "${INFO} Adding ${SKY_BLUE}Pokemon color scripts to terminal...${RESET}" | tee -a "$LOG"
