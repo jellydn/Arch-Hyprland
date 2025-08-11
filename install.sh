@@ -137,6 +137,7 @@ zsh="OFF"
 fish="OFF"
 kitty="OFF"
 ghostty="OFF"
+alacritty="OFF"
 firefox="OFF"
 brave="OFF"
 vm="OFF"
@@ -177,6 +178,7 @@ show_help() {
     echo "  --fish                Enable Fish shell installation"
     echo "  --kitty               Enable Kitty terminal installation"
     echo "  --ghostty             Enable Ghostty terminal installation"
+    echo "  --alacritty           Enable Alacritty terminal installation"
     echo "  --firefox             Enable Firefox browser installation"
     echo "  --brave               Enable Brave browser installation"
     echo "  --vm                  Enable VM optimizations (UTM, VMware, VirtualBox, Parallels, etc.)" 
@@ -192,7 +194,7 @@ show_help() {
     echo "  $0"
     echo ""
     echo "  # 🌟 RECOMMENDED: Complete setup with all features (one command install)"
-    echo "  $0 --auto --dots --gtk-themes --bluetooth --thunar --xdph --zsh --fish --kitty --ghostty --firefox --brave --pokemon"
+    echo "  $0 --auto --dots --gtk-themes --bluetooth --thunar --xdph --zsh --fish --kitty --ghostty --alacritty --firefox --brave --pokemon"
     echo ""
     echo "  # Full setup with Fish shell, Ghostty terminal, and Firefox"
     echo "  $0 --auto --dots --fish --ghostty --firefox --gtk-themes"
@@ -284,6 +286,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --ghostty)
             ghostty="ON"
+            shift
+            ;;
+        --alacritty)
+            alacritty="ON"
             shift
             ;;
         --firefox)
@@ -454,6 +460,7 @@ options_command+=(
     "fish" "Install Fish shell with modern configuration?" "OFF"
     "kitty" "Install Kitty terminal emulator?" "OFF"
     "ghostty" "Install Ghostty terminal emulator?" "OFF"
+    "alacritty" "Install Alacritty terminal emulator?" "OFF"
     "firefox" "Install Firefox browser?" "OFF"
     "brave" "Install Brave browser?" "OFF"
     "vm" "Enable VM optimizations for VMware/VirtualBox/QEMU?" "OFF"
@@ -477,6 +484,7 @@ if [[ "$auto_mode" == "ON" ]]; then
     [[ "$fish" == "ON" ]] && selected_options+="fish "
     [[ "$kitty" == "ON" ]] && selected_options+="kitty "
     [[ "$ghostty" == "ON" ]] && selected_options+="ghostty "
+    [[ "$alacritty" == "ON" ]] && selected_options+="alacritty "
     [[ "$firefox" == "ON" ]] && selected_options+="firefox "
     [[ "$brave" == "ON" ]] && selected_options+="brave "
     [[ "$vm" == "ON" ]] && selected_options+="vm "
@@ -668,6 +676,10 @@ for option in "${options[@]}"; do
         ghostty)
             echo "${INFO} Installing ${SKY_BLUE}Ghostty terminal emulator...${RESET}" | tee -a "$LOG"
             execute_script "ghostty.sh"
+            ;;
+        alacritty)
+            echo "${INFO} Installing ${SKY_BLUE}Alacritty terminal emulator...${RESET}" | tee -a "$LOG"
+            execute_script "alacritty.sh"
             ;;
         firefox)
             echo "${INFO} Installing ${SKY_BLUE}Firefox browser...${RESET}" | tee -a "$LOG"
