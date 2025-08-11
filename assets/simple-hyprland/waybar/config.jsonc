@@ -1,0 +1,147 @@
+{
+  // Simple KooL Waybar Configuration
+  // VM-optimized and simplified version
+  
+  "layer": "top",
+  "position": "top",
+  "height": 35,
+  "spacing": 4,
+  "margin-top": 8,
+  "margin-left": 8,
+  "margin-right": 8,
+  
+  // Left modules
+  "modules-left": [
+    "custom/os",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  
+  // Center modules  
+  "modules-center": [
+    "clock"
+  ],
+  
+  // Right modules
+  "modules-right": [
+    "tray",
+    "network",
+    "pulseaudio",
+    "battery",
+    "custom/power"
+  ],
+
+  // Module configurations
+  "custom/os": {
+    "format": " ",
+    "tooltip-format": "Simple KooL Hyprland",
+    "on-click": "rofi -show drun -config ~/.config/hypr/rofi/config.rasi"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "1",
+      "2": "2", 
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10"
+    },
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    },
+    "on-click": "activate",
+    "all-outputs": false,
+    "active-only": false
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 50,
+    "separate-outputs": true
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%A, %B %d, %Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    }
+  },
+
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": "⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "on-click-right": "nm-connection-editor"
+  },
+
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{icon} {volume}%",
+    "format-muted": " Muted",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+
+  "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "tooltip-format": "{timeTo}, {capacity}%"
+  },
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8
+  },
+
+  "custom/power": {
+    "format": "",
+    "tooltip": "Power Menu",
+    "on-click": "wlogout",
+    "on-click-right": "hyprlock"
+  }
+}

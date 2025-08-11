@@ -20,15 +20,21 @@ From the main Arch-Hyprland directory:
 
 ## ⚡ Key Features
 
+**Complete Desktop Environment:**
+- **Waybar** - Beautiful status bar with system tray, network, volume, battery
+- **Rofi** - Modern application launcher with search and file browsing
+- **VM Auto-scaling** - Automatically detects VMware/VirtualBox and adjusts display scaling
+
 **Tiling-First Approach:**
 - Smart tiling for all main applications
 - Only utilities (volume control, network manager) float
 - Advanced tiling keybindings for power users
 
 **VM Optimizations:**
-- Environment variables for software rendering
-- Optimized animations and effects
-- Lightweight Foot terminal instead of GPU-heavy alternatives
+- Auto-detects VMware, VirtualBox, UTM, Parallels, and QEMU/KVM
+- Automatically applies optimal display scaling (1.25x for 1080p, 1.5x for 1440p, etc.)
+- Environment variables for software rendering and cursor compatibility
+- Optimized animations and effects for better VM performance
 
 **Workspace Organization:**
 - Workspace 1: Terminals (foot)
@@ -42,7 +48,8 @@ From the main Arch-Hyprland directory:
 |---|---|
 | `Super + Return` | Open terminal (foot) |
 | `Super + B` | Open browser (firefox) |
-| `Super + D` | Application launcher |
+| `Super + D` | Application launcher (rofi) |
+| `Super + R` | Run command (rofi) |
 | `Super + Q` | Close window |
 | `Super + J` | Toggle split direction |
 | `Super + V` | Toggle floating/tiled |
@@ -52,6 +59,46 @@ From the main Arch-Hyprland directory:
 | `Super + 1-9` | Switch workspaces |
 | `Super + Shift + 1-9` | Move window to workspace |
 | `Super + Grave` | Toggle special workspace |
+
+## 🧩 Included Components
+
+### Waybar Status Bar
+- **Location**: Top of screen with rounded corners
+- **Left**: OS logo (app launcher), workspaces, window title
+- **Center**: Clock with calendar popup
+- **Right**: System tray, network, volume, battery, power menu
+- **Styling**: Catppuccin Mocha theme with VM optimizations
+
+**Waybar Interactions:**
+- Click OS logo → Launch rofi
+- Click volume → Open pavucontrol
+- Click power → Open wlogout (logout menu)
+- Right-click network → Network settings
+
+### Rofi Application Launcher  
+- **Style**: Clean, modern with blur effects
+- **Modes**: Apps, Run commands, File browser
+- **Features**: Icon support, search, mouse/keyboard navigation
+- **Theme**: Simple KooL theme matching Hyprland colors
+
+**Rofi Usage:**
+- `Super + D` → App launcher
+- `Super + R` → Run commands
+- Type to search applications
+- Arrow keys or mouse to navigate
+
+### VM Auto-Scaling
+- **Detection**: Automatically identifies VM type on startup
+- **Supported VMs**: VMware, VirtualBox, UTM, Parallels, QEMU/KVM
+- **Scaling**: Resolution-aware scaling (1.25x for 1080p, 1.5x for 1440p, 1.75x for 4K+)
+- **Optimizations**: VM-specific environment variables and cursor fixes
+
+**Manual Rescaling:**
+```bash
+# Regenerate VM configuration
+~/.config/hypr/scripts/vm-scale.sh
+# Then reload: Super + Shift + R
+```
 
 ## 📝 Customization Guide
 
@@ -105,12 +152,35 @@ dwindle {
 no_gaps_when_only = 1    # 1 = no gaps when only one window
 ```
 
+## 📁 File Structure
+
+When installed, the simple config creates this structure:
+
+```
+~/.config/hypr/
+├── hyprland.conf          # Main Hyprland configuration
+├── vm-monitor.conf        # Auto-generated VM scaling config
+├── scripts/
+│   └── vm-scale.sh        # VM detection and scaling script
+├── waybar/
+│   ├── config.jsonc       # Waybar configuration
+│   └── style.css          # Waybar styling (Catppuccin Mocha)
+└── rofi/
+    ├── config.rasi        # Rofi main configuration
+    ├── fonts.rasi         # Font settings
+    └── simple-kool.rasi   # Rofi theme
+```
+
 ## 🔄 Reloading Configuration
 
 After making changes:
 1. **Live reload**: Press `Super + Shift + R`
 2. **Full restart**: Log out and back in
 3. **Test**: Open terminal (`Super + Return`) to verify
+
+**Component-specific reloading:**
+- **Waybar**: `pkill waybar && waybar &`
+- **VM scaling**: Run `~/.config/hypr/scripts/vm-scale.sh` then `Super + Shift + R`
 
 ## 🌐 Advanced Customization
 

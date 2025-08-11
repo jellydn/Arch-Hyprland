@@ -1,0 +1,32 @@
+/* ---- 💫 Simple KooL Rofi Config 💫 ---- */
+/* VM-optimized and simplified launcher */
+
+/* ---- Global Configuration ---- */
+@import "~/.config/rofi/fonts.rasi"
+
+configuration {
+    modi: "drun,run,filebrowser";
+    show-icons: true;
+    icon-theme: "Papirus";
+    terminal: "foot";
+    drun-display-format: "{name}";
+    window-format: "{w} · {c} · {t}";
+    hover-select: true;
+    me-select-entry: "MouseSecondary";
+    me-accept-entry: "MousePrimary";
+    
+    display-drun: "  apps";
+    display-run: "  term";
+    display-filebrowser: "  files";
+    
+    /* VM Performance Optimizations */
+    lazy-grab: true;
+    parse-hosts: false;
+    parse-known-hosts: false;
+    disable-history: false;
+    hide-scrollbar: true;
+    sidebar-mode: false;
+}
+
+/* Import main theme */
+@theme "simple-kool"
