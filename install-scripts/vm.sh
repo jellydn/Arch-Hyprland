@@ -104,60 +104,47 @@ printf "\n%s - Installing ${SKY_BLUE}VM optimization packages${RESET} .... \n" "
 VM_TYPE=$(detect_vm_type)
 echo "${INFO} Detected VM environment: ${VM_TYPE}" | tee -a "$LOG"
 
-# Install common VM packages
-for VM_PKG in "${vm_pkg[@]}"; do
-  install_package "$VM_PKG" "$LOG"
-done 
+# Install VM-specific packages only (don't install VMware packages on other VMs)
+if [[ "$VM_TYPE" == "vmware" ]]; then
+    echo "${INFO} Installing VMware packages..." | tee -a "$LOG"
+    for VM_PKG in "${vm_pkg[@]}"; do
+        install_package "$VM_PKG" "$LOG"
+    done
+elif [[ "$VM_TYPE" == "virtualbox" ]]; then
+    echo "${INFO} Installing VirtualBox packages..." | tee -a "$LOG"
+    install_package "virtualbox-guest-utils" "$LOG"
+    install_package "mesa" "$LOG"
+elif [[ "$VM_TYPE" == "utm" || "$VM_TYPE" == "qemu_kvm" ]]; then
+    echo "${INFO} Installing QEMU/UTM packages..." | tee -a "$LOG"
+    install_package "spice-vdagent" "$LOG" 
+    install_package "mesa" "$LOG"
+else
+    echo "${INFO} Installing generic VM packages..." | tee -a "$LOG"
+    install_package "mesa" "$LOG"
+fi 
 
-# Install VM-specific packages based on detected type
+# Set VM-specific environment variables
+echo "${INFO} Configuring ${VM_TYPE}-specific optimizations..." | tee -a "$LOG"
 case "$VM_TYPE" in
-    "vmware")
-        echo "${INFO} Installing VMware-specific optimizations (Fusion/Workstation/ESXi)..." | tee -a "$LOG"
-        # VMware tools are already included in open-vm-tools
-        # Additional VMware-specific optimizations
+    "vmware"|"parallels")
         echo "WLR_NO_HARDWARE_CURSORS=1" >> /tmp/vm_env_vars 2>/dev/null || true
         ;;
-    "utm")
-        echo "${INFO} Installing UTM-specific optimizations (Apple Silicon/Intel)..." | tee -a "$LOG"
-        install_package "spice-vdagent" "$LOG"
-        # UTM uses QEMU backend, so similar optimizations apply
+    "utm"|"qemu_kvm")
+        echo "WLR_NO_HARDWARE_CURSORS=1" >> /tmp/vm_env_vars 2>/dev/null || true
         # Special optimizations for Apple Silicon
-        local arch=$(uname -m)
-        if [[ "$arch" == "aarch64" ]] || [[ "$arch" == "arm64" ]]; then
+        if [[ "$(uname -m)" == "aarch64" ]] || [[ "$(uname -m)" == "arm64" ]]; then
             echo "${INFO} Applying ARM64/Apple Silicon optimizations..." | tee -a "$LOG"
             echo "WLR_RENDERER_ALLOW_SOFTWARE=1" >> /tmp/vm_env_vars 2>/dev/null || true
         fi
         ;;
     "virtualbox")
-        echo "${INFO} Installing VirtualBox-specific optimizations..." | tee -a "$LOG"
-        install_package "virtualbox-guest-utils" "$LOG"
-        ;;
-    "parallels")
-        echo "${INFO} Installing Parallels-specific optimizations (macOS)..." | tee -a "$LOG"
-        # Parallels Tools are usually pre-installed on modern versions
-        # Apply similar optimizations to VMware
         echo "WLR_NO_HARDWARE_CURSORS=1" >> /tmp/vm_env_vars 2>/dev/null || true
-        ;;
-    "qemu_kvm")
-        echo "${INFO} Installing QEMU/KVM-specific optimizations..." | tee -a "$LOG"
-        install_package "spice-vdagent" "$LOG"
-        ;;
-    "hyperv")
-        echo "${INFO} Installing Hyper-V-specific optimizations..." | tee -a "$LOG"
-        # Hyper-V integration services
-        install_package "hyperv" "$LOG" 2>/dev/null || echo "${WARN} Hyper-V packages not available in AUR" | tee -a "$LOG"
-        ;;
-    "xen")
-        echo "${INFO} Installing Xen-specific optimizations..." | tee -a "$LOG"
-        install_package "xen" "$LOG" 2>/dev/null || echo "${WARN} Xen packages not available" | tee -a "$LOG"
+        echo "LIBGL_ALWAYS_SOFTWARE=1" >> /tmp/vm_env_vars 2>/dev/null || true
         ;;
     "container")
-        echo "${INFO} Container environment detected - applying minimal optimizations..." | tee -a "$LOG"
-        # Skip graphics packages for containers
         echo "WLR_RENDERER_ALLOW_SOFTWARE=1" >> /tmp/vm_env_vars 2>/dev/null || true
         ;;
     *)
-        echo "${INFO} Generic/unknown VM detected, applying common optimizations..." | tee -a "$LOG"
         echo "WLR_NO_HARDWARE_CURSORS=1" >> /tmp/vm_env_vars 2>/dev/null || true
         ;;
 esac
@@ -217,15 +204,14 @@ fi
 # Add VM-specific display and architecture optimizations
 cat >> "$HOME/.config/hypr/vm-configs/vm-optimizations.conf" << EOF
 
-# VM display settings - adjust based on common VM screen sizes
-monitor = Virtual-1, preferred, 0x0, 1
+# VM display settings - use auto-detection
 monitor = ,preferred,auto,1
 
 # Architecture-specific optimizations
 EOF
 
 # Add architecture-specific optimizations
-local arch=$(uname -m)
+arch=$(uname -m)
 case "$arch" in
     "aarch64"|"arm64")
         cat >> "$HOME/.config/hypr/vm-configs/vm-optimizations.conf" << 'EOF'
@@ -264,9 +250,13 @@ EOF
 case "$VM_TYPE" in
     "utm"|"parallels")
         cat >> "$HOME/.config/hypr/vm-configs/vm-optimizations.conf" << 'EOF'
-# UTM/Parallels optimizations
-windowrulev2 = noblur,class:.*
-windowrulev2 = noshadow,class:.*
+# UTM/Parallels optimizations  
+decoration {
+    blur {
+        enabled = false
+    }
+    drop_shadow = false
+}
 env = LIBGL_ALWAYS_SOFTWARE,1
 EOF
         ;;
@@ -291,6 +281,20 @@ EOF
 esac
 
 echo "${INFO} VM optimizations applied to ~/.config/hypr/vm-configs/vm-optimizations.conf" | tee -a "$LOG"
+
+# Add source line to main hyprland.conf if it doesn't exist
+if [[ -f "$HOME/.config/hypr/hyprland.conf" ]]; then
+    if ! grep -q "vm-configs/vm-optimizations.conf" "$HOME/.config/hypr/hyprland.conf"; then
+        echo "${INFO} Adding VM config source to hyprland.conf..." | tee -a "$LOG"
+        echo "" >> "$HOME/.config/hypr/hyprland.conf"
+        echo "# VM optimizations (auto-generated)" >> "$HOME/.config/hypr/hyprland.conf"
+        echo "source = ~/.config/hypr/vm-configs/vm-optimizations.conf" >> "$HOME/.config/hypr/hyprland.conf"
+    else
+        echo "${INFO} VM config already sourced in hyprland.conf" | tee -a "$LOG"
+    fi
+else
+    echo "${WARN} hyprland.conf not found, VM config not sourced automatically" | tee -a "$LOG"
+fi
 
 # Enable VM services
 if systemctl list-unit-files | grep -q "vmtoolsd.service"; then
@@ -472,5 +476,12 @@ EOF
 
 echo "${OK} VM optimization installation completed!" | tee -a "$LOG"
 echo "${INFO} VM tips and optimizations saved to ~/.config/hypr/vm-configs/" | tee -a "$LOG"
+
+# Check for simple-config integration
+if [[ -f "$HOME/.config/hypr/scripts/vm-scale.sh" ]]; then
+    echo "${NOTE} Simple KooL config detected with auto-scaling." | tee -a "$LOG"
+    echo "${NOTE} The simple-config VM scaling may override some settings here." | tee -a "$LOG"
+    echo "${NOTE} Both configs will work together for optimal VM performance." | tee -a "$LOG"
+fi
 
 printf "\n%.0s" {1..2}
