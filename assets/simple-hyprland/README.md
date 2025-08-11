@@ -24,6 +24,7 @@ From the main Arch-Hyprland directory:
 - **Waybar** - Enhanced status bar with date/time, detailed network info, volume control, battery
 - **Rofi** - Modern application launcher with search and file browsing
 - **Wlogout** - Elegant power menu with lock, logout, shutdown, reboot, suspend
+- **Foot Terminal** - Lightweight, fast terminal with Catppuccin Mocha theme and VM optimizations
 - **Which-Key** - Interactive keybinding discovery system like Emacs/Vim which-key
 - **VM Auto-scaling** - Automatically detects VMware/VirtualBox and adjusts display scaling
 

@@ -27,6 +27,7 @@ mkdir -p "$HOME/.config/hyprland/rofi"
 mkdir -p "$HOME/.config/hyprland/scripts"
 mkdir -p "$HOME/.config/wlogout"
 mkdir -p "$HOME/.config/swww"
+mkdir -p "$HOME/.config/foot"
 
 # Copy simple configuration files
 if [ -d "assets/simple-hyprland" ]; then
@@ -50,6 +51,10 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "${INFO} Installing Wlogout configuration..." 2>&1 | tee -a "$LOG"
   cp "assets/simple-hyprland/wlogout/layout" "$HOME/.config/wlogout/"
   cp "assets/simple-hyprland/wlogout/style.css" "$HOME/.config/wlogout/"
+  
+  # Copy Foot terminal configuration
+  echo "${INFO} Installing Foot terminal configuration..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/foot.ini" "$HOME/.config/foot/"
   
   # Copy VM auto-scaling script
   echo "${INFO} Installing VM auto-scaling features..." 2>&1 | tee -a "$LOG"
@@ -103,7 +108,8 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  - 🔧 VM auto-scaling (detects VMware, VirtualBox, UTM, Parallels)" 2>&1 | tee -a "$LOG"
   echo "  - ⚡ Embraces Hyprland's tiling power with smart workspace organization" 2>&1 | tee -a "$LOG"
   echo "  - 🎨 KooL styling with Catppuccin Mocha colors" 2>&1 | tee -a "$LOG"
-  echo "  - 🦶 VM-optimized (Foot terminal, optimized animations)" 2>&1 | tee -a "$LOG"
+  echo "  - 🦶 Foot terminal with VM-optimized configuration" 2>&1 | tee -a "$LOG"
+  echo "  - ⚡ VM-optimized animations and performance" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "${NOTE} Essential key bindings:" 2>&1 | tee -a "$LOG"
   echo "  Super+Return       : Open terminal (current)" 2>&1 | tee -a "$LOG"
