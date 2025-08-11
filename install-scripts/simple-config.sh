@@ -23,6 +23,7 @@ printf "\n%s - Installing ${SKY_BLUE}Simple Tiling Hyprland Configuration${RESET
 # Create necessary directories
 echo "Creating Hyprland configuration directories..." 2>&1 | tee -a "$LOG"
 mkdir -p "$HOME/.config/hyprland/waybar"
+mkdir -p "$HOME/.config/waybar"
 mkdir -p "$HOME/.config/hyprland/rofi"
 mkdir -p "$HOME/.config/hyprland/scripts"
 mkdir -p "$HOME/.config/wlogout"
@@ -38,6 +39,9 @@ if [ -d "assets/simple-hyprland" ]; then
   
   # Copy Waybar config and styles
   echo "${INFO} Installing Waybar configuration..." 2>&1 | tee -a "$LOG"
+  cp "assets/simple-hyprland/waybar/config.jsonc" "$HOME/.config/waybar/"
+  cp "assets/simple-hyprland/waybar/style.css" "$HOME/.config/waybar/"
+  # Also copy to hyprland directory for backup
   cp "assets/simple-hyprland/waybar/config.jsonc" "$HOME/.config/hyprland/waybar/"
   cp "assets/simple-hyprland/waybar/style.css" "$HOME/.config/hyprland/waybar/"
   
