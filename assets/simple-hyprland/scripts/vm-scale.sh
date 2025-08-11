@@ -3,7 +3,7 @@
 # Detects VM environment and sets appropriate display scaling
 
 # Create config directory if it doesn't exist
-mkdir -p ~/.config/hypr
+mkdir -p ~/.config/hyprland
 
 # Function to detect VM type (based on install-scripts/vm.sh)
 detect_vm_type() {
@@ -159,53 +159,53 @@ determine_scale() {
 main() {
     local vm_type resolution scale
     
-    echo "# VM Auto-scaling Configuration" > ~/.config/hypr/vm-monitor.conf
-    echo "# Generated on $(date)" >> ~/.config/hypr/vm-monitor.conf
-    echo "" >> ~/.config/hypr/vm-monitor.conf
+    echo "# VM Auto-scaling Configuration" > ~/.config/hyprland/vm-monitor.conf
+    echo "# Generated on $(date)" >> ~/.config/hyprland/vm-monitor.conf
+    echo "" >> ~/.config/hyprland/vm-monitor.conf
     
     # Detect VM type
     vm_type=$(detect_vm_type)
-    echo "# Detected VM type: $vm_type" >> ~/.config/hypr/vm-monitor.conf
+    echo "# Detected VM type: $vm_type" >> ~/.config/hyprland/vm-monitor.conf
     
     # Get current resolution (may take a moment for Hyprland to initialize)
     sleep 2
     resolution=$(get_resolution)
-    echo "# Detected resolution: $resolution" >> ~/.config/hypr/vm-monitor.conf
+    echo "# Detected resolution: $resolution" >> ~/.config/hyprland/vm-monitor.conf
     
     # Determine optimal scale
     scale=$(determine_scale "$vm_type" "$resolution")
-    echo "# Calculated scale: $scale" >> ~/.config/hypr/vm-monitor.conf
-    echo "" >> ~/.config/hypr/vm-monitor.conf
+    echo "# Calculated scale: $scale" >> ~/.config/hyprland/vm-monitor.conf
+    echo "" >> ~/.config/hyprland/vm-monitor.conf
     
     # Generate monitor configuration
-    echo "# Auto-generated monitor configuration" >> ~/.config/hypr/vm-monitor.conf
+    echo "# Auto-generated monitor configuration" >> ~/.config/hyprland/vm-monitor.conf
     
     if [[ "$vm_type" != "unknown" ]]; then
-        echo "monitor=,preferred,auto,$scale" >> ~/.config/hypr/vm-monitor.conf
+        echo "monitor=,1920x1080,auto,$scale" >> ~/.config/hyprland/vm-monitor.conf
     else
         # Fallback for non-VM or undetected systems
-        echo "monitor=,preferred,auto,1" >> ~/.config/hypr/vm-monitor.conf
+        echo "monitor=,1920x1080,auto,1" >> ~/.config/hyprland/vm-monitor.conf
     fi
     
     # Add VM-specific optimizations
-    echo "" >> ~/.config/hypr/vm-monitor.conf
-    echo "# VM-specific environment variables" >> ~/.config/hypr/vm-monitor.conf
+    echo "" >> ~/.config/hyprland/vm-monitor.conf
+    echo "# VM-specific environment variables" >> ~/.config/hyprland/vm-monitor.conf
     
     case "$vm_type" in
         "vmware"|"parallels")
-            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hypr/vm-monitor.conf
+            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hyprland/vm-monitor.conf
             ;;
         "utm")
-            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hypr/vm-monitor.conf
-            echo "env = WLR_RENDERER_ALLOW_SOFTWARE,1" >> ~/.config/hypr/vm-monitor.conf
+            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hyprland/vm-monitor.conf
+            echo "env = WLR_RENDERER_ALLOW_SOFTWARE,1" >> ~/.config/hyprland/vm-monitor.conf
             ;;
         "virtualbox")
-            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hypr/vm-monitor.conf
-            echo "env = LIBGL_ALWAYS_SOFTWARE,1" >> ~/.config/hypr/vm-monitor.conf
+            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hyprland/vm-monitor.conf
+            echo "env = LIBGL_ALWAYS_SOFTWARE,1" >> ~/.config/hyprland/vm-monitor.conf
             ;;
         "qemu_kvm"|"generic_vm")
-            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hypr/vm-monitor.conf
-            echo "env = WLR_RENDERER_ALLOW_SOFTWARE,1" >> ~/.config/hypr/vm-monitor.conf
+            echo "env = WLR_NO_HARDWARE_CURSORS,1" >> ~/.config/hyprland/vm-monitor.conf
+            echo "env = WLR_RENDERER_ALLOW_SOFTWARE,1" >> ~/.config/hyprland/vm-monitor.conf
             ;;
     esac
     
@@ -214,7 +214,7 @@ main() {
     echo "  VM Type: $vm_type"
     echo "  Resolution: $resolution"
     echo "  Scale Factor: $scale"
-    echo "  Config: ~/.config/hypr/vm-monitor.conf"
+    echo "  Config: ~/.config/hyprland/vm-monitor.conf"
 }
 
 # Run main function

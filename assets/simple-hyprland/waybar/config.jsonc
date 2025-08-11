@@ -38,7 +38,7 @@
   "custom/os": {
     "format": " ",
     "tooltip-format": "Simple KooL Hyprland",
-    "on-click": "rofi -show drun -config ~/.config/hypr/rofi/config.rasi"
+    "on-click": "rofi -show drun -config ~/.config/hyprland/rofi/config.rasi"
   },
 
   "hyprland/workspaces": {
@@ -101,7 +101,7 @@
 
   "custom/workspace-name": {
     "format": "{}",
-    "exec": "~/.config/hypr/scripts/workspace-name.sh",
+    "exec": "~/.config/hyprland/scripts/workspace-name.sh",
     "return-type": "json",
     "interval": 1,
     "tooltip": true
@@ -110,7 +110,7 @@
   "custom/which-key": {
     "format": "󰌌",
     "tooltip-format": "<span color='#cba6f7'><b>Hyprland Which-Key</b></span>\nClick to show keybinding help\n\n<span color='#a6e3a1'>Super + /</span> - Show keybinding categories\n<span color='#89b4fa'>Interactive help system</span>",
-    "on-click": "~/.config/hypr/scripts/hyprland-which-key.sh"
+    "on-click": "~/.config/hyprland/scripts/hyprland-which-key.sh"
   },
 
   "network": {

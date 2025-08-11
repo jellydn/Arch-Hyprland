@@ -22,9 +22,9 @@ printf "\n%s - Installing ${SKY_BLUE}Simple Tiling Hyprland Configuration${RESET
 
 # Create necessary directories
 echo "Creating Hyprland configuration directories..." 2>&1 | tee -a "$LOG"
-mkdir -p "$HOME/.config/hypr/waybar"
-mkdir -p "$HOME/.config/hypr/rofi"
-mkdir -p "$HOME/.config/hypr/scripts"
+mkdir -p "$HOME/.config/hyprland/waybar"
+mkdir -p "$HOME/.config/hyprland/rofi"
+mkdir -p "$HOME/.config/hyprland/scripts"
 mkdir -p "$HOME/.config/wlogout"
 mkdir -p "$HOME/.config/swww"
 
@@ -33,18 +33,18 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "${INFO} Installing Simple KooL Hyprland configuration with complete desktop environment..." 2>&1 | tee -a "$LOG"
   
   # Copy main Hyprland config
-  cp "assets/simple-hyprland/hyprland.conf" "$HOME/.config/hypr/"
+  cp "assets/simple-hyprland/hyprland.conf" "$HOME/.config/hyprland/"
   
   # Copy Waybar config and styles
   echo "${INFO} Installing Waybar configuration..." 2>&1 | tee -a "$LOG"
-  cp "assets/simple-hyprland/waybar/config.jsonc" "$HOME/.config/hypr/waybar/"
-  cp "assets/simple-hyprland/waybar/style.css" "$HOME/.config/hypr/waybar/"
+  cp "assets/simple-hyprland/waybar/config.jsonc" "$HOME/.config/hyprland/waybar/"
+  cp "assets/simple-hyprland/waybar/style.css" "$HOME/.config/hyprland/waybar/"
   
   # Copy Rofi configuration and theme
   echo "${INFO} Installing Rofi configuration..." 2>&1 | tee -a "$LOG"
-  cp "assets/simple-hyprland/rofi/config.rasi" "$HOME/.config/hypr/rofi/"
-  cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/hypr/rofi/"
-  cp "assets/simple-hyprland/rofi/simple-kool.rasi" "$HOME/.config/hypr/rofi/"
+  cp "assets/simple-hyprland/rofi/config.rasi" "$HOME/.config/hyprland/rofi/"
+  cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/hyprland/rofi/"
+  cp "assets/simple-hyprland/rofi/simple-kool.rasi" "$HOME/.config/hyprland/rofi/"
   
   # Copy Wlogout configuration and theme
   echo "${INFO} Installing Wlogout configuration..." 2>&1 | tee -a "$LOG"
@@ -53,24 +53,24 @@ if [ -d "assets/simple-hyprland" ]; then
   
   # Copy VM auto-scaling script
   echo "${INFO} Installing VM auto-scaling features..." 2>&1 | tee -a "$LOG"
-  cp "assets/simple-hyprland/scripts/vm-scale.sh" "$HOME/.config/hypr/scripts/"
-  chmod +x "$HOME/.config/hypr/scripts/vm-scale.sh"
-  cp "assets/simple-hyprland/vm-monitor.conf" "$HOME/.config/hypr/"
+  cp "assets/simple-hyprland/scripts/vm-scale.sh" "$HOME/.config/hyprland/scripts/"
+  chmod +x "$HOME/.config/hyprland/scripts/vm-scale.sh"
+  cp "assets/simple-hyprland/vm-monitor.conf" "$HOME/.config/hyprland/"
   
   # Copy which-key helper script
   echo "${INFO} Installing Which-Key helper..." 2>&1 | tee -a "$LOG"
-  cp "assets/simple-hyprland/scripts/hyprland-which-key.sh" "$HOME/.config/hypr/scripts/"
-  chmod +x "$HOME/.config/hypr/scripts/hyprland-which-key.sh"
+  cp "assets/simple-hyprland/scripts/hyprland-which-key.sh" "$HOME/.config/hyprland/scripts/"
+  chmod +x "$HOME/.config/hyprland/scripts/hyprland-which-key.sh"
   
   # Copy terminal chooser script
   echo "${INFO} Installing Terminal chooser..." 2>&1 | tee -a "$LOG"
-  cp "assets/simple-hyprland/scripts/terminal-chooser.sh" "$HOME/.config/hypr/scripts/"
-  chmod +x "$HOME/.config/hypr/scripts/terminal-chooser.sh"
+  cp "assets/simple-hyprland/scripts/terminal-chooser.sh" "$HOME/.config/hyprland/scripts/"
+  chmod +x "$HOME/.config/hyprland/scripts/terminal-chooser.sh"
   
   # Copy workspace name script
   echo "${INFO} Installing Workspace navigation..." 2>&1 | tee -a "$LOG"
-  cp "assets/simple-hyprland/scripts/workspace-name.sh" "$HOME/.config/hypr/scripts/"
-  chmod +x "$HOME/.config/hypr/scripts/workspace-name.sh"
+  cp "assets/simple-hyprland/scripts/workspace-name.sh" "$HOME/.config/hyprland/scripts/"
+  chmod +x "$HOME/.config/hyprland/scripts/workspace-name.sh"
   
   # Create a simple wallpaper directory and default wallpaper
   if [ ! -f "$HOME/.config/swww/wall.png" ]; then

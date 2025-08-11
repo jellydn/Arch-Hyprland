@@ -17,7 +17,7 @@ show_main_menu() {
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${PRIMARY}; }" \
         -theme-str "listview { lines: 12; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         -format 'i:s' \
         <<< "0:<span color='${SUCCESS}'>󰀻 Applications</span> - App launcher, terminal, browser, file manager
@@ -35,7 +35,7 @@ show_applications() {
     rofi -dmenu -i -p "󰀻 Applications" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${SUCCESS}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${FOREGROUND}'><b>Super + Return</b></span>      Open terminal (current)
 <span color='${FOREGROUND}'><b>Super + T</b></span>            Open terminal (current)
@@ -56,7 +56,7 @@ show_window_management() {
     rofi -dmenu -i -p "󱂬 Window Management" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${PRIMARY}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${FOREGROUND}'><b>Super + Q</b></span>                Close active window
 <span color='${FOREGROUND}'><b>Super + V</b></span>                Toggle floating/tiled
@@ -83,7 +83,7 @@ show_workspaces() {
     rofi -dmenu -i -p "󰧨 Workspaces" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${SECONDARY}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${SUCCESS}'>󰖯 Switch Workspaces:</span>
 <span color='${FOREGROUND}'><b>Super + 1-9</b></span>            Switch to workspace 1-9
@@ -110,7 +110,7 @@ show_tiling() {
     rofi -dmenu -i -p "󰍉 Tiling Controls" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${WARNING}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${SUCCESS}'>󰜸 Split Controls:</span>
 <span color='${FOREGROUND}'><b>Super + J</b></span>              Toggle split direction
@@ -138,7 +138,7 @@ show_system() {
     rofi -dmenu -i -p "󰐥 System" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${ERROR}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${SUCCESS}'>🔒 Session Control:</span>
 <span color='${FOREGROUND}'><b>Super + L</b></span>              Lock screen (hyprlock)
@@ -167,7 +167,7 @@ show_media() {
     rofi -dmenu -i -p "󰌌 Media & Volume" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${SUCCESS}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${SUCCESS}'>🔊 Volume Control:</span>
 <span color='${FOREGROUND}'><b>Volume Up</b></span>             Increase volume +5%
@@ -195,7 +195,7 @@ show_screenshots() {
     rofi -dmenu -i -p "󰹑 Screenshots" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${PRIMARY}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${SUCCESS}'>📸 Screenshot Modes:</span>
 <span color='${FOREGROUND}'><b>Print Screen</b></span>           Full screen to clipboard
@@ -218,7 +218,7 @@ show_special() {
     rofi -dmenu -i -p "󰘳 Special Features" \
         -theme-str "window { background-color: ${BACKGROUND}; }" \
         -theme-str "textbox { text-color: ${SECONDARY}; }" \
-        -config ~/.config/hypr/rofi/config.rasi \
+        -config ~/.config/hyprland/rofi/config.rasi \
         -markup-rows \
         <<< "<span color='${SUCCESS}'>🔧 VM Features:</span>
 - Auto-scaling for VMware/VirtualBox/UTM
@@ -233,14 +233,14 @@ show_special() {
 - Fast startup and reload
 
 <span color='${WARNING}'>🎨 Customization:</span>
-- Edit ~/.config/hypr/hyprland.conf
+- Edit ~/.config/hyprland/hyprland.conf
 - Catppuccin Mocha color scheme
 - VM-friendly emoji icons in wlogout
 - Modular configuration structure
 
 <span color='${SECONDARY}'>🆘 Help:</span>
 <span color='${FOREGROUND}'><b>Super + ?</b></span>              Show this which-key menu
-- All configs in ~/.config/hypr/
+- All configs in ~/.config/hyprland/
 - Reload with Super + Shift + R
 - Logs in ~/Install-Logs/"
 }

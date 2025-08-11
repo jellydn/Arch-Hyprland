@@ -46,7 +46,7 @@ done
 
 # Show rofi menu
 chosen=$(echo -e "$rofi_options" | rofi -dmenu -i -p "Choose Terminal" \
-    -theme ~/.config/hypr/rofi/simple-kool.rasi \
+    -theme ~/.config/hyprland/rofi/simple-kool.rasi \
     -markup-rows \
     -format "s")
 
@@ -61,7 +61,7 @@ if [ -n "$chosen" ]; then
     
     if [ -n "$selected_terminal" ]; then
         # Update the hyprland config
-        config_file="$HOME/.config/hypr/hyprland.conf"
+        config_file="$HOME/.config/hyprland/hyprland.conf"
         if [ -f "$config_file" ]; then
             # Create backup
             cp "$config_file" "$config_file.bak.$(date +%s)"
