@@ -66,6 +66,7 @@ abbr -a ... 'cd ../..'
 abbr -a .... 'cd ../../..'
 abbr -a cls 'clear'
 abbr -a h 'history'
+abbr -a sysinfo 'fastfetch'
 
 # Package management shortcuts
 abbr -a pacup 'sudo pacman -Syu'
@@ -133,13 +134,8 @@ function mkcd
     mkdir -p $argv[1] && cd $argv[1]
 end
 
-# Welcome message
-function fish_greeting
-    echo "Welcome to Fish Shell!"
-    echo "KooL Arch-Hyprland Configuration"
-    echo ""
-    fastfetch
-end
+# Disable default greeting (users can run fastfetch manually if desired)
+set -g fish_greeting
 
 # Initialize any additional configurations
 if test -f ~/.config/fish/local.fish
