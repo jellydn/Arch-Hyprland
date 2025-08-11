@@ -255,7 +255,9 @@ tooltip label {
 }
 
 /* Animation optimizations for VM performance */
-* {
+.modules-left *,
+.modules-center *,
+.modules-right * {
   transition-duration: 0.2s !important;
   animation-duration: 0.2s !important;
 }
