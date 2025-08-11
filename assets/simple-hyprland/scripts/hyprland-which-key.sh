@@ -145,6 +145,7 @@ show_system() {
 <span color='${FOREGROUND}'><b>Super + Shift + Q</b></span>      Power menu (wlogout)
 <span color='${FOREGROUND}'><b>Super + M</b></span>              Exit Hyprland
 <span color='${FOREGROUND}'><b>Super + Shift + R</b></span>      Reload Hyprland config
+<span color='${SUCCESS}'><b>Super + Shift + W</b></span>      Restart waybar (if missing)
 
 <span color='${WARNING}'>🚪 Power Menu Actions:</span>
 - <b>L</b> - Lock screen
