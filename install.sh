@@ -1,5 +1,5 @@
 #!/bin/bash
-# https://github.com/JaKooLit
+# https://github.com/jellydn/Arch-Hyprland
 
 clear
 
@@ -73,20 +73,24 @@ echo -e "\e[35m
 \e[0m"
 printf "\n%.0s" {1..1} 
 
-# Welcome message using whiptail (for displaying information)
-whiptail --title "KooL Arch-Hyprland (2025) Install Script" \
-    --msgbox "Welcome to KooL Arch-Hyprland (2025) Install Script!!!\n\n\
+# Welcome message using whiptail (for displaying information) - skip in auto mode
+if [[ "$auto_mode" != "ON" ]]; then
+    whiptail --title "KooL Arch-Hyprland (2025) Install Script" \
+        --msgbox "Welcome to KooL Arch-Hyprland (2025) Install Script!!!\n\n\
 ATTENTION: Run a full system update and Reboot first !!! (Highly Recommended)\n\n\
 NOTE: If you are installing on a VM, ensure to enable 3D acceleration else Hyprland may NOT start!" \
-    15 80
+        15 80
 
-# Ask if the user wants to proceed
-if ! whiptail --title "Proceed with Installation?" \
-    --yesno "Would you like to proceed?" 7 50; then
-    echo -e "\n"
-    echo "❌ ${INFO} You 🫵 chose ${YELLOW}NOT${RESET} to proceed. ${YELLOW}Exiting...${RESET}" | tee -a "$LOG"
-    echo -e "\n" 
-    exit 1
+    # Ask if the user wants to proceed
+    if ! whiptail --title "Proceed with Installation?" \
+        --yesno "Would you like to proceed?" 7 50; then
+        echo -e "\n"
+        echo "❌ ${INFO} You 🫵 chose ${YELLOW}NOT${RESET} to proceed. ${YELLOW}Exiting...${RESET}" | tee -a "$LOG"
+        echo -e "\n" 
+        exit 1
+    fi
+else
+    echo "${INFO} Running in auto mode, skipping interactive prompts..." | tee -a "$LOG"
 fi
 
 echo "👌 ${OK} 🇵🇭 ${MAGENTA}KooL..${RESET} ${SKY_BLUE}lets continue with the installation...${RESET}" | tee -a "$LOG"
@@ -130,6 +134,9 @@ sddm="OFF"
 sddm_theme="OFF"
 xdph="OFF"
 zsh="OFF"
+fish="OFF"
+kitty="OFF"
+ghostty="OFF"
 pokemon="OFF"
 rog="OFF"
 dots="OFF"
@@ -147,10 +154,137 @@ load_preset() {
     fi
 }
 
-# Check if --preset argument is passed
-if [[ "$1" == "--preset" && -n "$2" ]]; then
-    load_preset "$2"
-fi
+# Function to show help
+show_help() {
+    echo "Usage: $0 [OPTIONS]"
+    echo "KooL Arch-Hyprland Installation Script"
+    echo ""
+    echo "OPTIONS:"
+    echo "  --help                 Show this help message"
+    echo "  --preset <file>        Load preset configuration from file"
+    echo "  --auto                 Skip whiptail menus and use current settings"
+    echo "  --gtk-themes           Enable GTK themes installation"
+    echo "  --bluetooth            Enable Bluetooth configuration" 
+    echo "  --thunar              Enable Thunar file manager installation"
+    echo "  --quickshell          Enable QuickShell installation"
+    echo "  --sddm                Enable SDDM login manager installation"
+    echo "  --sddm-theme          Enable SDDM theme installation"
+    echo "  --xdph                Enable XDG Desktop Portal Hyprland"
+    echo "  --zsh                 Enable zsh with Oh-My-Zsh installation"
+    echo "  --fish                Enable Fish shell installation"
+    echo "  --kitty               Enable Kitty terminal installation"
+    echo "  --ghostty             Enable Ghostty terminal installation" 
+    echo "  --pokemon             Enable Pokemon color scripts"
+    echo "  --rog                 Enable ROG laptop packages"
+    echo "  --dots                Enable KooL Hyprland dotfiles installation"
+    echo "  --nvidia              Enable NVIDIA GPU configuration"
+    echo "  --nouveau             Enable Nouveau driver blacklisting"
+    echo "  --input-group         Add user to input group"
+    echo ""
+    echo "Examples:"
+    echo "  $0 --auto --dots --zsh --kitty"
+    echo "  $0 --preset my-config.sh"
+    echo "  $0 --help"
+}
+
+# Initialize auto mode flag
+auto_mode="OFF"
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --help)
+            show_help
+            exit 0
+            ;;
+        --preset)
+            if [[ -n "$2" ]]; then
+                load_preset "$2"
+                shift 2
+            else
+                echo "${ERROR} --preset requires a filename argument"
+                exit 1
+            fi
+            ;;
+        --auto)
+            auto_mode="ON"
+            shift
+            ;;
+        --gtk-themes)
+            gtk_themes="ON"
+            shift
+            ;;
+        --bluetooth)
+            bluetooth="ON"
+            shift
+            ;;
+        --thunar)
+            thunar="ON"
+            shift
+            ;;
+        --quickshell)
+            quickshell="ON"
+            shift
+            ;;
+        --sddm)
+            sddm="ON"
+            shift
+            ;;
+        --sddm-theme)
+            sddm_theme="ON"
+            shift
+            ;;
+        --xdph)
+            xdph="ON"
+            shift
+            ;;
+        --zsh)
+            zsh="ON"
+            shift
+            ;;
+        --fish)
+            fish="ON"
+            shift
+            ;;
+        --kitty)
+            kitty="ON"
+            shift
+            ;;
+        --ghostty)
+            ghostty="ON"
+            shift
+            ;;
+        --pokemon)
+            pokemon="ON"
+            shift
+            ;;
+        --rog)
+            rog="ON"
+            shift
+            ;;
+        --dots)
+            dots="ON"
+            shift
+            ;;
+        --nvidia)
+            nvidia="ON"
+            shift
+            ;;
+        --nouveau)
+            nouveau="ON"
+            shift
+            ;;
+        --input-group)
+            input_group="ON"
+            shift
+            ;;
+        *)
+            echo "${ERROR} Unknown argument: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
 
 # Check if yay or paru is installed
 echo "${INFO} - Checking if yay or paru is installed"
@@ -219,7 +353,11 @@ fi
 nvidia_detected=false
 if lspci | grep -i "nvidia" &> /dev/null; then
     nvidia_detected=true
-    whiptail --title "NVIDIA GPU Detected" --msgbox "NVIDIA GPU detected in your system.\n\nNOTE: The script will install nvidia-dkms, nvidia-utils, and nvidia-settings if you chose to configure." 12 60
+    if [[ "$auto_mode" != "ON" ]]; then
+        whiptail --title "NVIDIA GPU Detected" --msgbox "NVIDIA GPU detected in your system.\n\nNOTE: The script will install nvidia-dkms, nvidia-utils, and nvidia-settings if you chose to configure." 12 60
+    else
+        echo "${INFO} NVIDIA GPU detected. Use --nvidia flag to enable configuration." | tee -a "$LOG"
+    fi
 fi
 
 # Initialize the options array for whiptail checklist
@@ -239,7 +377,11 @@ fi
 input_group_detected=false
 if ! groups "$(whoami)" | grep -q '\binput\b'; then
     input_group_detected=true
-    whiptail --title "Input Group" --msgbox "You are not currently in the input group.\n\nAdding you to the input group might be necessary for the Waybar keyboard-state functionality." 12 60
+    if [[ "$auto_mode" != "ON" ]]; then
+        whiptail --title "Input Group" --msgbox "You are not currently in the input group.\n\nAdding you to the input group might be necessary for the Waybar keyboard-state functionality." 12 60
+    else
+        echo "${INFO} User not in input group. Use --input-group flag to add user." | tee -a "$LOG"
+    fi
 fi
 
 # Add 'input_group' option if necessary
@@ -265,13 +407,48 @@ options_command+=(
     "quickshell" "Install quickshell for Desktop-Like Overview?" "OFF"
     "xdph" "Install XDG-DESKTOP-PORTAL-HYPRLAND (for screen share)?" "OFF"
     "zsh" "Install zsh shell with Oh-My-Zsh?" "OFF"
+    "fish" "Install Fish shell with modern configuration?" "OFF"
+    "kitty" "Install Kitty terminal emulator?" "OFF"
+    "ghostty" "Install Ghostty terminal emulator?" "OFF"
     "pokemon" "Add Pokemon color scripts to your terminal?" "OFF"
     "rog" "Are you installing on Asus ROG laptops?" "OFF"
     "dots" "Download and install pre-configured KooL Hyprland dotfiles?" "OFF"
 )
 
-# Capture the selected options before the while loop starts
-while true; do
+# Handle options selection - skip whiptail in auto mode
+if [[ "$auto_mode" == "ON" ]]; then
+    # Build selected options from command line arguments
+    selected_options=""
+    [[ "$gtk_themes" == "ON" ]] && selected_options+="gtk_themes "
+    [[ "$bluetooth" == "ON" ]] && selected_options+="bluetooth "
+    [[ "$thunar" == "ON" ]] && selected_options+="thunar "
+    [[ "$quickshell" == "ON" ]] && selected_options+="quickshell "
+    [[ "$sddm" == "ON" ]] && selected_options+="sddm "
+    [[ "$sddm_theme" == "ON" ]] && selected_options+="sddm_theme "
+    [[ "$xdph" == "ON" ]] && selected_options+="xdph "
+    [[ "$zsh" == "ON" ]] && selected_options+="zsh "
+    [[ "$fish" == "ON" ]] && selected_options+="fish "
+    [[ "$kitty" == "ON" ]] && selected_options+="kitty "
+    [[ "$ghostty" == "ON" ]] && selected_options+="ghostty "
+    [[ "$pokemon" == "ON" ]] && selected_options+="pokemon "
+    [[ "$rog" == "ON" ]] && selected_options+="rog "
+    [[ "$dots" == "ON" ]] && selected_options+="dots "
+    [[ "$nvidia" == "ON" ]] && selected_options+="nvidia "
+    [[ "$nouveau" == "ON" ]] && selected_options+="nouveau "
+    [[ "$input_group" == "ON" ]] && selected_options+="input_group "
+    
+    # Remove trailing space
+    selected_options=$(echo "$selected_options" | sed 's/ *$//')
+    
+    # Convert to array
+    IFS=' ' read -r -a options <<< "$selected_options"
+    
+    echo "${INFO} Auto mode selected options: ${selected_options}" | tee -a "$LOG"
+    echo "👌 ${OK} Proceeding with ${SKY_BLUE}KooL 🇵🇭 Hyprland Installation...${RESET}" | tee -a "$LOG"
+else
+    # Interactive mode - use whiptail menus
+    # Capture the selected options before the while loop starts
+    while true; do
     selected_options=$("${options_command[@]}" 3>&1 1>&2 2>&3)
 
     # Check if the user pressed Cancel (exit status 1)
@@ -333,7 +510,8 @@ while true; do
 
     echo "👌 ${OK} You confirmed your choices. Proceeding with ${SKY_BLUE}KooL 🇵🇭 Hyprland Installation...${RESET}" | tee -a "$LOG"
     break  
-done
+    done
+fi
 
 printf "\n%.0s" {1..1}
 
@@ -428,6 +606,18 @@ for option in "${options[@]}"; do
         zsh)
             echo "${INFO} Installing ${SKY_BLUE}zsh with Oh-My-Zsh...${RESET}" | tee -a "$LOG"
             execute_script "zsh.sh"
+            ;;
+        fish)
+            echo "${INFO} Installing ${SKY_BLUE}Fish shell with configuration...${RESET}" | tee -a "$LOG"
+            execute_script "fish.sh"
+            ;;
+        kitty)
+            echo "${INFO} Installing ${SKY_BLUE}Kitty terminal emulator...${RESET}" | tee -a "$LOG"
+            execute_script "kitty.sh"
+            ;;
+        ghostty)
+            echo "${INFO} Installing ${SKY_BLUE}Ghostty terminal emulator...${RESET}" | tee -a "$LOG"
+            execute_script "ghostty.sh"
             ;;
         pokemon)
             echo "${INFO} Adding ${SKY_BLUE}Pokemon color scripts to terminal...${RESET}" | tee -a "$LOG"

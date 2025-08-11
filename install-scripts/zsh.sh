@@ -1,5 +1,5 @@
 #!/bin/bash
-# 💫 https://github.com/JaKooLit 💫 #
+# 💫 https://github.com/jellydn/Arch-Hyprland 💫 #
 # zsh and oh my zsh#
 
 zsh_pkg=(

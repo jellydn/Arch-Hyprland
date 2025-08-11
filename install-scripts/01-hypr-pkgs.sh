@@ -23,7 +23,6 @@ hypr_package=(
   imagemagick
   inxi 
   jq
-  ghostty
   kvantum
   libspng
   nano  
