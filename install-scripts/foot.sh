@@ -52,15 +52,12 @@ if command -v foot >/dev/null; then
 [main]
 # Font configuration
 font=monospace:size=10
-# font=JetBrainsMono Nerd Font:size=10
 
 # Terminal size
 initial-window-size-pixels=1024x768
-# initial-window-size-chars=80x24
 
 # Performance optimizations for VMs
 pad=8x8
-resize-delay-ms=100
 
 [mouse]
 hide-when-typing=yes
@@ -92,16 +89,14 @@ bright7=c5c8c6   # bright white
 
 [key-bindings]
 # Common keybindings
-clipboard-copy=Control+Shift+c XF86Copy
-clipboard-paste=Control+Shift+v XF86Paste
+clipboard-copy=Control+Shift+c
+clipboard-paste=Control+Shift+v
 primary-paste=Shift+Insert
 search-start=Control+Shift+r
-font-increase=Control+plus Control+equal Control+KP_Add
-font-decrease=Control+minus Control+KP_Subtract
-font-reset=Control+0 Control+KP_0
+font-increase=Control+plus Control+equal
+font-decrease=Control+minus
+font-reset=Control+0
 spawn-terminal=Control+Shift+n
-minimize=none
-maximize=none
 fullscreen=F11
 
 [search-bindings]
@@ -111,43 +106,28 @@ commit=Return
 find-prev=Control+r
 find-next=Control+s
 cursor-left=Left Control+b
-cursor-left-word=Control+Left Mod1+b
 cursor-right=Right Control+f
-cursor-right-word=Control+Right Mod1+f
 cursor-home=Home Control+a
 cursor-end=End Control+e
 delete-prev=BackSpace
-delete-prev-word=Mod1+BackSpace Control+BackSpace
 delete-next=Delete
-delete-next-word=Mod1+d Control+Delete
-extend-to-word-boundary=Control+w
-extend-to-next-whitespace=Control+Shift+w
-extend-to-line-boundary=Control+Shift+a
 
 [url]
 # URL handling
-launch=xdg-open ${url}
-label-letters=sadfjklewcmpgh
-osc8-underline=url-mode
-protocols=http, https, ftp, ftps, file, gemini, gopher
-uri-characters=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+="'()[]
+launch=xdg-open \${url}
+protocols=http, https, ftp, ftps, file
 
 [scrollback]
 lines=10000
 multiplier=3.0
-indicator-position=relative
-indicator-format=line
 
 [bell]
 urgent=no
 notify=no
 visual=no
-command=
-command-focused=no
 
 [desktop-notifications]
-command=notify-send -a ${app-id} -i ${app-id} ${title} ${body}
-command-action-click=
+command=notify-send -a \${app-id} -i \${app-id} \${title} \${body}
 close-on-exit=yes
 inhibit-when-focused=yes
 EOF

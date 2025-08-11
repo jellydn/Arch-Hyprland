@@ -82,16 +82,10 @@ if command -v zsh >/dev/null; then
   # Check if the current shell is zsh
   current_shell=$(basename "$SHELL")
   if [ "$current_shell" != "zsh" ]; then
-    printf "${NOTE} Changing default shell to ${MAGENTA}zsh${RESET}..."
-    printf "\n%.0s" {1..2}
-
-    # Loop to ensure the chsh command succeeds
-    while ! chsh -s "$(command -v zsh)"; do
-      echo "${ERROR} Authentication failed. Please enter the correct password." 2>&1 | tee -a "$LOG"
-      sleep 1
-    done
-
-    printf "${INFO} Shell changed successfully to ${MAGENTA}zsh${RESET}" 2>&1 | tee -a "$LOG"
+    printf "${NOTE} Zsh shell installed but not set as default.\n"
+    printf "${INFO} To make Zsh your default shell, run: ${CYAN}chsh -s \$(which zsh)${RESET}\n"
+    printf "${INFO} To try Zsh without changing default: ${CYAN}zsh${RESET}\n"
+    printf "${INFO} Both Zsh and Fish are available - choose your preference!\n" 2>&1 | tee -a "$LOG"
   else
     echo "${NOTE} Your shell is already set to ${MAGENTA}zsh${RESET}."
   fi

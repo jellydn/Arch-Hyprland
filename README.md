@@ -244,7 +244,7 @@ chmod +x install.sh
 **What this includes:**
 
 - ✅ KooL Hyprland pre-configured dotfiles
-- ✅ Both shell options (zsh & fish) - switch anytime
+- ✅ Both shell options (zsh & fish) - choose your default after install
 - ✅ Foot terminal (lightweight, VM-friendly) - default choice
 - ✅ Firefox browser (privacy-focused, Wayland-native) - default choice
 - ✅ GTK themes for dark/light mode support
@@ -289,6 +289,12 @@ chmod +x install.sh
 
 ```bash
 ./install.sh --help
+```
+
+**After installation - Choose your default shell:**
+```bash
+# Interactive shell chooser (if you installed both zsh and fish)
+./install-scripts/shell-chooser.sh
 ```
 
 ### 💥 💥 UNINSTALL SCRIPT / Removal of Config Files

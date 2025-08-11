@@ -58,16 +58,10 @@ if command -v fish >/dev/null; then
   # Check if the current shell is fish
   current_shell=$(basename "$SHELL")
   if [ "$current_shell" != "fish" ]; then
-    printf "${NOTE} Changing default shell to ${MAGENTA}fish${RESET}..."
-    printf "\n%.0s" {1..2}
-
-    # Loop to ensure the chsh command succeeds
-    while ! chsh -s "$(command -v fish)"; do
-      echo "${ERROR} Authentication failed. Please enter the correct password." 2>&1 | tee -a "$LOG"
-      sleep 1
-    done
-
-    printf "${INFO} Shell changed successfully to ${MAGENTA}fish${RESET}" 2>&1 | tee -a "$LOG"
+    printf "${NOTE} Fish shell installed but not set as default.\n"
+    printf "${INFO} To make Fish your default shell, run: ${CYAN}chsh -s \$(which fish)${RESET}\n"
+    printf "${INFO} To try Fish without changing default: ${CYAN}fish${RESET}\n"
+    printf "${INFO} Both Zsh and Fish are available - choose your preference!\n" 2>&1 | tee -a "$LOG"
   else
     echo "${NOTE} Your shell is already set to ${MAGENTA}fish${RESET}."
   fi
