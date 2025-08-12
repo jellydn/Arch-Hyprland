@@ -471,7 +471,6 @@ options_command+=(
     "foot" "Install Foot terminal emulator (lightweight, VM-friendly)?" "OFF"
     "firefox" "Install Firefox browser?" "OFF"
     "brave" "Install Brave browser?" "OFF"
-    "vm" "Enable VM optimizations for VMware/VirtualBox/QEMU?" "OFF"
     "pokemon" "Add Pokemon color scripts to your terminal?" "OFF"
     "rog" "Are you installing on Asus ROG laptops?" "OFF"
     "simple_config" "Install Simple KooL Desktop Environment (Waybar+Rofi+VM scaling)?" "OFF"
@@ -701,10 +700,6 @@ for option in "${options[@]}"; do
         brave)
             echo "${INFO} Installing ${SKY_BLUE}Brave browser...${RESET}" | tee -a "$LOG"
             execute_script "brave.sh"
-            ;;
-        vm)
-            echo "${INFO} Installing ${SKY_BLUE}VMware Tools (open-vm-tools)...${RESET}" | tee -a "$LOG"
-            execute_script "vmware-tools.sh"
             ;;
         pokemon)
             echo "${INFO} Adding ${SKY_BLUE}Pokemon color scripts to terminal...${RESET}" | tee -a "$LOG"
