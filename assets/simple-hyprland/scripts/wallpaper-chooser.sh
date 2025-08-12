@@ -61,23 +61,33 @@ fi
 
 # Use rofi for GUI selection if available, otherwise fall back to terminal
 if command -v rofi >/dev/null 2>&1 && [ -n "$WAYLAND_DISPLAY" ]; then
-    # Build rofi options
+    # Build rofi options with cleaner formatting
     rofi_options=""
+    declare -A wallpaper_map
     for j in "${!wallpapers[@]}"; do
-        basename_wallpaper=$(basename "${wallpapers[j]}")
-        rofi_options="$rofi_options$((j+1)). $basename_wallpaper\n"
+        basename_wallpaper=$(basename "${wallpapers[j]}" .png)
+        # Clean up the display name (replace - with spaces and capitalize)
+        display_name=$(echo "$basename_wallpaper" | sed 's/-/ /g' | sed 's/\b\w/\U&/g')
+        rofi_options="$rofi_options$display_name\n"
+        wallpaper_map["$display_name"]="$j"
     done
     
-    # Show rofi menu
-    selected=$(echo -e "$rofi_options" | rofi -dmenu -i -p "Choose wallpaper:" -theme-str 'window {width: 400px;}')
+    # Show rofi menu with improved styling
+    selected=$(echo -e "$rofi_options" | rofi -dmenu -i -p "🎨 Choose wallpaper:" \
+        -theme-str 'window {width: 700px; padding: 20px;} 
+                   listview {lines: 12; columns: 1; spacing: 10px;} 
+                   element {padding: 12px 16px; border-radius: 8px;} 
+                   element-text {font: "Inter 12"; horizontal-align: 0.0;} 
+                   prompt {font: "Inter Bold 13"; padding: 0px 8px 0px 0px;} 
+                   textbox-prompt-colon {str: "";}')
     
     if [ -z "$selected" ]; then
         notify-send "Wallpaper Chooser" "No wallpaper selected" -i dialog-information 2>/dev/null || true
         exit 0
     fi
     
-    # Extract number from selection
-    choice=$(echo "$selected" | cut -d'.' -f1)
+    # Get wallpaper index from map
+    choice=$((${wallpaper_map["$selected"]} + 1))
 else
     # Terminal fallback - open in a terminal window
     if command -v foot >/dev/null 2>&1; then
