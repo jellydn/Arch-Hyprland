@@ -35,8 +35,8 @@
   "custom/rofi": {
     "format": "󱓞",
     "tooltip": false,
-    "on-click": "rofi -show drun -theme ~/.config/hypr/rofi/simple-kool.rasi",
-    "on-click-right": "rofi -show run -theme ~/.config/hypr/rofi/simple-kool.rasi"
+    "on-click": "rofi -show drun -theme ~/.config/rofi/simple-kool.rasi",
+    "on-click-right": "rofi -show run -theme ~/.config/rofi/simple-kool.rasi"
   },
   
   "hyprland/workspaces": {

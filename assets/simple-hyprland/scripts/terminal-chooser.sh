@@ -46,7 +46,7 @@ done
 
 # Show rofi menu
 chosen=$(echo -e "$rofi_options" | rofi -dmenu -i -p "Choose Terminal" \
-    -theme ~/.config/hypr/rofi/simple-kool.rasi \
+    -theme ~/.config/rofi/simple-kool.rasi \
     -markup-rows \
     -format "s")
 
