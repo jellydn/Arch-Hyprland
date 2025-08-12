@@ -262,7 +262,7 @@ sudo mkdir /mnt/windows-share
 sudo mount -t cifs //server-ip/share-name /mnt/windows-share -o username=your-username
 
 # Permanent mount (add to /etc/fstab)
-echo "//server-ip/share-name /mnt/windows-share cifs username=your-username,password=your-password,uid=1000,gid=1000 0 0" | sudo tee -a /etc/fstab
+echo "//server-ip/share-name /mnt/windows-share cifs credentials=/etc/samba/credentials,uid=1000,gid=1000 0 0" | sudo tee -a /etc/fstab
 ```
 
 #### NFS Shares
@@ -376,10 +376,8 @@ pactl set-default-sink sink_name
 # Set default audio input
 pactl set-default-source source_name
 
-# Restart audio service
-systemctl --user restart pipewire
-systemctl --user restart pipewire-pulse
-systemctl --user restart wireplumber
+# Restart audio services
+systemctl --user restart wireplumber pipewire pipewire-pulse
 ```
 
 #### Advanced Audio Solutions
@@ -572,9 +570,9 @@ sudo systemctl enable fstrim.timer
 ```
 
 ### Optimize Pacman
-Edit `/etc/pacman.conf`:
+Edit `/etc/pacman.conf` and uncomment the following lines for parallel downloads and a more verbose package list. The `Color` option is usually enabled by default.
+
 ```bash
-# Uncomment these lines for better performance
 ParallelDownloads = 5
 Color
 VerbosePkgLists
@@ -584,7 +582,8 @@ VerbosePkgLists
 
 ### Firewall
 ```bash
-# Enable UFW firewall
+# Install and enable UFW firewall
+sudo pacman -S --noconfirm ufw
 sudo ufw enable
 
 # Check firewall status
