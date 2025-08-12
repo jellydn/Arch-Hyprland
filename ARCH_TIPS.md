@@ -302,16 +302,246 @@ sudo systemctl start vsftpd
 
 ## Troubleshooting Common Issues
 
-### Audio Issues
+### Monitor and Display Issues
+
+#### Monitor Resolution and Size
+```bash
+# Check current display configuration
+wlr-randr
+
+# List available display modes
+wlr-randr --output DP-1 --mode 1920x1080@60
+
+# Set custom resolution
+wlr-randr --output DP-1 --custom-mode 1920x1080@60
+
+# Scale display (useful for high DPI monitors)
+wlr-randr --output DP-1 --scale 1.5
+
+# Multiple monitor setup
+wlr-randr --output DP-1 --mode 1920x1080 --pos 0,0 --output HDMI-1 --mode 1920x1080 --pos 1920,0
+```
+
+#### Hyprland Display Configuration
+```bash
+# Edit Hyprland config for permanent display settings
+nano ~/.config/hypr/hyprland.conf
+
+# Add monitor configuration (example):
+# monitor = DP-1, 1920x1080@60, 0x0, 1
+# monitor = HDMI-1, 1920x1080@60, 1920x0, 1
+
+# Reload Hyprland config
+hyprctl reload
+```
+
+#### Common Display Issues
+```bash
+# Black screen or no display
+# Check if display manager is running
+sudo systemctl status sddm
+
+# Check graphics drivers
+lspci -k | grep -A 2 -E "(VGA|3D)"
+
+# For NVIDIA users - check if nouveau is blacklisted
+lsmod | grep nouveau  # Should return nothing
+
+# Monitor not detected
+# Check connected displays
+wlr-randr
+xrandr  # For X11 fallback
+
+# Force monitor detection
+sudo ddcutil detect
+
+# Fix monitor refresh rate issues
+# Add to Hyprland config:
+# monitor = ,preferred,auto,1,vrr,1
+```
+
+### Audio Issues (Expanded)
+
+#### Basic Audio Troubleshooting
 ```bash
 # Check audio devices
 pactl list sinks
 
+# Check audio sources (microphones)
+pactl list sources
+
 # Set default audio output
 pactl set-default-sink sink_name
 
+# Set default audio input
+pactl set-default-source source_name
+
 # Restart audio service
 systemctl --user restart pipewire
+systemctl --user restart pipewire-pulse
+systemctl --user restart wireplumber
+```
+
+#### Advanced Audio Solutions
+```bash
+# No audio output
+# Check if audio is muted
+pactl list sinks | grep -A 10 "State: RUNNING"
+amixer get Master
+
+# Unmute audio
+pactl set-sink-mute @DEFAULT_SINK@ 0
+amixer set Master unmute
+
+# Audio crackling or distortion
+# Edit PipeWire config
+mkdir -p ~/.config/pipewire
+cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/
+nano ~/.config/pipewire/pipewire.conf
+# Adjust sample rate and buffer sizes
+
+# HDMI audio not working
+# List audio devices
+aplay -l
+# Enable HDMI audio output
+pactl set-card-profile alsa_card.pci-0000_01_00.1 output:hdmi-stereo
+
+# Bluetooth audio issues
+# Restart bluetooth service
+sudo systemctl restart bluetooth
+# Reconnect bluetooth device
+bluetoothctl
+# power on
+# scan on
+# connect XX:XX:XX:XX:XX:XX
+
+# Audio delay/latency issues
+# Adjust PipeWire latency settings
+pw-metadata -n settings 0 clock.force-quantum 512
+```
+
+### Network Issues (Comprehensive)
+
+#### Basic Network Diagnostics
+```bash
+# Check network interface status
+ip addr show
+ip link show
+
+# Check network connectivity
+ping google.com
+ping 8.8.8.8  # Test DNS vs connectivity
+
+# Check routing table
+ip route show
+
+# Check DNS configuration
+cat /etc/resolv.conf
+resolvectl status
+```
+
+#### WiFi Issues
+```bash
+# WiFi not connecting
+# Check WiFi adapter status
+iwctl device list
+iwctl station wlan0 show
+
+# Scan for networks
+iwctl station wlan0 scan
+iwctl station wlan0 get-networks
+
+# Check NetworkManager status (if using)
+sudo systemctl status NetworkManager
+nmcli device status
+nmcli connection show
+
+# Reset network configuration
+sudo systemctl restart NetworkManager
+sudo systemctl restart systemd-networkd
+
+# WiFi adapter not detected
+# Check if WiFi drivers are loaded
+lspci -k | grep -A 3 -i network
+lsmod | grep -i wifi
+dmesg | grep -i wifi
+
+# Manual WiFi connection
+wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+dhcpcd wlan0
+```
+
+#### Ethernet Issues
+```bash
+# Ethernet not working
+# Check ethernet adapter
+ip link show
+ethtool eth0  # Replace eth0 with your interface
+
+# Check cable connection
+ethtool eth0 | grep "Link detected"
+
+# Manual IP configuration
+sudo ip addr add 192.168.1.100/24 dev eth0
+sudo ip route add default via 192.168.1.1
+```
+
+#### DNS Issues
+```bash
+# DNS resolution problems
+# Test DNS servers
+nslookup google.com 8.8.8.8
+dig @8.8.8.8 google.com
+
+# Change DNS servers
+# Edit /etc/systemd/resolved.conf
+sudo nano /etc/systemd/resolved.conf
+# Add: DNS=8.8.8.8 1.1.1.1
+sudo systemctl restart systemd-resolved
+
+# Clear DNS cache
+sudo systemctl restart systemd-resolved
+resolvectl flush-caches
+
+# Alternative DNS configuration
+# Edit /etc/resolv.conf
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
+```
+
+#### Network Performance Issues
+```bash
+# Check network speed
+speedtest-cli  # Install with: sudo pacman -S speedtest-cli
+
+# Monitor network usage
+iftop          # Install with: sudo pacman -S iftop
+nethogs        # Install with: sudo pacman -S nethogs
+
+# Check for network congestion
+ss -tulpn      # Show listening ports
+netstat -tulpn # Alternative
+
+# Reset network stack
+sudo systemctl restart NetworkManager
+sudo systemctl restart systemd-networkd
+sudo systemctl restart systemd-resolved
+```
+
+#### Firewall Issues
+```bash
+# Check if firewall is blocking connections
+sudo ufw status
+sudo iptables -L
+
+# Temporarily disable firewall for testing
+sudo ufw disable
+# Remember to re-enable: sudo ufw enable
+
+# Allow specific ports
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow ssh
 ```
 
 ### Graphics Issues
