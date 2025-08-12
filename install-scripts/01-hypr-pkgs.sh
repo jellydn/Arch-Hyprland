@@ -26,6 +26,7 @@ hypr_package=(
   kvantum
   libspng
   nano  
+  neovim
   network-manager-applet 
   pamixer 
   pavucontrol

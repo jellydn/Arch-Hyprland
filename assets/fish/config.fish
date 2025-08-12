@@ -13,7 +13,7 @@ if not set -q FISH_VERSION
 end
 
 # Set environment variables
-set -gx EDITOR neovim
+set -gx EDITOR nvim
 set -gx BROWSER firefox
 set -gx TERMINAL foot
 
@@ -60,6 +60,7 @@ abbr -a grep 'rg'
 abbr -a find 'fd'
 abbr -a vim 'nvim'
 abbr -a vi 'nvim'
+abbr -a v 'nvim'
 
 # Git abbreviations
 abbr -a gs 'git status'
