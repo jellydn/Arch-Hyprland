@@ -56,6 +56,7 @@ if [ -d "assets/simple-hyprland" ]; then
   cp "assets/simple-hyprland/rofi/config-kool.rasi" "$HOME/.config/rofi/config.rasi"
   cp "assets/simple-hyprland/rofi/kool-style.rasi" "$HOME/.config/rofi/"
   cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/rofi/"
+  cp "assets/rofi/simple-kool.rasi" "$HOME/.config/rofi/"
   
   # Copy Wlogout configuration and theme
   echo "${INFO} Installing Wlogout configuration..." 2>&1 | tee -a "$LOG"
@@ -107,6 +108,10 @@ if [ -d "assets/simple-hyprland" ]; then
   # Copy wallpaper chooser script
   cp "assets/simple-hyprland/scripts/wallpaper-chooser.sh" "$HOME/.config/hypr/scripts/"
   chmod +x "$HOME/.config/hypr/scripts/wallpaper-chooser.sh"
+  
+  # Copy wallpaper initialization script  
+  cp "assets/simple-hyprland/scripts/wallpaper-init.sh" "$HOME/.config/hypr/scripts/"
+  chmod +x "$HOME/.config/hypr/scripts/wallpaper-init.sh"
   
   # Create default wallpapers
   echo "${INFO} Creating default wallpapers..." 2>&1 | tee -a "$LOG"
