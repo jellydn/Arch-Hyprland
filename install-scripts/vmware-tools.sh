@@ -88,6 +88,17 @@ cat > "$HOME/.config/hypr/vm-configs/vmware-optimizations.conf" << 'EOF'
 env = WLR_NO_HARDWARE_CURSORS,1
 env = WLR_RENDERER_ALLOW_SOFTWARE,1
 
+# General settings for VMware
+general {
+    gaps_in = 5
+    gaps_out = 10
+    border_size = 2
+    col.active_border = rgba(cba6f7ee) rgba(89b4faee) 45deg
+    col.inactive_border = rgba(585b70aa)
+    layout = dwindle
+    allow_tearing = false
+}
+
 # VMware optimizations
 misc {
     vfr = false  # Disable variable refresh rate for stability
@@ -122,8 +133,18 @@ decoration {
     rounding = 6         # Keep minimal rounding
 }
 
-# VMware display settings
-monitor = ,preferred,auto,1
+# VMware display settings - use auto-detection
+monitor = ,preferred,auto,auto
+
+# Input configuration
+input {
+    kb_layout = us
+    follow_mouse = 1
+    touchpad {
+        natural_scroll = false
+    }
+    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+}
 EOF
 
 echo "${OK} VMware configuration created: ~/.config/hypr/vm-configs/vmware-optimizations.conf" | tee -a "$LOG"
