@@ -13,9 +13,9 @@ if not set -q FISH_VERSION
 end
 
 # Set environment variables
-set -gx EDITOR nano
-set -gx BROWSER brave
-set -gx TERMINAL ghostty
+set -gx EDITOR neovim
+set -gx BROWSER firefox
+set -gx TERMINAL foot
 
 # Add common paths
 fish_add_path ~/.local/bin
