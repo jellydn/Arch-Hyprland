@@ -80,6 +80,7 @@ EOF
 🚪 Super + Shift + Q → Logout Menu (wlogout)
 🔄 Super + Shift + R → Reload Hyprland
 📊 Super + Shift + W → Restart Waybar
+🖼️ Super + W → Change Wallpaper
 🔔 Super + N → Notification Center
 🔌 Super + M → Exit Hyprland
 🎨 Alt + Tab → Window Switcher

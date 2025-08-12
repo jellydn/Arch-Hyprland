@@ -94,20 +94,30 @@ if [ -d "assets/simple-hyprland" ]; then
   fi
   cat "assets/simple-hyprland/bashrc" >> "$HOME/.bashrc" 2>/dev/null || cp "assets/simple-hyprland/bashrc" "$HOME/.bashrc"
   
-  # Create a simple wallpaper directory and default wallpaper
-  if [ ! -f "$HOME/.config/swww/wall.png" ]; then
-    echo "${INFO} Creating default wallpaper..." 2>&1 | tee -a "$LOG"
-    # Create a simple solid color wallpaper if no wallpaper exists
-    if command -v convert >/dev/null; then
-      convert -size 1920x1080 xc:"#1e1e2e" "$HOME/.config/swww/wall.png" 2>/dev/null || {
-        echo "${NOTE} ImageMagick not available, will use system default wallpaper" 2>&1 | tee -a "$LOG"
-        touch "$HOME/.config/swww/wall.png"
-      }
-    else
-      echo "${NOTE} No wallpaper tool available, will use system default" 2>&1 | tee -a "$LOG"
-      touch "$HOME/.config/swww/wall.png"
-    fi
-  fi
+  # Setup wallpaper system with default wallpapers
+  echo "${INFO} Installing wallpaper system..." 2>&1 | tee -a "$LOG"
+  
+  # Create wallpaper directories
+  mkdir -p "$HOME/.config/swww/wallpapers"
+  
+  # Copy wallpaper creation script and make it executable
+  cp "assets/simple-hyprland/wallpapers/create-defaults.sh" "$HOME/.config/swww/"
+  chmod +x "$HOME/.config/swww/create-defaults.sh"
+  
+  # Copy wallpaper chooser script
+  cp "assets/simple-hyprland/scripts/wallpaper-chooser.sh" "$HOME/.config/hypr/scripts/"
+  chmod +x "$HOME/.config/hypr/scripts/wallpaper-chooser.sh"
+  
+  # Create default wallpapers
+  echo "${INFO} Creating default wallpapers..." 2>&1 | tee -a "$LOG"
+  cd "$HOME/.config/swww" && ./create-defaults.sh 2>&1 | tee -a "$LOG" || {
+    echo "${NOTE} Could not create wallpapers with ImageMagick, creating basic fallback..." 2>&1 | tee -a "$LOG"
+    # Fallback: create a simple wallpaper file as placeholder
+    mkdir -p "$HOME/.config/swww/wallpapers"
+    touch "$HOME/.config/swww/wallpapers/default.png"
+    ln -sf "$HOME/.config/swww/wallpapers/default.png" "$HOME/.config/swww/wall.png"
+  }
+  cd "$PARENT_DIR"
   
   echo "${OK} KooL-Optimized Hyprland Desktop Environment installed successfully!" 2>&1 | tee -a "$LOG"
   echo "${INFO} Complete desktop environment features:" 2>&1 | tee -a "$LOG"
@@ -118,6 +128,7 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  - 🔧 VM auto-scaling (detects VMware, VirtualBox, UTM, Parallels)" 2>&1 | tee -a "$LOG"
   echo "  - ⚡ KooL's advanced tiling with performance optimization" 2>&1 | tee -a "$LOG"
   echo "  - 🎨 KooL styling with Catppuccin Mocha colors (static, no wallust)" 2>&1 | tee -a "$LOG"
+  echo "  - 🖼️ Default wallpaper collection with easy wallpaper chooser" 2>&1 | tee -a "$LOG"
   echo "  - 🦶 Foot terminal with VM-optimized configuration" 2>&1 | tee -a "$LOG"
   echo "  - 🚫 NO ANIMATIONS - Maximum VM performance" 2>&1 | tee -a "$LOG"
   echo "  - ⚡ Minimal blur and effects for optimal VM experience" 2>&1 | tee -a "$LOG"
@@ -133,6 +144,7 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  Super+F       : Fullscreen" 2>&1 | tee -a "$LOG"
   echo "  Super+1-9     : Switch workspaces" 2>&1 | tee -a "$LOG"
   echo "  Super+Shift+R : Reload configuration" 2>&1 | tee -a "$LOG"
+  echo "  Super+W       : Change wallpaper (wallpaper chooser)" 2>&1 | tee -a "$LOG"
   echo "  Super+/       : Show keybinding help (Which-Key)" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "${NOTE} Desktop interactions:" 2>&1 | tee -a "$LOG"
@@ -141,6 +153,12 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  • Click Waybar volume → Open pavucontrol" 2>&1 | tee -a "$LOG"
   echo "  • Click Waybar power → Open logout menu" 2>&1 | tee -a "$LOG"
   echo "  • VM auto-scaling detects and optimizes display automatically" 2>&1 | tee -a "$LOG"
+  echo "" 2>&1 | tee -a "$LOG"
+  echo "${NOTE} Wallpaper Management:" 2>&1 | tee -a "$LOG"
+  echo "  • Default wallpapers: ~/.config/swww/wallpapers/" 2>&1 | tee -a "$LOG"
+  echo "  • Change wallpaper: ~/.config/hypr/scripts/wallpaper-chooser.sh" 2>&1 | tee -a "$LOG"
+  echo "  • Set wallpaper manually: swww img /path/to/wallpaper.png" 2>&1 | tee -a "$LOG"
+  echo "  • Add custom wallpapers: copy to ~/.config/swww/wallpapers/" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "${NOTE} Shell Configuration:" 2>&1 | tee -a "$LOG"
   echo "  • Default shell: bash (configured with useful aliases)" 2>&1 | tee -a "$LOG"
@@ -160,6 +178,7 @@ if [ -d "assets/simple-hyprland" ]; then
   echo "  • Change browser: Edit '\$browser = firefox' to '\$browser = brave'" 2>&1 | tee -a "$LOG"
   echo "  • Adjust gaps: Edit 'gaps_in = 3' and 'gaps_out = 8'" 2>&1 | tee -a "$LOG"
   echo "  • Change colors: Edit 'col.active_border' and 'col.inactive_border'" 2>&1 | tee -a "$LOG"
+  echo "  • Change wallpaper: Run ~/.config/hypr/scripts/wallpaper-chooser.sh" 2>&1 | tee -a "$LOG"
   echo "  • Add keybinds: Add 'bind = \$mainMod, KEY, exec, COMMAND'" 2>&1 | tee -a "$LOG"
   echo "" 2>&1 | tee -a "$LOG"
   echo "  🌐 Resources:" 2>&1 | tee -a "$LOG"
