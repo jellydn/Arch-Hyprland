@@ -703,8 +703,8 @@ for option in "${options[@]}"; do
             execute_script "brave.sh"
             ;;
         vm)
-            echo "${INFO} Applying ${SKY_BLUE}VM optimizations and packages...${RESET}" | tee -a "$LOG"
-            execute_script "vm.sh"
+            echo "${INFO} Installing ${SKY_BLUE}VMware Tools (open-vm-tools)...${RESET}" | tee -a "$LOG"
+            execute_script "vmware-tools.sh"
             ;;
         pokemon)
             echo "${INFO} Adding ${SKY_BLUE}Pokemon color scripts to terminal...${RESET}" | tee -a "$LOG"

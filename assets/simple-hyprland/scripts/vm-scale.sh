@@ -5,7 +5,7 @@
 # Create config directory if it doesn't exist
 mkdir -p ~/.config/hyprland
 
-# Function to detect VM type (based on install-scripts/vm.sh)
+# Function to detect VM type (simplified VMware detection)
 detect_vm_type() {
     local vm_type="unknown"
     local arch=$(uname -m)
