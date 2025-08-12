@@ -72,6 +72,16 @@ create_config_backup() {
         echo "${NOTE} No existing foot config to backup" 2>&1 | tee -a "$LOG"
     fi
     
+    # Backup swww configuration (wallpaper system)
+    if [ -d "$HOME/.config/swww" ] && [ "$(ls -A "$HOME/.config/swww" 2>/dev/null)" ]; then
+        mkdir -p "$BACKUP_DIR/swww"
+        cp -r "$HOME/.config/swww"/* "$BACKUP_DIR/swww/" 2>/dev/null || true
+        echo "${NOTE} swww config backed up to: $BACKUP_DIR/swww/" 2>&1 | tee -a "$LOG"
+        backed_up_anything=true
+    else
+        echo "${NOTE} No existing swww config to backup" 2>&1 | tee -a "$LOG"
+    fi
+    
     # Show backup summary if anything was backed up
     if [ "$backed_up_anything" = true ] && [ -d "$BACKUP_DIR" ]; then
         echo "" 2>&1 | tee -a "$LOG"

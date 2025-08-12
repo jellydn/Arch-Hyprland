@@ -56,7 +56,7 @@ if [ -d "assets/simple-hyprland" ]; then
   cp "assets/simple-hyprland/rofi/config-kool.rasi" "$HOME/.config/rofi/config.rasi"
   cp "assets/simple-hyprland/rofi/kool-style.rasi" "$HOME/.config/rofi/"
   cp "assets/simple-hyprland/rofi/fonts.rasi" "$HOME/.config/rofi/"
-  cp "assets/rofi/simple-kool.rasi" "$HOME/.config/rofi/"
+  cp "assets/simple-hyprland/rofi/simple-kool.rasi" "$HOME/.config/rofi/"
   
   # Copy Wlogout configuration and theme
   echo "${INFO} Installing Wlogout configuration..." 2>&1 | tee -a "$LOG"
@@ -95,34 +95,13 @@ if [ -d "assets/simple-hyprland" ]; then
   fi
   cat "assets/simple-hyprland/bashrc" >> "$HOME/.bashrc" 2>/dev/null || cp "assets/simple-hyprland/bashrc" "$HOME/.bashrc"
   
-  # Setup wallpaper system with default wallpapers
-  echo "${INFO} Installing wallpaper system..." 2>&1 | tee -a "$LOG"
-  
-  # Create wallpaper directories
-  mkdir -p "$HOME/.config/swww/wallpapers"
-  
-  # Copy wallpaper creation script and make it executable
-  cp "assets/simple-hyprland/wallpapers/create-defaults.sh" "$HOME/.config/swww/"
-  chmod +x "$HOME/.config/swww/create-defaults.sh"
-  
-  # Copy wallpaper chooser script
-  cp "assets/simple-hyprland/scripts/wallpaper-chooser.sh" "$HOME/.config/hypr/scripts/"
-  chmod +x "$HOME/.config/hypr/scripts/wallpaper-chooser.sh"
-  
-  # Copy wallpaper initialization script  
-  cp "assets/simple-hyprland/scripts/wallpaper-init.sh" "$HOME/.config/hypr/scripts/"
-  chmod +x "$HOME/.config/hypr/scripts/wallpaper-init.sh"
-  
-  # Create default wallpapers
-  echo "${INFO} Creating default wallpapers..." 2>&1 | tee -a "$LOG"
-  cd "$HOME/.config/swww" && ./create-defaults.sh 2>&1 | tee -a "$LOG" || {
-    echo "${NOTE} Could not create wallpapers with ImageMagick, creating basic fallback..." 2>&1 | tee -a "$LOG"
-    # Fallback: create a simple wallpaper file as placeholder
-    mkdir -p "$HOME/.config/swww/wallpapers"
-    touch "$HOME/.config/swww/wallpapers/default.png"
-    ln -sf "$HOME/.config/swww/wallpapers/default.png" "$HOME/.config/swww/wall.png"
-  }
-  cd "$PARENT_DIR"
+  # Setup wallpaper system using dedicated installer
+  if [ -f "install-scripts/wallpaper.sh" ]; then
+    echo "${INFO} Installing wallpaper system..." 2>&1 | tee -a "$LOG"
+    ./install-scripts/wallpaper.sh 2>&1 | tee -a "$LOG"
+  else
+    echo "${ERROR} Wallpaper installer script not found!" 2>&1 | tee -a "$LOG"
+  fi
   
   echo "${OK} KooL-Optimized Hyprland Desktop Environment installed successfully!" 2>&1 | tee -a "$LOG"
   echo "${INFO} Complete desktop environment features:" 2>&1 | tee -a "$LOG"
