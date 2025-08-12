@@ -1,165 +1,133 @@
 #!/bin/bash
+# 💫 https://github.com/jellydn/Arch-Hyprland 💫 #
+# Open VMware Tools installer for enhanced VM integration #
 
-# Simple VMware open-vm-tools installer
-# This script installs basic VMware tools for better VM integration
-
-echo "🔧 Installing VMware open-vm-tools..."
-
-# Function to check if running in VMware
-is_vmware() {
-    if lspci | grep -i vmware >/dev/null 2>&1; then
-        return 0
-    elif systemd-detect-virt 2>/dev/null | grep -i vmware >/dev/null 2>&1; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-# Check if running in VMware
-if ! is_vmware; then
-    echo "⚠️  Warning: VMware environment not detected."
-    echo "   This script is designed for VMware virtual machines."
-    read -p "   Continue anyway? [y/N]: " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "❌ Installation cancelled."
-        exit 0
-    fi
-fi
-
-# VMware packages - try different combinations that might be available
-PACKAGES_TO_TRY=(
-    # Standard Arch packages (if available)
-    "open-vm-tools"
-    # Alternative package names
-    "openvm-tools" 
-    # Basic packages that should exist
-    "gtkmm3"
-    "mesa"
+# VMware Tools build dependencies
+vmware_build_deps=(
+    base-devel
+    autoconf
+    automake
+    libtool
+    xorg-server-devel
+    glib2-devel
+    pkg-config
+    xmlsec
+    git
 )
 
-# Function to install package if available
-install_if_available() {
-    local package="$1"
-    echo "📦 Trying to install $package..."
-    if sudo pacman -S "$package" --noconfirm 2>/dev/null; then
-        echo "✅ Successfully installed $package"
-        return 0
-    else
-        echo "⚠️  Package $package not available in repositories"
-        return 1
-    fi
-}
+## WARNING: DO NOT EDIT BEYOND THIS LINE IF YOU DON'T KNOW WHAT YOU ARE DOING! ##
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Check if VMware tools are already installed by looking for services
-echo "🔍 Checking for existing VMware tools..."
-EXISTING_SERVICES=0
-for service in "vmtoolsd.service" "open-vm-tools.service" "vmware-vmblock-fuse.service"; do
-    if systemctl list-unit-files | grep -q "$service"; then
-        echo "✅ Found $service (VMware tools already present)"
-        ((EXISTING_SERVICES++))
-    fi
+# Change the working directory to the parent directory of the script
+PARENT_DIR="$SCRIPT_DIR/.."
+cd "$PARENT_DIR" || { echo "${ERROR} Failed to change directory to $PARENT_DIR"; exit 1; }
+
+# Source the global functions script
+if ! source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"; then
+  echo "Failed to source Global_functions.sh"
+  exit 1
+fi
+
+# Set the name of the log file to include the current date and time
+LOG="Install-Logs/install-$(date +%d-%H%M%S)_openvm-tools.log"
+
+printf "\n%s - Installing ${SKY_BLUE}Open VMware Tools${RESET} .... \n" "${NOTE}"
+
+# Check if running in a VMware environment
+if ! systemd-detect-virt | grep -q "vmware"; then
+    echo "${WARNING} This script is designed for VMware virtual machines." 2>&1 | tee -a "$LOG"
+    echo "${NOTE} Current virtualization: $(systemd-detect-virt 2>/dev/null || echo 'Unknown')" 2>&1 | tee -a "$LOG"
+    echo "${NOTE} Continuing installation anyway..." 2>&1 | tee -a "$LOG"
+fi
+
+# Install build dependencies
+echo "${INFO} Installing VMware Tools build dependencies..." 2>&1 | tee -a "$LOG"
+for PKG1 in "${vmware_build_deps[@]}"; do
+  install_package "$PKG1" 2>&1 | tee -a "$LOG"
+  if [ $? -ne 0 ]; then
+    echo -e "\e[1A\e[K${ERROR} - $PKG1 Package installation failed, Please check the installation logs"
+    exit 1
+  fi
 done
 
-if [ $EXISTING_SERVICES -gt 0 ]; then
-    echo "🎉 VMware tools appear to already be installed!"
-    echo "📦 Skipping package installation (services already exist)"
-    INSTALLED_COUNT=$EXISTING_SERVICES
+# Clean up any existing installations
+echo "${INFO} Cleaning up previous VMware Tools installations..." 2>&1 | tee -a "$LOG"
+rm -rf vmware-tools 2>&1 | tee -a "$LOG"
+rm -rf ~/open-vm-tools 2>&1 | tee -a "$LOG"
+
+# Clone VMware Tools repository
+echo "${INFO} Cloning VMware Tools repository..." 2>&1 | tee -a "$LOG"
+if git clone https://github.com/daimaou92/install-arch-vmwarefusion-techpreview.git vmware-tools 2>&1 | tee -a "$LOG"; then
+    echo "${OK} Successfully cloned VMware Tools repository" 2>&1 | tee -a "$LOG"
 else
-    # Install available packages
-    echo "📦 Installing VMware tools packages..."
-    INSTALLED_COUNT=0
+    echo "${ERROR} Failed to clone VMware Tools repository" 2>&1 | tee -a "$LOG"
+    exit 1
+fi
 
-    for package in "${PACKAGES_TO_TRY[@]}"; do
-        if install_if_available "$package"; then
-            ((INSTALLED_COUNT++))
+# Build and install Open VMware Tools
+echo "${INFO} Building and installing Open VMware Tools..." 2>&1 | tee -a "$LOG"
+if [ -d "vmware-tools/after/openvmtools" ]; then
+    cd vmware-tools/after/openvmtools || { echo "${ERROR} Failed to change to openvmtools directory" 2>&1 | tee -a "$LOG"; exit 1; }
+    
+    if [ -f "build.sh" ]; then
+        echo "${INFO} Executing VMware Tools build script..." 2>&1 | tee -a "$LOG"
+        chmod +x build.sh
+        if sh build.sh 2>&1 | tee -a "$LOG"; then
+            echo "${OK} VMware Tools build completed successfully" 2>&1 | tee -a "$LOG"
+        else
+            echo "${ERROR} VMware Tools build failed" 2>&1 | tee -a "$LOG"
+            exit 1
         fi
-    done
-
-    # Try AUR packages if main packages failed
-    if [ $INSTALLED_COUNT -eq 0 ]; then
-        echo "⚠️  No VMware packages found in official repositories."
-        echo "💡 You may need to:"
-        echo "   1. Enable multilib repository in /etc/pacman.conf"
-        echo "   2. Install from AUR using yay or paru:"
-        echo "      yay -S open-vm-tools"
-        echo "   3. Or install manually from VMware"
-        echo ""
-        echo "❌ Installation incomplete - no packages installed"
+    else
+        echo "${ERROR} build.sh script not found in openvmtools directory" 2>&1 | tee -a "$LOG"
         exit 1
     fi
-fi
-
-# Enable services if they exist
-echo "⚙️  Configuring VMware services..."
-
-# Try to enable common VMware services
-SERVICES_TO_TRY=(
-    "vmtoolsd.service"
-    "open-vm-tools.service"
-    "vmware-vmblock-fuse.service"
-)
-
-ENABLED_SERVICES=0
-for service in "${SERVICES_TO_TRY[@]}"; do
-    if systemctl list-unit-files | grep -q "$service"; then
-        echo "🔧 Enabling $service..."
-        if sudo systemctl enable "$service" 2>/dev/null; then
-            sudo systemctl start "$service" 2>/dev/null || true
-            echo "✅ $service enabled"
-            ((ENABLED_SERVICES++))
-        fi
-    fi
-done
-
-if [ $ENABLED_SERVICES -eq 0 ]; then
-    echo "⚠️  No VMware services found to enable"
-    echo "💡 Services may start automatically on next boot"
-fi
-
-# Check service status
-echo ""
-echo "🔍 Checking VMware services status..."
-RUNNING_SERVICES=0
-for service in "vmtoolsd.service" "vmware-vmblock-fuse.service"; do
-    if systemctl is-active --quiet "$service"; then
-        echo "✅ $service is running"
-        ((RUNNING_SERVICES++))
-    elif systemctl list-unit-files | grep -q "$service"; then
-        echo "⚠️  $service is installed but not running"
-        echo "   Try: sudo systemctl start $service"
-    fi
-done
-
-echo ""
-echo "✅ VMware tools setup completed!"
-echo "📦 Components found: $INSTALLED_COUNT"
-echo "⚙️  Services enabled: $ENABLED_SERVICES"
-echo "🏃 Services running: $RUNNING_SERVICES"
-echo ""
-
-if [ $RUNNING_SERVICES -gt 0 ]; then
-    echo "🎉 VMware tools are active! Features available:"
-    echo "   • Clipboard sharing between host and VM"
-    echo "   • Drag and drop file support"  
-    echo "   • Dynamic screen resolution"
-    echo "   • Time synchronization"
-    echo "   • Shared folders (if configured in VMware)"
 else
-    echo "⚠️  VMware services not running. Try:"
-    echo "   • Restart your VM for full integration"
-    echo "   • Manually start: sudo systemctl start vmtoolsd"
+    echo "${ERROR} openvmtools directory not found in cloned repository" 2>&1 | tee -a "$LOG"
+    exit 1
 fi
 
-echo ""
-echo "💡 Useful commands:"
-echo "   • Check services: systemctl status vmtoolsd"
-echo "   • View VMware packages: pacman -Q | grep -i vm"
-echo "   • Test clipboard: Try copy/paste between host and VM"
-echo ""
+# Return to parent directory
+cd "$PARENT_DIR" || { echo "${ERROR} Failed to return to parent directory" 2>&1 | tee -a "$LOG"; exit 1; }
 
-if [ $EXISTING_SERVICES -eq 0 ] && [ $INSTALLED_COUNT -lt 2 ]; then
-    echo "⚠️  For full VMware integration, consider installing from AUR:"
-    echo "   yay -S open-vm-tools xf86-video-vmware xf86-input-vmmouse"
-fi
+echo "${OK} Open VMware Tools installation completed!" 2>&1 | tee -a "$LOG"
+echo "${INFO} VMware Tools features installed:" 2>&1 | tee -a "$LOG"
+echo "  - 🖥️  Enhanced display resolution and scaling" 2>&1 | tee -a "$LOG"
+echo "  - 📋 Clipboard sharing between host and guest" 2>&1 | tee -a "$LOG"
+echo "  - 📁 Drag-and-drop file sharing" 2>&1 | tee -a "$LOG"
+echo "  - ⏰ Time synchronization with host" 2>&1 | tee -a "$LOG"
+echo "  - 🔧 VM hardware integration" 2>&1 | tee -a "$LOG"
+echo "" 2>&1 | tee -a "$LOG"
+echo "${WARNING} A system reboot is required to complete the installation." 2>&1 | tee -a "$LOG"
+echo "${NOTE} After reboot, VMware Tools services will start automatically." 2>&1 | tee -a "$LOG"
+echo "" 2>&1 | tee -a "$LOG"
+echo "${NOTE} 🍎 macOS + VMware Fusion clipboard sharing setup:" 2>&1 | tee -a "$LOG"
+echo "  1. In VMware Fusion: VM → Settings → Sharing" 2>&1 | tee -a "$LOG"
+echo "  2. Enable: ✅ Enable Shared Clipboard" 2>&1 | tee -a "$LOG"
+echo "  3. Enable: ✅ Enable Drag and Drop" 2>&1 | tee -a "$LOG"
+echo "  4. Reboot the VM after enabling these settings" 2>&1 | tee -a "$LOG"
+echo "  5. Test: Copy text on macOS → Paste in Linux VM (Ctrl+V)" 2>&1 | tee -a "$LOG"
+echo "  6. Test: Copy text in Linux VM → Paste on macOS (Cmd+V)" 2>&1 | tee -a "$LOG"
+echo "" 2>&1 | tee -a "$LOG"
+echo "${NOTE} 🐧 Linux VM clipboard commands:" 2>&1 | tee -a "$LOG"
+echo "  • Copy to clipboard: echo 'text' | wl-copy" 2>&1 | tee -a "$LOG"
+echo "  • Paste from clipboard: wl-paste" 2>&1 | tee -a "$LOG"
+echo "  • Check VMware Tools status: systemctl status vmtoolsd" 2>&1 | tee -a "$LOG"
+echo "" 2>&1 | tee -a "$LOG"
+
+# Ask user if they want to reboot now
+printf "%s - ${SKY_BLUE}Would you like to reboot now?${RESET} (y/N): " "${NOTE}"
+read -r reboot_choice
+
+case "$reboot_choice" in
+    [Yy]|[Yy][Ee][Ss])
+        echo "${INFO} Rebooting system to complete VMware Tools installation..." 2>&1 | tee -a "$LOG"
+        sudo reboot
+        ;;
+    *)
+        echo "${NOTE} Reboot skipped. Please reboot manually to complete installation." 2>&1 | tee -a "$LOG"
+        echo "${NOTE} Run: sudo reboot" 2>&1 | tee -a "$LOG"
+        ;;
+esac
+
+printf "\n%.0s" {1..2}

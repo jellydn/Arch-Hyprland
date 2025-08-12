@@ -65,6 +65,27 @@ cd ~/Arch-Hyprland
 - ⏰ Time synchronization
 - 📁 Shared folders at `/mnt/hgfs/`
 
+**🍎 macOS + VMware Fusion Clipboard Setup:**
+1. In VMware Fusion: **VM → Settings → Sharing**
+2. Enable: ✅ **Enable Shared Clipboard**
+3. Enable: ✅ **Enable Drag and Drop**
+4. **Reboot the VM** after enabling these settings
+5. Test copying: macOS text → Paste in Linux VM (Ctrl+V)
+6. Test copying: Linux VM text → Paste on macOS (Cmd+V)
+
+**🔧 Clipboard Troubleshooting:**
+```bash
+# Check VMware Tools status
+systemctl status vmtoolsd
+
+# Manual clipboard commands in Linux VM
+echo 'test text' | wl-copy    # Copy to clipboard
+wl-paste                      # Paste from clipboard
+
+# Restart VMware Tools if needed
+sudo systemctl restart vmtoolsd
+```
+
 ## 🐚 Choose Your Shell
 
 After installation, both Zsh and Fish are available:

@@ -40,24 +40,41 @@ These scripts are **optional** and should only be used if:
 ## 📋 Script Details
 
 ### 🖥️ `openvm-tools.sh` - VMware Tools
-**For VMware virtual machines**
-- Installs open-vm-tools for VMware integration
-- Enables clipboard sharing and drag & drop
-- Provides dynamic screen resolution
-- Sets up shared folders at `/mnt/hgfs/`
-- **Recommended for all VMware VMs**
+**For VMware virtual machines (especially VMware Fusion on Apple Silicon)**
+- Builds and installs open-vm-tools from source for optimal compatibility
+- Enables full VMware integration with host system
+- Supports modern VMware Fusion versions on Apple Silicon Macs
+- **Essential for VMware Fusion VMs on M1/M2/M3 Macs**
 
 **Usage:**
 ```bash
 ./openvm-tools.sh
 ```
 
+**What it does:**
+1. **Installs build dependencies**: All required packages for compilation
+2. **Downloads VMware tools source**: From optimized repository for Arch Linux
+3. **Builds tools from source**: Ensures compatibility with latest kernel
+4. **Configures services**: Automatically starts VMware integration services
+5. **Optional reboot**: Prompts user to reboot for complete activation
+
 **Features enabled:**
-- 📋 Clipboard sharing (copy/paste)
-- 🖱️ Drag & drop files
-- 📺 Dynamic resolution
-- ⏰ Time sync
-- 📁 Shared folders
+- 📋 **Clipboard sharing**: Seamless copy/paste between macOS host and Linux VM
+- 🖱️ **Drag & drop files**: Direct file transfer between host and guest
+- 📺 **Dynamic resolution**: Auto-adjusts to VMware Fusion window size
+- ⏰ **Time synchronization**: Keeps VM time in sync with host
+- 🔧 **VM hardware integration**: Enhanced mouse, keyboard, and display handling
+
+**🍎 macOS + VMware Fusion specific setup:**
+- **Host clipboard integration**: Copy on macOS (Cmd+C) → Paste in VM (Ctrl+V)
+- **Seamless window integration**: VM adapts to Fusion window resizing
+- **Shared folders**: Access macOS folders from within the VM
+- **Performance optimization**: Tuned for Apple Silicon virtualization
+
+**Post-installation:**
+- Reboot required for full functionality
+- Check status: `systemctl status vmtoolsd`
+- Test clipboard: Copy text between host and VM
 
 ### 🎮 `nvidia.sh` - NVIDIA Drivers
 **For bare metal with NVIDIA GPUs**
