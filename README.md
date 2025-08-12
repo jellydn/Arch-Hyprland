@@ -9,7 +9,7 @@ A streamlined Arch Linux + Hyprland installer optimized for VMware Fusion on App
 - **🐚 Shell Choice**: Both Zsh and Fish available - choose your preference after install
 - **🎯 VM-Friendly**: Lightweight configuration perfect for virtual machines
 - **🔧 Simple Config**: Alternative to full KooL dotfiles for easier customization
-- **🗂️ Hardware-Specific Cleanup**: NVIDIA/ROG scripts moved to `optional-scripts/` for cleaner VM installs
+- **🗂️ Hardware-Specific Cleanup**: NVIDIA/ROG/VM scripts moved to `optional-scripts/` for cleaner installs
 
 ## 🎯 Quick Start (One Command)
 
@@ -21,30 +21,49 @@ cd ~/Arch-Hyprland
 chmod +x install.sh
 
 # 🚀 Recommended setup for VMware Fusion
-./install.sh --auto --vm --dots --fish --foot --firefox --gtk-themes --bluetooth --thunar
+./install.sh --auto --dots --fish --foot --firefox --gtk-themes --bluetooth --thunar
 ```
 
 **What this includes:**
-- ✅ VM optimizations for VMware Fusion
+- ✅ Hyprland tiling window manager
 - ✅ Foot terminal (lightweight, VM-friendly)
 - ✅ Firefox browser (Wayland-native)
 - ✅ Fish shell (user-friendly)
-- ✅ Simple Hyprland configuration (tiling-focused)
+- ✅ Simple Hyprland configuration with VM optimizations
 - ✅ GTK themes and Bluetooth support
 - ✅ File manager and essential utilities
 
-## 🖥️ VMware Fusion Setup Tips
+**After installation, add VMware tools:**
+```bash
+# Install VMware tools for better integration
+./optional-scripts/openvm-tools.sh
+```
 
-### Before Installation
-1. **Enable 3D Acceleration** in VM settings
-2. **Allocate sufficient resources**: 4GB+ RAM, 2+ CPU cores
-3. **Install VMware Tools** after Arch base installation
+## 🖥️ VMware Fusion Setup Guide
 
-### VM Settings Recommendations
-- **Memory**: 4-8GB RAM
+### 1. VM Settings (Before Installation)
+- **Memory**: 8GB+ RAM recommended
 - **Processors**: 2-4 cores
 - **Graphics**: Enable 3D acceleration
 - **Display**: Auto-detect resolution
+- **Sharing**: Enable clipboard and drag & drop
+
+### 2. Arch Installation
+Run the installer as shown in Quick Start above.
+
+### 3. VMware Tools (Post-Installation)
+```bash
+# Install VMware tools for full integration
+cd ~/Arch-Hyprland
+./optional-scripts/openvm-tools.sh
+```
+
+**VMware Tools Features:**
+- 📋 Clipboard sharing (copy/paste between host and VM)
+- 🖱️ Drag & drop files
+- 📺 Dynamic screen resolution
+- ⏰ Time synchronization
+- 📁 Shared folders at `/mnt/hgfs/`
 
 ## 🐚 Choose Your Shell
 
