@@ -74,11 +74,11 @@ if command -v rofi >/dev/null 2>&1 && [ -n "$WAYLAND_DISPLAY" ]; then
     
     # Show rofi menu with improved styling
     selected=$(echo -e "$rofi_options" | rofi -dmenu -i -p "🎨 Choose wallpaper:" \
-        -theme-str 'window {width: 700px; padding: 20px;} 
-                   listview {lines: 12; columns: 1; spacing: 10px;} 
-                   element {padding: 12px 16px; border-radius: 8px;} 
-                   element-text {font: "Inter 12"; horizontal-align: 0.0;} 
-                   prompt {font: "Inter Bold 13"; padding: 0px 8px 0px 0px;} 
+        -theme-str 'window {width: 700px; padding: 15px;} 
+                   listview {lines: 12; columns: 1; spacing: 6px;} 
+                   element {padding: 8px 12px; border-radius: 6px;} 
+                   element-text {font: "Inter 11"; horizontal-align: 0.0;} 
+                   prompt {font: "Inter Bold 12"; padding: 0px 6px 0px 0px;} 
                    textbox-prompt-colon {str: "";}')
     
     if [ -z "$selected" ]; then

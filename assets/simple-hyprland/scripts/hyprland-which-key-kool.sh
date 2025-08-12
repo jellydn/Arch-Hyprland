@@ -56,6 +56,8 @@ EOF
             cat << EOF > "$temp_detail"
 1️⃣ Super + 1-9 → Switch to Workspace
 📦 Super + Shift + 1-9 → Move Window to Workspace
+⬅️ Super + Alt + Left/Right → Navigate Workspaces
+⬆️ Super + Alt + Up/Down → Navigate by 5 Workspaces
 ✨ Super + S → Toggle Special Workspace
 📤 Super + Shift + S → Move to Special Workspace
 🔄 Super + Mouse Scroll → Switch Workspaces
@@ -129,13 +131,13 @@ EOF
         -p "  $category" \
         -markup-rows \
         -no-custom \
-        -theme-str 'window {width: 800px; height: 650px; padding: 25px;} 
-                   listview {lines: 15; columns: 1; spacing: 12px;} 
-                   element {padding: 12px 16px; border-radius: 8px; font: "Inter 11";} 
+        -theme-str 'window {width: 800px; height: 650px; padding: 15px;} 
+                   listview {lines: 15; columns: 1; spacing: 6px;} 
+                   element {padding: 8px 12px; border-radius: 6px; font: "Inter 11";} 
                    element-text {horizontal-align: 0.0; font: "Inter 11";} 
-                   prompt {font: "Inter Bold 13"; padding: 0px 8px 0px 0px;} 
+                   prompt {font: "Inter Bold 12"; padding: 0px 6px 0px 0px;} 
                    textbox-prompt-colon {str: "";}
-                   inputbar {padding: 15px 20px; margin: 0px 0px 15px 0px; border-radius: 12px;}' < "$temp_detail"
+                   inputbar {padding: 10px 15px; margin: 0px 0px 10px 0px; border-radius: 8px;}' < "$temp_detail"
     
     rm -f "$temp_detail"
 }
@@ -146,13 +148,13 @@ selected=$(rofi -dmenu \
     -p "󰌌 KooL Which-Key Helper" \
     -markup-rows \
     -no-custom \
-    -theme-str 'window {width: 500px; height: 450px; padding: 25px;} 
-               listview {lines: 8; columns: 1; spacing: 12px;} 
-               element {padding: 14px 18px; border-radius: 10px; font: "Inter 12";} 
-               element-text {horizontal-align: 0.0; font: "Inter 12";} 
-               prompt {font: "Inter Bold 14"; padding: 0px 10px 0px 0px;} 
+    -theme-str 'window {width: 500px; height: 450px; padding: 15px;} 
+               listview {lines: 8; columns: 1; spacing: 8px;} 
+               element {padding: 10px 12px; border-radius: 8px; font: "Inter 11";} 
+               element-text {horizontal-align: 0.0; font: "Inter 11";} 
+               prompt {font: "Inter Bold 12"; padding: 0px 8px 0px 0px;} 
                textbox-prompt-colon {str: "";}
-               inputbar {padding: 15px 20px; margin: 0px 0px 18px 0px; border-radius: 12px;}' < "$temp_file")
+               inputbar {padding: 10px 15px; margin: 0px 0px 12px 0px; border-radius: 8px;}' < "$temp_file")
 
 # Clean up temp file
 rm -f "$temp_file"
