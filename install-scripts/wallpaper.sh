@@ -25,11 +25,17 @@ echo "${INFO} Setting up simple wallpaper system..." 2>&1 | tee -a "$LOG"
 mkdir -p "$HOME/.config/swww/wallpapers"
 mkdir -p "$HOME/.config/hypr/scripts"
 
-# Copy wallpaper chooser script (optional)
+# Copy wallpaper scripts
 if [ -f "assets/simple-hyprland/scripts/wallpaper-chooser.sh" ]; then
     echo "${INFO} Installing wallpaper chooser script..." 2>&1 | tee -a "$LOG"
     cp "assets/simple-hyprland/scripts/wallpaper-chooser.sh" "$HOME/.config/hypr/scripts/"
     chmod +x "$HOME/.config/hypr/scripts/wallpaper-chooser.sh"
+fi
+
+if [ -f "assets/simple-hyprland/scripts/wallpaper-init.sh" ]; then
+    echo "${INFO} Installing wallpaper initialization script..." 2>&1 | tee -a "$LOG"
+    cp "assets/simple-hyprland/scripts/wallpaper-init.sh" "$HOME/.config/hypr/scripts/"
+    chmod +x "$HOME/.config/hypr/scripts/wallpaper-init.sh"
 fi
 
 # Run simple setup

@@ -55,17 +55,46 @@ done
 
 if [ ${#wallpapers[@]} -eq 0 ]; then
     echo -e "${ERROR} No wallpapers found in $WALLPAPER_DIR"
-    echo -e "${NOTE} Add some .png or .jpg files to the wallpapers directory"
+    notify-send "Wallpaper Chooser" "No wallpapers found in $WALLPAPER_DIR" -i dialog-error 2>/dev/null || true
     exit 1
 fi
 
-echo ""
-echo -e "${NOTE} Enter the number of the wallpaper you want to set:"
-read -p "Choice (1-$((i-1))): " choice
+# Use rofi for GUI selection if available, otherwise fall back to terminal
+if command -v rofi >/dev/null 2>&1 && [ -n "$WAYLAND_DISPLAY" ]; then
+    # Build rofi options
+    rofi_options=""
+    for j in "${!wallpapers[@]}"; do
+        basename_wallpaper=$(basename "${wallpapers[j]}")
+        rofi_options="$rofi_options$((j+1)). $basename_wallpaper\n"
+    done
+    
+    # Show rofi menu
+    selected=$(echo -e "$rofi_options" | rofi -dmenu -i -p "Choose wallpaper:" -theme-str 'window {width: 400px;}')
+    
+    if [ -z "$selected" ]; then
+        notify-send "Wallpaper Chooser" "No wallpaper selected" -i dialog-information 2>/dev/null || true
+        exit 0
+    fi
+    
+    # Extract number from selection
+    choice=$(echo "$selected" | cut -d'.' -f1)
+else
+    # Terminal fallback - open in a terminal window
+    if command -v foot >/dev/null 2>&1; then
+        # Re-run this script in a terminal
+        exec foot -e "$0"
+        exit 0
+    else
+        echo ""
+        echo -e "${NOTE} Enter the number of the wallpaper you want to set:"
+        read -p "Choice (1-$((i-1))): " choice
+    fi
+fi
 
 # Validate input
 if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -ge $i ]; then
     echo -e "${ERROR} Invalid choice: $choice"
+    notify-send "Wallpaper Chooser" "Invalid choice: $choice" -i dialog-error 2>/dev/null || true
     exit 1
 fi
 
@@ -79,8 +108,12 @@ if swww img "$selected_wallpaper"; then
     # Update the symlink for next boot
     ln -sf "$selected_wallpaper" "$HOME/.config/swww/wall.png"
     echo -e "${NOTE} Wallpaper will be restored on next login"
+    
+    # Show success notification
+    notify-send "Wallpaper Changed" "Set to: $(basename "$selected_wallpaper")" -i image-x-generic 2>/dev/null || true
 else
     echo -e "${ERROR} Failed to set wallpaper"
+    notify-send "Wallpaper Chooser" "Failed to set wallpaper" -i dialog-error 2>/dev/null || true
     exit 1
 fi
 

@@ -57,8 +57,20 @@ create_solid_wallpaper "arch-dark" "#0f0f23"
 create_solid_wallpaper "catppuccin-mocha" "#1e1e2e"
 create_solid_wallpaper "nord-dark" "#2e3440" 
 create_solid_wallpaper "github-dark" "#0d1117"
+create_solid_wallpaper "kanagawa-wave" "#1f1f28"
+create_solid_wallpaper "kanagawa-dragon" "#181616"
+create_solid_wallpaper "dracula" "#282a36"
+create_solid_wallpaper "dracula-dark" "#1d1d26"
+create_solid_wallpaper "tokyonight" "#1a1b26"
+create_solid_wallpaper "tokyonight-storm" "#24283b"
 create_gradient_wallpaper "minimal-blue" "#1e1e2e" "#89b4fa"
 create_gradient_wallpaper "sunset" "#fab387" "#f38ba8"
+create_gradient_wallpaper "kanagawa-sunset" "#c34043" "#dca561"
+create_gradient_wallpaper "kanagawa-ocean" "#223249" "#54546d"
+create_gradient_wallpaper "dracula-purple" "#6272a4" "#bd93f9"
+create_gradient_wallpaper "dracula-pink" "#ff79c6" "#ffb86c"
+create_gradient_wallpaper "tokyonight-blue" "#1a1b26" "#7aa2f7"
+create_gradient_wallpaper "tokyonight-purple" "#1a1b26" "#bb9af7"
 
 # Set default wallpaper link
 created_count=0
@@ -70,7 +82,7 @@ done
 
 if [ $created_count -gt 0 ]; then
     # Find the first valid wallpaper to set as default
-    for wallpaper in "$WALLPAPER_DIR"/{default,arch-dark,catppuccin-mocha,nord-dark}.png; do
+    for wallpaper in "$WALLPAPER_DIR"/{default,kanagawa-wave,tokyonight,dracula,arch-dark,catppuccin-mocha,nord-dark}.png; do
         if [ -f "$wallpaper" ] && [ -s "$wallpaper" ]; then
             ln -sf "$wallpaper" "$HOME/.config/swww/wall.png"
             echo "🔗 Set $(basename "$wallpaper") as active wallpaper"
