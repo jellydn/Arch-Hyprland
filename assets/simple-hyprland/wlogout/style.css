@@ -11,21 +11,26 @@ window {
 
 button {
     color: #cdd6f4;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
     border-style: solid;
-    border-width: 3px;
+    border-width: 2px;
     background-color: rgba(49, 50, 68, 0.9); /* Catppuccin Mocha surface0 */
-    border-color: rgba(108, 112, 134, 0.8); /* Catppuccin Mocha surface2 */
-    border-radius: 20px;
-    margin: 5px;
-    padding: 10px;
+    border-color: rgba(108, 112, 134, 0.6); /* Catppuccin Mocha surface2 */
+    border-radius: 15px;
+    margin: 8px;
+    padding: 20px;
     transition: all 0.2s ease-in-out; /* Reduced transition for VM performance */
-    min-width: 100px;
-    min-height: 100px;
+    min-width: 120px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 button:hover {
@@ -34,6 +39,7 @@ button:hover {
     border-color: #cba6f7; /* Catppuccin Mocha mauve */
     color: #f2cdcd; /* Catppuccin Mocha rosewater */
     border-width: 3px;
+    transform: scale(1.05);
 }
 
 button:focus {
@@ -41,57 +47,84 @@ button:focus {
     background-color: rgba(69, 71, 90, 1);
     border-color: #cba6f7;
     color: #f2cdcd;
+    transform: scale(1.02);
 }
 
-/* Button Icons - using text-based icons for simplicity */
+/* Icon hover effects */
+button:hover:before {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+button:focus:before {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Button Icons - using Nerd Font icons for better integration */
 #lock {
     background-image: none;
 }
 #lock:before {
-    content: "🔒";
-    font-size: 40px;
+    content: "";  /* Nerd Font lock icon */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 48px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    color: #f9e2af; /* Catppuccin Mocha yellow */
+    transition: all 0.2s ease;
 }
 
 #logout {
     background-image: none;
 }
 #logout:before {
-    content: "🚪";
-    font-size: 40px;
+    content: "󰍃";  /* Nerd Font logout icon */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 48px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    color: #fab387; /* Catppuccin Mocha peach */
+    transition: all 0.2s ease;
 }
 
 #shutdown {
     background-image: none;
 }
 #shutdown:before {
-    content: "⚡";
-    font-size: 40px;
+    content: "⏻";  /* Power symbol */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 48px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    color: #f38ba8; /* Catppuccin Mocha pink */
+    transition: all 0.2s ease;
 }
 
 #reboot {
     background-image: none;
 }
 #reboot:before {
-    content: "🔄";
-    font-size: 40px;
+    content: "";  /* Nerd Font restart icon */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 48px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    color: #94e2d5; /* Catppuccin Mocha teal */
+    transition: all 0.2s ease;
 }
 
 #suspend {
     background-image: none;
 }
 #suspend:before {
-    content: "🌙";
-    font-size: 40px;
+    content: "󰤄";  /* Nerd Font sleep icon */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 48px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    color: #cba6f7; /* Catppuccin Mocha mauve */
+    transition: all 0.2s ease;
 }
 
 /* VM Performance optimizations */
