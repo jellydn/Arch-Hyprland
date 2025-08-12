@@ -32,7 +32,19 @@ echo ""
 
 wallpapers=()
 i=1
-for wallpaper in "$WALLPAPER_DIR"/*.{png,jpg,jpeg} 2>/dev/null; do
+
+# Find PNG files
+for wallpaper in "$WALLPAPER_DIR"/*.png; do
+    if [ -f "$wallpaper" ]; then
+        basename_wallpaper=$(basename "$wallpaper")
+        echo "  $i) $basename_wallpaper"
+        wallpapers+=("$wallpaper")
+        ((i++))
+    fi
+done
+
+# Find JPG files
+for wallpaper in "$WALLPAPER_DIR"/*.jpg "$WALLPAPER_DIR"/*.jpeg; do
     if [ -f "$wallpaper" ]; then
         basename_wallpaper=$(basename "$wallpaper")
         echo "  $i) $basename_wallpaper"

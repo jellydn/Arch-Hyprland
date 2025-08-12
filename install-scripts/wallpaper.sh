@@ -40,20 +40,28 @@ else
     # Direct fallback
     echo "${INFO} Creating basic wallpaper setup..." 2>&1 | tee -a "$LOG"
     mkdir -p "$HOME/.config/swww/wallpapers"
-    ln -sf /dev/null "$HOME/.config/swww/wall.png" 2>/dev/null || true
+    touch "$HOME/.config/swww/wall.png.missing" # Marker for init script
+fi
+
+# Create default wallpapers if script exists
+if [ -f "assets/simple-hyprland/wallpapers/create-defaults.sh" ]; then
+    echo "${INFO} Creating default wallpapers..." 2>&1 | tee -a "$LOG"
+    chmod +x "assets/simple-hyprland/wallpapers/create-defaults.sh"
+    ./assets/simple-hyprland/wallpapers/create-defaults.sh 2>&1 | tee -a "$LOG"
 fi
 
 echo "${OK} Simple wallpaper system installed!" 2>&1 | tee -a "$LOG"
 echo "${INFO} Features:" 2>&1 | tee -a "$LOG"
-echo "  - 🎨 Solid color background (fallback)" 2>&1 | tee -a "$LOG"
-echo "  - 🔄 Wallpaper chooser script (if available)" 2>&1 | tee -a "$LOG"
-echo "  - 🚀 Simple swww setup" 2>&1 | tee -a "$LOG"
+echo "  - 🎨 Automatic wallpaper initialization on startup" 2>&1 | tee -a "$LOG"
+echo "  - 🖼️  Default color wallpapers included" 2>&1 | tee -a "$LOG"
+echo "  - 🔄 Interactive wallpaper chooser (Super+W)" 2>&1 | tee -a "$LOG"
+echo "  - 🚀 Reliable fallback to solid colors" 2>&1 | tee -a "$LOG"
 echo "" 2>&1 | tee -a "$LOG"
 echo "${NOTE} Usage:" 2>&1 | tee -a "$LOG"
-echo "  • Set wallpaper: swww img /path/to/wallpaper.png" 2>&1 | tee -a "$LOG"
-echo "  • Change wallpaper: Super+W (if available)" 2>&1 | tee -a "$LOG"
+echo "  • Choose wallpaper: Super+W" 2>&1 | tee -a "$LOG"
+echo "  • Set custom wallpaper: swww img /path/to/wallpaper.png" 2>&1 | tee -a "$LOG"
 echo "  • Add wallpapers to: ~/.config/swww/wallpapers/" 2>&1 | tee -a "$LOG"
-echo "  • Current: Solid color background (#1e1e2e)" 2>&1 | tee -a "$LOG"
+echo "  • System will auto-restore wallpaper on login" 2>&1 | tee -a "$LOG"
 echo "" 2>&1 | tee -a "$LOG"
 
 printf "\n%.0s" {1..2}

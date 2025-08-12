@@ -1,0 +1,4 @@
+[tools]
+gh = "latest"
+go = "latest"
+lazygit = "latest"

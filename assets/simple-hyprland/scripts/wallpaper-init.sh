@@ -32,6 +32,9 @@ if [ -L "$WALLPAPER_LINK" ] && [ -f "$WALLPAPER_LINK" ]; then
         swww img "$wallpaper_path" --transition-type fade --transition-duration 1
         exit 0
     fi
+elif [ -f "$HOME/.config/swww/wall.png.missing" ]; then
+    echo -e "${NOTE} Fallback marker found, proceeding with color fallback"
+    rm -f "$HOME/.config/swww/wall.png.missing" 2>/dev/null || true
 fi
 
 # Look for any valid wallpaper in the wallpapers directory
