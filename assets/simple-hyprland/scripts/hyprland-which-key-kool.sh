@@ -123,30 +123,36 @@ EOF
             ;;
     esac
     
-    # Show category details
+    # Show category details with improved styling
     rofi -dmenu \
         -i \
         -p "  $category" \
-        -theme ~/.config/rofi/kool-style.rasi \
         -markup-rows \
-        -width 60 \
-        -lines 15 \
-        -location 0 \
-        -no-custom < "$temp_detail"
+        -no-custom \
+        -theme-str 'window {width: 800px; height: 650px; padding: 25px;} 
+                   listview {lines: 15; columns: 1; spacing: 12px;} 
+                   element {padding: 12px 16px; border-radius: 8px; font: "Inter 11";} 
+                   element-text {horizontal-align: 0.0; font: "Inter 11";} 
+                   prompt {font: "Inter Bold 13"; padding: 0px 8px 0px 0px;} 
+                   textbox-prompt-colon {str: "";}
+                   inputbar {padding: 15px 20px; margin: 0px 0px 15px 0px; border-radius: 12px;}' < "$temp_detail"
     
     rm -f "$temp_detail"
 }
 
-# Show main menu and get selection
+# Show main menu and get selection with improved styling
 selected=$(rofi -dmenu \
     -i \
     -p "󰌌 KooL Which-Key Helper" \
-    -theme ~/.config/rofi/kool-style.rasi \
     -markup-rows \
-    -width 35 \
-    -lines 8 \
-    -location 0 \
-    -no-custom < "$temp_file")
+    -no-custom \
+    -theme-str 'window {width: 500px; height: 450px; padding: 25px;} 
+               listview {lines: 8; columns: 1; spacing: 12px;} 
+               element {padding: 14px 18px; border-radius: 10px; font: "Inter 12";} 
+               element-text {horizontal-align: 0.0; font: "Inter 12";} 
+               prompt {font: "Inter Bold 14"; padding: 0px 10px 0px 0px;} 
+               textbox-prompt-colon {str: "";}
+               inputbar {padding: 15px 20px; margin: 0px 0px 18px 0px; border-radius: 12px;}' < "$temp_file")
 
 # Clean up temp file
 rm -f "$temp_file"
