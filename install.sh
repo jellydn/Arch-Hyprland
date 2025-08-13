@@ -462,6 +462,7 @@ options_command+=(
     "bluetooth" "Do you want script to configure Bluetooth?" "OFF"
     "thunar" "Do you want Thunar file manager to be installed?" "OFF"
     "quickshell" "Install quickshell for Desktop-Like Overview?" "OFF"
+    "uwsm" "Install Universal Wayland Session Manager for proper session management?" "OFF"
     "xdph" "Install XDG-DESKTOP-PORTAL-HYPRLAND (for screen share)?" "OFF"
     "zsh" "Install zsh shell with Oh-My-Zsh?" "OFF"
     "fish" "Install Fish shell with modern configuration?" "OFF"
@@ -485,6 +486,7 @@ if [[ "$auto_mode" == "ON" ]]; then
     [[ "$bluetooth" == "ON" ]] && selected_options+="bluetooth "
     [[ "$thunar" == "ON" ]] && selected_options+="thunar "
     [[ "$quickshell" == "ON" ]] && selected_options+="quickshell "
+    [[ "$uwsm" == "ON" ]] && selected_options+="uwsm "
     [[ "$sddm" == "ON" ]] && selected_options+="sddm "
     [[ "$sddm_theme" == "ON" ]] && selected_options+="sddm_theme "
     [[ "$xdph" == "ON" ]] && selected_options+="xdph "
@@ -651,6 +653,10 @@ for option in "${options[@]}"; do
         quickshell)
             echo "${INFO} Installing ${SKY_BLUE}quickshell for Desktop Overview...${RESET}" | tee -a "$LOG"
             execute_script "quickshell.sh"
+            ;;
+        uwsm)
+            echo "${INFO} Installing ${SKY_BLUE}Universal Wayland Session Manager (UWSM)...${RESET}" | tee -a "$LOG"
+            execute_script "uwsm.sh"
             ;;
         xdph)
             echo "${INFO} Installing ${SKY_BLUE}xdg-desktop-portal-hyprland...${RESET}" | tee -a "$LOG"
