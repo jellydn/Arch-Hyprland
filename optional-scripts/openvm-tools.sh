@@ -102,7 +102,7 @@ echo "${WARNING} A system reboot is required to complete the installation." 2>&1
 echo "${NOTE} After reboot, VMware Tools services will start automatically." 2>&1 | tee -a "$LOG"
 echo "" 2>&1 | tee -a "$LOG"
 echo "${NOTE} 🍎 macOS + VMware Fusion clipboard sharing setup:" 2>&1 | tee -a "$LOG"
-echo "  1. In VMware Fusion: VM → Settings → Sharing" 2>&1 | tee -a "$LOG"
+echo "  1. In VMware Fusion: VM → Settings → Isolation" 2>&1 | tee -a "$LOG"
 echo "  2. Enable: ✅ Enable Shared Clipboard" 2>&1 | tee -a "$LOG"
 echo "  3. Enable: ✅ Enable Drag and Drop" 2>&1 | tee -a "$LOG"
 echo "  4. Reboot the VM after enabling these settings" 2>&1 | tee -a "$LOG"

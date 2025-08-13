@@ -66,7 +66,7 @@ cd ~/Arch-Hyprland
 - 📁 Shared folders at `/mnt/hgfs/`
 
 **🍎 macOS + VMware Fusion Clipboard Setup:**
-1. In VMware Fusion: **VM → Settings → Sharing**
+1. In VMware Fusion: **VM → Settings → Isolation**
 2. Enable: ✅ **Enable Shared Clipboard**
 3. Enable: ✅ **Enable Drag and Drop**
 4. **Reboot the VM** after enabling these settings
