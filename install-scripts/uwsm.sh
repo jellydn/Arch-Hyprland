@@ -30,5 +30,42 @@ for PKG in "${uwsm_package[@]}"; do
   install_package "$PKG" "$LOG"
 done
 
-printf "\n%s - UWSM installation completed. You can now use 'Hyprland (uwsm-managed)' session from login screen\n" "${OK}"
+# Configure UWSM for Hyprland
+printf "\n%s - Configuring ${SKY_BLUE}UWSM for Hyprland${RESET} .... \n" "${NOTE}"
+
+# Create UWSM user config directory
+if [ ! -d "$HOME/.config/uwsm" ]; then
+  mkdir -p "$HOME/.config/uwsm" 2>&1 | tee -a "$LOG"
+  printf "%s - Created UWSM config directory\n" "${OK}"
+fi
+
+# Create Hyprland desktop entry for UWSM
+cat > "$HOME/.config/uwsm/hyprland.desktop" <<EOF
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=Hyprland
+Type=Application
+DesktopNames=Hyprland
+Keywords=tiling;wayland;compositor;
+EOF
+
+if [ $? -eq 0 ]; then
+  printf "%s - Created UWSM Hyprland configuration\n" "${OK}"
+else
+  printf "%s - Failed to create UWSM Hyprland configuration\n" "${ERROR}"
+fi
+
+# Set Hyprland as default compositor for UWSM
+echo "hyprland.desktop" > "$HOME/.config/uwsm/default-id"
+
+if [ $? -eq 0 ]; then
+  printf "%s - Set Hyprland as default UWSM compositor\n" "${OK}"
+else
+  printf "%s - Failed to set default UWSM compositor\n" "${ERROR}"
+fi
+
+printf "\n%s - UWSM installation and configuration completed!\n" "${OK}"
+printf "%s - You can now use 'Hyprland (uwsm-managed)' session from login screen\n" "${INFO}"
+printf "%s - This provides proper session management with XDG autostart support\n" "${INFO}"
 printf "\n%.0s" {1..2}
