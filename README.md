@@ -243,6 +243,11 @@ Then select options through the interactive menu.
 - For performance issues, allocate more RAM/CPU cores
 - If mouse/keyboard lag, install `open-vm-tools`
 
+**VMware Session Management:**
+- **⚠️ UWSM Compatibility**: Universal Wayland Session Manager (UWSM) is not compatible with VMware environments
+- **✅ Standard Session**: Use the regular "Hyprland" session for stable VMware operation
+- **🔧 Auto-Detection**: VM optimizations are automatically applied in VMware Fusion
+
 **Shell Selection:**
 - Both shells can be installed simultaneously
 - Use `shell-chooser.sh` to switch between them
